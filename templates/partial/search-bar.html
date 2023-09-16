@@ -1,0 +1,15 @@
+<form class="flex bg-white border rounded-full shadow-inner">
+  <input type="search"
+         name="q"
+         placeholder="search"
+         class="px-4 bg-transparent border-none focus:ring-0"
+         hx-get="{% url 'search' %}"
+         hx-target="#search-results"
+         hx-trigger="keyup change delay:500ms" />
+  <button class="px-4 py-1 m-1 text-white bg-teal-800 rounded-full"
+          hx-get="{% url 'search' %}"
+          hx-target="#search-results"
+          hx-trigger="click">
+    Search
+  </button>
+</form>

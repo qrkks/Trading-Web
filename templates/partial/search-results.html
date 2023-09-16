@@ -1,0 +1,13 @@
+{% if results %}
+  <ul>
+    {% for result in results %}
+      <li>
+        {{ result.title }}
+      </li>
+    {% endfor %}
+  </ul>
+{% elif results is not None %}
+    <p>
+      什么也没查到。
+    </p>
+{% endif %}

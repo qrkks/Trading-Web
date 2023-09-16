@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %}
+<body x-data="{openMobileNav:false}" class="bg-gray-100 font-montserrat">
+  <header>
+    <div class="flex items-center justify-between px-8 py-2 bg-white shadow">
+      <!-- 1.logo -->
+      <a href="" class="text-lg font-bold">Logo</a>
+      <!-- 2.hamburger -->
+      <button @click="openMobileNav=!openMobileNav" class="md:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+          x-show="!openMobileNav"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+          x-show="openMobileNav"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+      <!-- 3. main nav -->
+      <nav class="hidden md:flex">
+        {% include 'partial/nav-list.html' %}
+      </nav>
+      <div class="hidden md:block">
+        {% include 'partial/search-bar.html'%}
+      </div>
+    </div>
+    <!-- mobile nav -->
+    <nav
+      class="absolute w-screen px-10 bg-white shadow md:hidden"
+      x-show.transition="openMobileNav"
+      @click.away="openMobileNav=false"
+    >
+      {% include 'partial/nav-list.html' %}
+      <div class="flex justify-center py-2">
+        {% include 'partial/search-bar.html'%}
+      </div>
+    </nav>
+  </header>
+  <div class="flex justify-center p-4 bg-cyan-200">
+    <a href="" class="btn">button</a>
+  </div>
+  <div id="search-results" class="flex justify-center">
+    {% include 'partial/search-results.html' %}
+  </div>
+</body>
+
+{% endblock content %}
