@@ -1,6 +1,24 @@
-{% extends "base.html" %}
-{% block content %}
-  <div class="bg-white text-center py-8">
-    Product list
-  </div>
+{% extends "base.html" %} {% block content %}
+<div class="bg-white text-center py-8">
+  <h1>Product list</h1>
+</div>
+<div class="flex capitalize">
+  <ul class="root bg-teal-500 w-44">
+    {% load mptt_tags %} {% recursetree categories %}
+    <li class="pl-{{ node.extra_indent}} py-1 " x-data="{ isOpen: true }">
+      {{ node.name }} {% if not node.is_leaf_node %}
+      <button
+        @click="isOpen = !isOpen"
+        class="text-blue-500 rounded-full bg-teal-300 float-right"
+      >
+        Toggle
+      </button>
+      {% endif %}
+      <ul class="children bg-cyan-100" x-show.transition="isOpen">
+        {{ children }}
+      </ul>
+    </li>
+    {% endrecursetree %}
+  </ul>
+</div>
 {% endblock content %}

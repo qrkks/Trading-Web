@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category
+from .models import Category, Product
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
 
@@ -11,16 +11,26 @@ from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
 # admin.site.register(Category, MPTTModelAdmin)
 
-admin.site.register(
-    Category,
-    DraggableMPTTAdmin,
-    list_display=(
+# 自定义管理类
+class CategoryModelAdmin(DraggableMPTTAdmin):
+    list_display = (
         'tree_actions',
         'indented_title',
-        # ...more fields if you feel like it...
-        'parent','slug', 'level', 'custom_order'
-    ),
-    list_display_links=(
-        'indented_title',
-    ),
-)
+        # ...more fields if needed...
+        'parent', 'slug', 'level', 'custom_order'
+    )
+    list_display_links = ('indented_title',)
+    prepopulated_fields = {'slug': ('name',)}
+
+
+# 注册模型和自定义管理类
+admin.site.register(Category, CategoryModelAdmin)
+
+
+class ProductModelAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Product._meta.get_fields()]
+    list_display_links = list_display
+    prepopulated_fields = {'slug': ('name',)}
+
+
+admin.site.register(Product,ProductModelAdmin)
