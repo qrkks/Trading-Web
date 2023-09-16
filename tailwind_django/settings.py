@@ -45,11 +45,13 @@ INSTALLED_APPS = [
     'django_browser_reload',
     # 'django.contrib.staticfiles',  # 静态文件支持
 
+    # plug in
     'django_extensions',
-
+    'mptt',
 
     # apps
     'pages',
+    'products',
 ]
 
 MIDDLEWARE = [
