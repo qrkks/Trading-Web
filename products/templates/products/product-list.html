@@ -1,24 +1,19 @@
 {% extends "base.html" %} {% block content %}
-<div class="bg-white text-center py-8">
+<div class="py-8 text-center bg-white">
   <h1>Product list</h1>
 </div>
-<div class="flex capitalize">
-  <ul class="root bg-teal-500 w-44">
-    {% load mptt_tags %} {% recursetree categories %}
-    <li class="pl-{{ node.extra_indent}} py-1 " x-data="{ isOpen: true }">
-      {{ node.name }} {% if not node.is_leaf_node %}
-      <button
-        @click="isOpen = !isOpen"
-        class="text-blue-500 rounded-full bg-teal-300 float-right"
-      >
-        Toggle
-      </button>
-      {% endif %}
-      <ul class="children bg-cyan-100" x-show.transition="isOpen">
-        {{ children }}
-      </ul>
-    </li>
-    {% endrecursetree %}
-  </ul>
+<div class="flex lg:px-28 max-w-7xl">
+  <aside class="text-center">
+    <h2 class="p-2 text-lg font-bold uppercase">products category</h2>
+    {% include "partial/sidebar.html" %}
+  </aside>
+  <main class="px-10 ">
+    <h2 class="p-2 text-lg font-bold uppercase">products list</h2>
+    <ul>
+      {% for product in products %}
+      <li>{{ product.name }}</li>
+      {% endfor %}
+    </ul>
+  </main>
 </div>
 {% endblock content %}

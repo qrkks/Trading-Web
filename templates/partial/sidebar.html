@@ -1,0 +1,56 @@
+<aside class="" x-cloak="">
+  <div class="flex items-center justify-center p-2 text-gray-500 capitalize">
+    <ul class="w-56 px-2 border-y-2 root border-cyan-300">
+      {% load mptt_tags %} {% recursetree categories %}
+      <li class="pl-{{ node.extra_indent }} py-2" x-data="{ isOpen: true }">
+        <div class="flex items-center justify-between border-b border-cyan-100"> <!-- 修改这里 -->
+          <a
+            class="inline-flex items-center duration-300 hover:scale-105 hover:text-cyan-500"
+            href="{{ node.get_absolute_url }}"
+          >
+            {{ node.name }}
+          </a>
+          {% if not node.is_leaf_node %}
+          <button @click="isOpen = !isOpen" x-show="isOpen">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-3"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+          </button>
+          <button @click="isOpen = !isOpen" x-show="!isOpen">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-3"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </button>
+          {% endif %}
+        </div>
+        <ul class="children" x-show.transition="isOpen">
+          {{ children }}
+        </ul>
+      </li>
+
+      {% endrecursetree %}
+    </ul>
+  </div>
+</aside>

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+import IPython
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     # plug in
     'django_extensions',
     'mptt',
+    'django_cleanup.apps.CleanupConfig',
 
     # apps
     'pages',
@@ -127,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Shanghai"
 
 USE_I18N = True
 
@@ -160,3 +163,12 @@ INTERNAL_IPS = [
 ]
 
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+# Use IPython shell
+SHELL_PLUS = "ipython"
+
+# Automatic file removal
+CLEANUP_AUTO = True
+
+# Age of files in days to be deleted
+CLEANUP_KEEP_DAYS = 1  # Adjust this value as needed
