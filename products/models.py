@@ -1,11 +1,13 @@
 import os
 from django.conf import settings
 from django.db import models
+from django.db.models.query import QuerySet
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
+from slugify import slugify
 from abstractapp.models import BaseModel, SlugMixin
 
 # Create your models here.
@@ -41,11 +43,18 @@ class Category(MPTTModel):
         return reverse('category-products', args=[category_path])
 
 
+class ActiveProductManager(models.Manager):
+    def active(self):
+        return self.get_queryset().filter(is_active=True)
 
 class Product(models.Model):
+
+    # 分配自定义模型管理器给 objects 属性
+    objects = ActiveProductManager()
+
     # 基本信息
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100,blank=True,null=True,unique=True)
     description = models.TextField(blank=True, null=True)
     custom_order = models.IntegerField(default=0)
     category = models.ForeignKey(
@@ -77,13 +86,24 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['-is_active','-is_featured', '-custom_order', 'name']
+        ordering = ['-is_active','-is_featured', '-custom_order', '-name']
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+            while Product.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
 
 
-def product_image_path(instance, filename):
+def product_image_path(self, filename):
     # 构建文件夹路径，使用产品实例的ID作为文件夹名称
-    folder_name = str(instance.product.id)
+    folder_name = str(self.product.id)
     # 使用 os.path.join 来构建路径
     return os.path.join('products/images', folder_name, filename)
 
@@ -97,7 +117,7 @@ class ProductImage(models.Model):
     def __str__(self) -> str:
         return self.image.url
 
-# 使用信号来处理图片保存：保存图片时自动以ID为名建立新文件夹
+# 使用信号来处理图片保存：保存图片时自动以ID为名建立或放入新文件夹
 @receiver(pre_save, sender=ProductImage)
 def product_image_pre_save(sender, instance, **kwargs):
     # 获取关联的产品实例
@@ -106,10 +126,3 @@ def product_image_pre_save(sender, instance, **kwargs):
     if product and product.name:
         folder_name = product.name
         instance.image.field.upload_to = product_image_path
-
-# 在删除产品时同时删除关联的图片
-# @receiver(models.signals.post_delete, sender=Product)
-# def delete_related_images(sender, instance, **kwargs):
-#     related_images = ProductImage.objects.filter(product=instance)
-#     for image in related_images:
-#         image.delete()

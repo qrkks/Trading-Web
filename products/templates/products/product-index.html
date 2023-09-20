@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<div class="py-8 text-center bg-white">
+  <h1>Product list</h1>
+</div>
+<div class="flex lg:px-28 max-w-7xl">
+  <aside class="text-center">
+    <h2 class="p-2 text-lg font-bold uppercase">products category</h2>
+    {% include "partial/sidebar.html" %}
+  </aside>
+  <main class="px-10 ">
+    <h1 class="p-2 text-lg font-bold uppercase">products list</h1>
+
+    {% for root_node, products in root_nodes_data.items %}
+    <h2 class="p-2 text-lg font-bold uppercase">{{ root_node.name }}</h2>
+
+    <ul class="p-5">
+      {% for product in products %}
+      <li>{{ product.name }}</li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </main>
+</div>
+{% endblock content %}
