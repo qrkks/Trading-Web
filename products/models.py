@@ -42,15 +42,21 @@ class Category(MPTTModel):
         category_path = '/'.join(url_list)
         return reverse('category-products', args=[category_path])
 
-
-class ActiveProductManager(models.Manager):
+class ProductQueryset(models.QuerySet):
     def active(self):
-        return self.get_queryset().filter(is_active=True)
+        return self.filter(is_active = True)
+
+class ProductManager(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        return ProductQueryset(self.model)
+    
+    def active(self):
+        return self.get_queryset().active()
 
 class Product(models.Model):
 
     # 分配自定义模型管理器给 objects 属性
-    objects = ActiveProductManager()
+    objects = ProductManager()
 
     # 基本信息
     name = models.CharField(max_length=100)
@@ -98,6 +104,10 @@ class Product(models.Model):
                 counter += 1
             self.slug = slug
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("product-detail", kwargs={"slug": self.slug})
+    
 
 
 

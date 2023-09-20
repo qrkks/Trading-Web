@@ -1,11 +1,19 @@
 <aside class="" x-cloak="">
   <div class="flex items-center justify-center p-2 text-gray-500 capitalize">
     <ul class="w-56 px-2 border-y-2 root border-cyan-300">
+      <li class="py-2 pl-0" x-data="{ isOpen: true }">
+        <div class="flex items-center justify-between font-medium border-b border-cyan-100"> <!-- 修改这里 -->
+          <a
+            class="inline-flex items-center duration-300 hover:text-cyan-400"
+            href=""
+          >all products
+          </a>
+          </div></li>
       {% load mptt_tags %} {% recursetree categories %}
       <li class="pl-{{ node.extra_indent }} py-2" x-data="{ isOpen: true }">
         <div class="flex items-center justify-between border-b border-cyan-100"> <!-- 修改这里 -->
           <a
-            class="inline-flex items-center duration-300 hover:scale-105 hover:text-cyan-500"
+            class="inline-flex items-center duration-300 hover:text-cyan-400"
             href="{{ node.get_absolute_url }}"
           >
             {{ node.name }}
