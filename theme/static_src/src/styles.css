@@ -11,3 +11,7 @@
 .btn {
     @apply px-3 py-2 text-sm font-bold uppercase rounded-full cursor-pointer tracking-wider;
 }
+
+::selection  {
+    @apply bg-cyan-100
+}

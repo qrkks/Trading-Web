@@ -43,7 +43,7 @@ class ProductModelAdmin(admin.ModelAdmin):
     list_display_links = [x for x in list_display if x not in ['is_active','is_featured','custom_order']]
     list_editable = ['is_active','is_featured','custom_order']  # 允许编辑的字段
     search_fields = ['name','slug']
-    prepopulated_fields = {'slug': ('name',)}
+    # prepopulated_fields = {'slug': ('name',)}
     inlines = [ProductImageAdmin]
 
 

@@ -59,6 +59,14 @@ class CategoryProductListView(ListView):
         )
 
         return products
+    
+    def render_to_response(self, context, **response_kwargs):
+        if self.request.headers.get('HX-Request') == 'true':
+            # 处理HTMX请求，只返回列表部分的HTML内容
+            return render(self.request, 'produtcts/partial/list-main.html', context)
+        else:
+            # 处理常规请求，返回整个页面的HTML
+            return super().render_to_response(context, **response_kwargs)
 
 
 
@@ -77,13 +85,22 @@ class ProductDetail(DetailView):
         # 获取所有属性名
         attribute_names = [field.name for field in Product._meta.get_fields()]
 
-        # 排除属性
-        # attribute_names = {key: value for key, value in attribute_names if key.startswith("page")}
+        # 筛选满足条件的属性名，不以"page"，'is'开头
+        filtered_attribute_names = [attr for attr in attribute_names if not (attr.startswith("page") or attr.startswith('is') or attr  in ['images','custom_order'] )]
 
 
         # 创建一个字典，包含属性名和对应的值，将下划线替换为空格
-        product_data = {attr.replace("_", " "): getattr(product, attr) for attr in attribute_names}
+        product_data = {attr.replace("_", " "): getattr(product, attr) for attr in filtered_attribute_names}
 
         # 将 product_data 添加到上下文
         context['product_data'] = product_data
         return context
+    
+    # def render_to_response(self, context, **response_kwargs):
+    #     if self.request.headers.get('HX-Request') == 'true':
+    #         # 处理HTMX请求，只返回列表部分的HTML内容
+    #         return render(self.request, 'produtcts/partial/detail-main.html', context)
+    #     else:
+    #         # 处理常规请求，返回整个页面的HTML
+    #         return super().render_to_response(context, **response_kwargs)
+
