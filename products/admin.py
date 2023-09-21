@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Category, Product, ProductImage
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.utils.html import mark_safe
-
+from adminsortable2.admin import SortableAdminMixin
 
 # Register your models here.
 
@@ -37,6 +37,7 @@ admin.site.register(ProductImage)
 ##################### 产品模型管理 ###################################
 
 @admin.register(Product)
+# class ProductModelAdmin(SortableAdminMixin,admin.ModelAdmin):
 class ProductModelAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Product._meta.get_fields() if field.name != 'images']
     # list_display = ['id','name','category','is_active']
@@ -45,5 +46,5 @@ class ProductModelAdmin(admin.ModelAdmin):
     search_fields = ['name','slug']
     # prepopulated_fields = {'slug': ('name',)}
     inlines = [ProductImageAdmin]
-
+    ordering = ['custom_order']
 

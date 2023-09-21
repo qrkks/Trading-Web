@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'mptt',
     'django_cleanup.apps.CleanupConfig',
+    'adminsortable2',
 
     # apps
     'pages',
