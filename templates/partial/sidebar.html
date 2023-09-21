@@ -5,26 +5,30 @@
         <div
           class="flex items-center justify-between font-semibold border-b border-cyan-100"
         >
-          <!-- 修改这里 -->
           <a
             class="inline-flex items-center duration-300 hover:text-cyan-400"
             href=""
+            hx-get="{% url 'category-products' 'all-products' %}"
+            hx-target="#main-content"
+            hx-push-url="true"
             >all products
           </a>
         </div>
       </li>
-      {% load mptt_tags %} {% recursetree categories %}
+      {% load mptt_tags %} {% recursetree product_categories %}
       <li
         class="
         pl-{{ node.extra_indent }} py-2"
         x-data="{ isOpen: true }"
-        hx-get="/get_main"
+
       >
         <div class="flex items-center justify-between border-b border-cyan-100">
-          <!-- 修改这里 -->
           <a
             class="inline-flex items-center duration-300 hover:text-cyan-400"
             href="{{ node.get_absolute_url }}"
+            hx-get="{{node.get_absolute_url}}"
+            hx-target="#main-content"
+            hx-push-url="true"
           >
             {{ node.name }}
           </a>

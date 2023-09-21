@@ -18,25 +18,14 @@ def products_index(request):
         )
         root_nodes_data[root_node] = products
 
-    return render(request, 'products/product-index.html', {
+    context_data = {
         'root_nodes_data': root_nodes_data,
-    })
+    }
 
+    products = Product.objects.active().all()
 
-# def category_products(request, category_path):
-#     slugs = category_path.split('/')
-#     category_slug = slugs.pop()
-#     category = get_object_or_404(Category, slug=category_slug)
+    return render(request, 'products/product-index.html', context_data )
 
-#     # 使用 Q 对象来构建查询，包括类别及其所有子类别的产品
-#     products = Product.objects.active().filter(
-#         Q(category=category) | Q(
-#             category__in=category.get_descendants(include_self=True))
-#     )
-
-#     return render(request, 'products/product-list.html', { 'products': products})
-
-# CBV
 
 
 class CategoryProductListView(ListView):
@@ -47,28 +36,31 @@ class CategoryProductListView(ListView):
     def get_queryset(self):
         # 获取 category_path 参数并拆分为 slugs 列表
         category_path = self.kwargs['category_path']
-        slugs = category_path.split('/')
-        category_slug = slugs.pop()
 
-        # 获取 Category 对象
-        category = get_object_or_404(Category, slug=category_slug)
+        if category_path == 'all-products':
+            products = Product.objects.active().all()
+        else:
+            slugs = category_path.split('/')
+            category_slug = slugs.pop()
+            # 获取 Category 对象    
+            category = get_object_or_404(Category, slug=category_slug)
 
-        # 使用 Q 对象来构建查询，包括类别及其所有子类别的产品
-        products = Product.objects.active().filter(
-             Q(category__in=category.get_descendants(include_self=True))
-        )
+            # 使用 Q 对象来构建查询，包括类别及其所有子类别的产品
+            products = Product.objects.active().filter(
+                Q(category__in=category.get_descendants(include_self=True))
+            )
 
         return products
     
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
             # 处理HTMX请求，只返回列表部分的HTML内容
-            return render(self.request, 'produtcts/partial/list-main.html', context)
+            return render(self.request, 'products/partial/list-main.html', context)
         else:
             # 处理常规请求，返回整个页面的HTML
             return super().render_to_response(context, **response_kwargs)
 
-
+    
 
 class ProductDetail(DetailView):
     template_name = 'products/product-detail.html'
@@ -96,11 +88,11 @@ class ProductDetail(DetailView):
         context['product_data'] = product_data
         return context
     
-    # def render_to_response(self, context, **response_kwargs):
-    #     if self.request.headers.get('HX-Request') == 'true':
-    #         # 处理HTMX请求，只返回列表部分的HTML内容
-    #         return render(self.request, 'produtcts/partial/detail-main.html', context)
-    #     else:
-    #         # 处理常规请求，返回整个页面的HTML
-    #         return super().render_to_response(context, **response_kwargs)
+    def render_to_response(self, context, **response_kwargs):
+        if self.request.headers.get('HX-Request') == 'true':
+            # 处理HTMX请求，只返回列表部分的HTML内容
+            return render(self.request, 'products/partial/detail-main.html', context)
+        else:
+            # 处理常规请求，返回整个页面的HTML
+            return super().render_to_response(context, **response_kwargs)
 

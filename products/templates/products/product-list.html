@@ -5,8 +5,11 @@
       Product list
     </h1>
   </div>
-  <div class="flex lg:px-28 ">
-    <aside class="text-center">
+  <div class="flex lg:px-28 mt-5">
+    <main class="w-full px-5" id="main-content">
+      {% include "products/partial/list-main.html" %}
+    </main>
+    <aside class="text-center px-5">
       <h2 class="p-2 text-lg font-bold uppercase">
         products category
       </h2>
@@ -14,8 +17,5 @@
         {% include "partial/sidebar.html" %}
       {% endwith %}
     </aside>
-    <main class="w-full px-10">
-      {% include "products/partial/list-main.html" %}
-    </main>
   </div>
 {% endblock content %}
