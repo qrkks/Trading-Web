@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-import IPython
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,6 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'grappelli',
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -88,6 +89,9 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 # categories
                 'abstractapp.custom_context_processors.categories',
+
+                # Grappelli
+                # 'django.template.context_processors.request',
             ],
         },
     },

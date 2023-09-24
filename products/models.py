@@ -53,20 +53,23 @@ class Category(MPTTModel):
             self.slug = slug
         super().save(*args, **kwargs)
 
-class ProductQueryset(models.QuerySet):
-    def active(self):
-        return self.filter(is_active = True)
+# class ProductQueryset(models.QuerySet):
+#     def active(self):
+#         return self.filter(is_active = True)
 
 class ProductManager(models.Manager):
-    def get_queryset(self) -> QuerySet:
-        return ProductQueryset(self.model)
+    # def get_queryset(self) -> QuerySet:
+    #     return ProductQueryset(self.model)
     
     def active(self):
-        return self.get_queryset().active()
+        # return self.get_queryset().active()
+        # return self.filter(is_active=True) # 每次执行查询都会操作数据库
+        return self.get_queryset().filter(is_active=True)
 
 class Product(models.Model):
 
     # 分配自定义模型管理器给 objects 属性
+    # objects = ProductQueryset().as_manager()
     objects = ProductManager()
 
     # 基本信息
@@ -97,7 +100,8 @@ class Product(models.Model):
     transport_package = models.CharField(max_length=100, null=True, blank=True)
     min_order = models.CharField(max_length=100, null=True, blank=True)
 
-    # images = models.ForeignKey(ProductImage,related_name='product',on_delete=models.CASCADE,null=True,blank=True)
+    # 关联关系
+    related_products = models.ManyToManyField('self',blank=True)
 
     def __str__(self) -> str:
         return self.name
@@ -118,7 +122,6 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("product-detail", kwargs={"slug": self.slug})
-    
 
 
 
@@ -127,8 +130,6 @@ def product_image_path(self, filename):
     folder_name = str(self.product.id)
     # 使用 os.path.join 来构建路径
     return os.path.join('products/images', folder_name, filename)
-
-
 
 class ProductImage(models.Model):
     image = models.ImageField(upload_to=product_image_path)

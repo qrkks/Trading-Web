@@ -60,19 +60,19 @@ class CategoryProductListView(ListView):
             # 处理常规请求，返回整个页面的HTML
             return super().render_to_response(context, **response_kwargs)
 
-    
+
 
 class ProductDetail(DetailView):
     template_name = 'products/product-detail.html'
     model = Product
     context_object_name = 'product'
-    slug_field = 'slug'
+    # slug_field = 'slug'
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
         # 获取产品对象
-        product = context['product']
+        product = context['object']
 
         # 获取所有属性名
         attribute_names = [field.name for field in Product._meta.get_fields()]
@@ -96,3 +96,4 @@ class ProductDetail(DetailView):
             # 处理常规请求，返回整个页面的HTML
             return super().render_to_response(context, **response_kwargs)
 
+    

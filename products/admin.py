@@ -37,14 +37,15 @@ admin.site.register(ProductImage)
 ##################### 产品模型管理 ###################################
 
 @admin.register(Product)
-# class ProductModelAdmin(SortableAdminMixin,admin.ModelAdmin):
-class ProductModelAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Product._meta.get_fields() if field.name != 'images']
+class ProductModelAdmin(SortableAdminMixin,admin.ModelAdmin):
+# class ProductModelAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Product._meta.get_fields() if field.name not in ['images','related_products','product']]
     # list_display = ['id','name','category','is_active']
     list_display_links = [x for x in list_display if x not in ['is_active','is_featured','custom_order']]
-    list_editable = ['is_active','is_featured','custom_order']  # 允许编辑的字段
+    list_editable = ['is_active','is_featured',]  # 允许编辑的字段
     search_fields = ['name','slug']
     # prepopulated_fields = {'slug': ('name',)}
     inlines = [ProductImageAdmin]
-    ordering = ['custom_order']
+    ordering = ['custom_order','-is_active','-is_featured']
+
 
