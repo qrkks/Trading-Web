@@ -20,18 +20,23 @@ def products_index(request):
 
     context_data = {
         'root_nodes_data': root_nodes_data,
+        'partial_template_path':'products/partial/main-index.html',
     }
 
     products = Product.objects.active().all()
 
-    return render(request, 'products/product-index.html', context_data )
+    return render(request, 'products/product.html', context_data )
 
 
 
 class CategoryProductListView(ListView):
-    template_name = 'products/product-list.html'  # 指定模板文件路径
+    template_name = 'products/product.html'  # 指定模板文件路径
     context_object_name = 'products'  # 指定模板上下文变量的名称
-    paginate_by = 12
+    paginate_by = 2
+    extra_context = {
+        'partial_template_path':"products/partial/main-list.html",
+        'main_title':'products list',
+    }
 
     def get_queryset(self):
         # 获取 category_path 参数并拆分为 slugs 列表
@@ -55,7 +60,7 @@ class CategoryProductListView(ListView):
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
             # 处理HTMX请求，只返回列表部分的HTML内容
-            return render(self.request, 'products/partial/list-main.html', context)
+            return render(self.request, 'products/partial/main-list.html', context)
         else:
             # 处理常规请求，返回整个页面的HTML
             return super().render_to_response(context, **response_kwargs)
@@ -67,6 +72,9 @@ class ProductDetail(DetailView):
     model = Product
     context_object_name = 'product'
     # slug_field = 'slug'
+    extra_context = {
+        'partial_template_path':"products/partial/main-detail.html"
+    }
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -91,7 +99,7 @@ class ProductDetail(DetailView):
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
             # 处理HTMX请求，只返回列表部分的HTML内容
-            return render(self.request, 'products/partial/detail-main.html', context)
+            return render(self.request, 'products/partial/main-detail.html', context)
         else:
             # 处理常规请求，返回整个页面的HTML
             return super().render_to_response(context, **response_kwargs)

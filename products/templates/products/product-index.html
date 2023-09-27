@@ -1,7 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<div class="py-8 text-center bg-white">
-  <h1>Product list</h1>
-</div>
+{% include 'search/partial/searchbar-product.html' %}
 <div class="flex lg:px-28 ">
   <main class="w-full px-10" id="main-content">
     <h1 class="p-2 text-lg font-bold uppercase">products list</h1>

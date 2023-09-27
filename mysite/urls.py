@@ -24,8 +24,12 @@ urlpatterns = [
     # path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('products/',include('products.urls')),
+    path('search/',include('search.urls')),
+    # path('tinymce/', include('tinymce.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('blog/',include('blog.urls')),
     path('',include('pages.urls')),
-    path('products/',include('products.urls'))
 ]
 
 if settings.DEBUG:
@@ -34,3 +38,5 @@ if settings.DEBUG:
 
     # 在开发环境中，使用此行来为媒体文件提供服务
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    

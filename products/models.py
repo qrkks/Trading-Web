@@ -58,19 +58,31 @@ class Category(MPTTModel):
 #         return self.filter(is_active = True)
 
 class ProductManager(models.Manager):
-    # def get_queryset(self) -> QuerySet:
-    #     return ProductQueryset(self.model)
+#     def get_queryset(self) -> QuerySet:
+#         return ProductQueryset(self.model,using=self._db)
     
     def active(self):
-        # return self.get_queryset().active()
-        # return self.filter(is_active=True) # 每次执行查询都会操作数据库
+        print("Manager's active is being called")
         return self.get_queryset().filter(is_active=True)
+        # return self.get_queryset().active()
 
+# 自定义查询集
+# class ProductQuerySet(models.QuerySet):
+#     def active(self):
+#         print("QuerySet's active is being called")
+#         return self.filter(is_active=True)
+
+# # 自定义模型管理器
+# class ProductManager(models.Manager):
+#     def get_queryset(self):
+#         print("get_queryset is being called")  # 调试信息
+#         return ProductQuerySet(self.model, using=self._db)
+    
+#     def active(self):
+#         print("Manager's active is being called")
+#         return self.get_queryset().active()
+    
 class Product(models.Model):
-
-    # 分配自定义模型管理器给 objects 属性
-    # objects = ProductQueryset().as_manager()
-    objects = ProductManager()
 
     # 基本信息
     name = models.CharField(max_length=100)
@@ -102,6 +114,11 @@ class Product(models.Model):
 
     # 关联关系
     related_products = models.ManyToManyField('self',blank=True)
+
+
+    # 分配自定义模型管理器给 objects 属性
+    # objects = ProductQueryset().as_manager()
+    objects = ProductManager()
 
     def __str__(self) -> str:
         return self.name

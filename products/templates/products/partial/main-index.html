@@ -1,0 +1,13 @@
+<div>
+  <h2 class="p-2 text-lg font-bold uppercase">products list</h2>
+
+  {% for root_node, products in root_nodes_data.items %}
+  <h2 class="p-2 text-lg font-bold uppercase">{{ root_node.name }}</h2>
+
+  <ul class="p-5">
+    {% for product in products %}
+    <li>{{ product.name }}</li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</div>

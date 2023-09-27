@@ -53,10 +53,16 @@ INSTALLED_APPS = [
     'mptt',
     'django_cleanup.apps.CleanupConfig',
     'adminsortable2',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
+    # 'tinymce',
 
     # apps
     'pages',
     'products',
+    'search',
+    'blog',
+    'utils',
 ]
 
 MIDDLEWARE = [
@@ -170,10 +176,14 @@ INTERNAL_IPS = [
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # Use IPython shell
-SHELL_PLUS = "ipython"
+SHELL_I = "ipython"
 
 # Automatic file removal
 CLEANUP_AUTO = True
 
 # Age of files in days to be deleted
 CLEANUP_KEEP_DAYS = 1  # Adjust this value as needed
+
+# CKeditor
+# CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"

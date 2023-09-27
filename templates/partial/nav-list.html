@@ -1,47 +1,88 @@
-<ul class="flex flex-col gap-8 p-4 text-center uppercase md:flex-row md:p-0 px-36"
-    x-cloak="">
-  <li class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex ">
-    <a class="duration-500 border-b-2 md:border-white hover:border-red-500"
-       href="/">Home</a>
-  </li>
-  <li x-data="{openTab:false,showIcon:false}"
-      @click="openTab=!openTab"
-      @click.away="openTab=false"
-      class="relative duration-500 rounded cursor-pointer md:px-3 md:py-2 md:inline-flex">
+<ul
+  class="flex flex-col gap-8 p-4 text-center uppercase md:flex-row md:p-0 px-36 z-10"
+  x-cloak=""
+>
+  <a href="/">
+    <li
+      class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
+    >
+      <a
+        class="duration-500 border-b-4 border-white hover:border-red-500"
+        href="/"
+        >Home</a
+      >
+    </li>
+  </a>
+  <li
+    x-data="{openTab:false,showIcon:false}"
+    @click="openTab=!openTab"
+    @click.away="openTab=false"
+    class="relative duration-500 rounded cursor-pointer md:px-3 md:py-2 md:inline-flex"
+  >
     <p
-       class="items-center gap-1 duration-500 border-b-2 hover:border-red-500 md:inline-flex border-red-50">Products
-</p>
-    <div class="md:absolute md:top-[100%] md:inset-0 ">
+      class="items-center gap-1 duration-500 border-b-4 hover:border-red-500 md:inline-flex "
+    >
+      Products
+    </p>
+    <div class="md:absolute md:top-[100%] md:inset-0 z-10">
       <ul x-show.transition="openTab" class="text-center ">
-        <li class="inline-block w-full px-3 py-2 duration-500 md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 rounded-t-md">
-          <a href="/products/"
-             class="duration-500 border-b-2 border-white hover:border-red-500">
-          All Products</a>
-        </li>
-        {% for node in product_root_categories %}
-          <li class="inline-block px-3 py-2 duration-500  w-full md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 {% if forloop.last %}rounded-b-md{% endif %}">
-            <a href="{{ node.get_absolute_url }}"
-               class="duration-500 border-b-2 border-white hover:border-red-500">
-              {{ node.name }}
-            </a>
+        <a href="/products/" class="group">
+          <li
+            class="inline-block w-full px-3 py-2 duration-500 md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 rounded-t-md"
+          >
+            <span
+              class="duration-500 border-b-4  border-gray-50 group-hover:border-red-500"
+            >
+              All Products</span
+            >
           </li>
+        </a>
+        {% for node in product_root_categories %}
+        <a href="{{ node.get_absolute_url }}" class="group">
+          <li
+            class="inline-block px-3 py-2 duration-500  w-full md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 {% if forloop.last %}rounded-b-md{% endif %}"
+          >
+            <span
+              class="duration-500 border-b-4 border-gray-50 group-hover:border-red-500"
+            >
+              {{ node.name }}
+            </span>
+          </li>
+        </a>
         {% endfor %}
       </ul>
     </div>
   </li>
-  <li class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex ">
+  <li
+    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
+  >
     <a class="duration-500 hover:border-red-500" href="">Blog</a>
   </li>
-  <li class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex ">
-    <a class="duration-500 border-b-2 border-red-50 hover:border-red-500"
-       href="">news</a>
+  <li
+    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
+  >
+    <a
+      class="duration-500 border-b-2 border-red-50 hover:border-red-500"
+      href=""
+      >news</a
+    >
   </li>
-  <li class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex ">
-    <a class="duration-500 border-b-2 border-red-50 hover:border-red-500"
-       href="">Contact</a>
+  <li
+    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
+  >
+    <a
+      class="duration-500 border-b-2 border-red-50 hover:border-red-500"
+      href=""
+      >Contact</a
+    >
   </li>
-  <li class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex ">
-    <a class="duration-500 border-b-2 border-red-50 hover:border-red-500"
-       href="">About</a>
+  <li
+    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
+  >
+    <a
+      class="duration-500 border-b-2 border-red-50 hover:border-red-500"
+      href=""
+      >About</a
+    >
   </li>
 </ul>

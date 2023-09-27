@@ -9,7 +9,7 @@ from adminsortable2.admin import SortableAdminMixin
 ######################### 产品分类模型管理 ##############################
 # 自定义管理类
 @admin.register(Category)
-class CategoryModelAdmin(DraggableMPTTAdmin):
+class ProductCategoryModelAdmin(DraggableMPTTAdmin):
     list_display = [
         'tree_actions',
         'indented_title',
