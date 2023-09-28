@@ -53,8 +53,9 @@ INSTALLED_APPS = [
     'mptt',
     'django_cleanup.apps.CleanupConfig',
     'adminsortable2',
-    # 'ckeditor',
-    # 'ckeditor_uploader',
+    'ckeditor',
+    'ckeditor_uploader',
+    "debug_toolbar",
     # 'tinymce',
 
     # apps
@@ -75,6 +76,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # debug toolbar
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+
 
 ]
 
@@ -187,3 +191,8 @@ CLEANUP_KEEP_DAYS = 1  # Adjust this value as needed
 # CKeditor
 # CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'allowedContent': True,
+#     },
+# }

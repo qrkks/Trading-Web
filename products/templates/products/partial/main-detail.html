@@ -3,16 +3,16 @@
   </div>
   <div class="flex p-5 m-1 bg-white rounded-lg shadow justify-evenly">
     <img
-      class="w-5/12 rounded "
+      class="object-contain w-5/12 rounded"
       src="{{product.images.first.image.url}}"
       alt="{{product.name}}'s image"
     />
     <div class="w-5/12">
       <ul>
-        {% for attribute, value in product_data.items %}
-        
+        {% for attribute, value in product_data.items %}        
         <li class="p-1"><strong>{{ attribute }}:</strong> {{ value }}</li>
         {% endfor %}
       </ul>
     </div>
   </div>
+  

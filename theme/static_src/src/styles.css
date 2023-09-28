@@ -15,3 +15,11 @@
 ::selection  {
     @apply bg-cyan-100
 }
+
+#cke p{
+    @apply  whitespace-normal
+}
+
+#cke a {
+    color: cyan; /* 或者你可以使用十六进制代码，比如 #0000FF */
+}

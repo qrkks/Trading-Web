@@ -15,6 +15,7 @@ class Category(MPTTModel):
     description = models.CharField(max_length=200, blank=True, null=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE,
                             null=True, blank=True, related_name='children')
+    
     custom_order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -38,7 +39,7 @@ class Category(MPTTModel):
             parent = parent.parent
         # 将列表转换为路径字符串，使用斜杠分隔
         category_path = '/'.join(url_list)
-        return reverse('category-blog', args=[category_path])
+        return reverse('blog-list', args=[category_path])
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -67,8 +68,12 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=200, unique=True,blank=True,null=True)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
-    # content = RichTextUploadingField(null=True,blank=True)
-    # body = HTMLField(null=True,blank=True)
+    content = RichTextUploadingField(null=True,blank=True)
+    category = models.ForeignKey(Category,on_delete=models.SET_NULL,null=True,blank=True,related_name='blog')
+
+    custom_order = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True,null=True,blank=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True,blank=True)
 
     def __str__(self) -> str:
         return self.title

@@ -8,7 +8,7 @@ from .models import Category, Product
 
 def products_index(request):
     # 获取根节点列表
-    root_nodes = Category.objects.filter(parent=None)
+    root_nodes = Category.objects.filter(level=1)
 
     root_nodes_data = {}
 
@@ -32,7 +32,7 @@ def products_index(request):
 class CategoryProductListView(ListView):
     template_name = 'products/product.html'  # 指定模板文件路径
     context_object_name = 'products'  # 指定模板上下文变量的名称
-    paginate_by = 2
+    paginate_by = 12
     extra_context = {
         'partial_template_path':"products/partial/main-list.html",
         'main_title':'products list',
@@ -48,7 +48,7 @@ class CategoryProductListView(ListView):
             slugs = category_path.split('/')
             category_slug = slugs.pop()
             # 获取 Category 对象    
-            category = get_object_or_404(Category, slug=category_slug)
+            category:Category = get_object_or_404(Category, slug=category_slug)
 
             # 使用 Q 对象来构建查询，包括类别及其所有子类别的产品
             products = Product.objects.active().filter(
@@ -68,7 +68,7 @@ class CategoryProductListView(ListView):
 
 
 class ProductDetail(DetailView):
-    template_name = 'products/product-detail.html'
+    template_name = 'products/product.html'
     model = Product
     context_object_name = 'product'
     # slug_field = 'slug'

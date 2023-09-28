@@ -24,6 +24,7 @@ urlpatterns = [
     # path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path("__debug__/", include("debug_toolbar.urls")),
     path('products/',include('products.urls')),
     path('search/',include('search.urls')),
     # path('tinymce/', include('tinymce.urls')),

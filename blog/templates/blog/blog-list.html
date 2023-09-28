@@ -3,8 +3,14 @@
 <ul>
   {% for object in object_list %}
   <a href="{{object.get_absolute_url}}">
-  <li>{{object.title}} {{object.slug}}</li>
+  <li>{{object.title}} - {{object.slug}}</li>
 </a>
   {% endfor %}
 </ul>
+
+<aside class="mt-5 mr-5 text-center">
+  <h2 class="p-2 text-lg font-bold uppercase">blog category</h2>
+  {%with categories=blog_categories%} {% include "partial/sidebar.html" %}
+  {%endwith%}
+</aside>
 {% endblock %}

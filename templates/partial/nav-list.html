@@ -1,5 +1,5 @@
 <ul
-  class="flex flex-col gap-8 p-4 text-center uppercase md:flex-row md:p-0 px-36 z-10"
+  class="z-10 flex flex-col gap-8 p-4 text-center uppercase md:flex-row md:p-0 "
   x-cloak=""
 >
   <a href="/">
@@ -19,21 +19,23 @@
     @click.away="openTab=false"
     class="relative duration-500 rounded cursor-pointer md:px-3 md:py-2 md:inline-flex"
   >
-    <p
+    <span
       class="items-center gap-1 duration-500 border-b-4 hover:border-red-500 md:inline-flex "
     >
       Products
-    </p>
-    <div class="md:absolute md:top-[100%] md:inset-0 z-10">
-      <ul x-show.transition="openTab" class="text-center ">
+    </span>
+    <div
+      class="md:absolute md:top-[100%] md:left-1/2 md:transform md:-translate-x-1/2 z-10 min-w-max"
+    >
+      <ul x-show.transition="openTab" class="flex flex-col text-center">
         <a href="/products/" class="group">
           <li
             class="inline-block w-full px-3 py-2 duration-500 md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 rounded-t-md"
           >
             <span
-              class="duration-500 border-b-4  border-gray-50 group-hover:border-red-500"
+              class="font-semibold duration-500 border-b-4 border-gray-50 group-hover:border-red-500"
             >
-              All Products</span
+              Products</span
             >
           </li>
         </a>
@@ -54,35 +56,45 @@
     </div>
   </li>
   <li
-    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
+    x-data="{openTab:false,showIcon:false}"
+    @click="openTab=!openTab"
+    @click.away="openTab=false"
+    class="relative duration-500 rounded cursor-pointer md:px-3 md:py-2 md:inline-flex"
   >
-    <a class="duration-500 hover:border-red-500" href="">Blog</a>
-  </li>
-  <li
-    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
-  >
-    <a
-      class="duration-500 border-b-2 border-red-50 hover:border-red-500"
-      href=""
-      >news</a
+    <span
+      class="items-center gap-1 duration-500 border-b-4 hover:border-red-500 md:inline-flex "
     >
-  </li>
-  <li
-    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
-  >
-    <a
-      class="duration-500 border-b-2 border-red-50 hover:border-red-500"
-      href=""
-      >Contact</a
+      blog
+    </span>
+    <div
+      class="md:absolute md:top-[100%]  md:left-1/2 md:transform md:-translate-x-1/2 z-10 min-w-max "
     >
-  </li>
-  <li
-    class="py-2 duration-500 rounded md:border-gray-100 hover:drop-shadow-md md:inline-flex "
-  >
-    <a
-      class="duration-500 border-b-2 border-red-50 hover:border-red-500"
-      href=""
-      >About</a
-    >
+      <ul x-show.transition="openTab" class="flex flex-col text-center ">
+        <a href="/blog/" class=" group">
+          <li
+            class="inline-block w-full px-3 py-2 duration-500 md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 rounded-t-md"
+          >
+            <span
+              class="font-semibold duration-500 border-b-4 border-gray-50 group-hover:border-red-500"
+            >
+              blog</span
+            >
+          </li>
+        </a>
+        {% for node in blog_root_categories %}
+        <a href="{{ node.get_absolute_url }}" class=" group">
+          <li
+            class="inline-block w-full px-3 py-2 duration-500   md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 {% if forloop.last %}rounded-b-md{% endif %}"
+          >
+            <span
+              class="duration-500 border-b-4 border-gray-50 group-hover:border-red-500"
+            >
+              {{ node.name }}
+            </span>
+          </li>
+        </a>
+        {% endfor %}
+      </ul>
+    </div>
   </li>
 </ul>

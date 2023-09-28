@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex lg:px-28 ">
+
+  <main class="w-full px-5 mt-5" id="main-content">
+    {% comment %} {% include partial_template_path %} {% endcomment %}
+<div class="p-2 sm:p-20">
+  {% for root_node,blogs in root_nodes_data.items %}
+    <h1 class="text-3xl font-bold">
+      {{ root_node.name }}
+    </h1>
+    {% for blog in blogs %}
+      <h2 class="text-2xl font-semibold">
+        {{ blog.title }}
+      </h2>
+      <p>
+        {{ blog.content|safe }}
+      </p>
+    {% endfor %}
+  {% endfor %}
+</div>
+</main>
+
+<aside class="mt-5 mr-5 text-center">
+  <h2 class="p-2 text-lg font-bold uppercase">blog category</h2>
+  {%with categories=blog_categories%} {% include "partial/sidebar.html" %}
+  {%endwith%}
+</aside>
+</div>
+{% endblock %}
