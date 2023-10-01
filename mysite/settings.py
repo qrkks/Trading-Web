@@ -55,8 +55,8 @@ INSTALLED_APPS = [
     'adminsortable2',
     'ckeditor',
     'ckeditor_uploader',
-    "debug_toolbar",
-    # 'tinymce',
+    # "debug_toolbar",
+    'taggit',
 
     # apps
     'pages',
@@ -77,7 +77,7 @@ MIDDLEWARE = [
 
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     # debug toolbar
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     # 自定义面包屑
     # 'abstractapp.middlewares.BreadcrumbMiddleware',
 

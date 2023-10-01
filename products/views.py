@@ -8,6 +8,28 @@ from .models import Category, Product
 # Create your views here.
 
 
+# def products_index(request):
+#     # 获取根节点列表
+#     root_nodes = Category.objects.filter(level=1)
+
+#     root_nodes_data = {}
+
+#     for root_node in root_nodes:
+#         products = Product.objects.active().filter(
+#             Q(category__in=root_node.get_descendants(include_self=True))
+#         )
+#         root_nodes_data[root_node] = products
+
+#     context_data = {
+#         'root_nodes_data': root_nodes_data,
+#         'partial_template_path': 'products/partial/main-index.html',
+#     }
+
+#     products = Product.objects.active().all()
+
+#     return render(request, 'products/product.html', context_data)
+
+
 def products_index(request):
     # 获取根节点列表
     root_nodes = Category.objects.filter(level=1)
@@ -15,9 +37,10 @@ def products_index(request):
     root_nodes_data = {}
 
     for root_node in root_nodes:
+        descendants = root_node.get_descendants(include_self=True)
         products = Product.objects.active().filter(
-            Q(category__in=root_node.get_descendants(include_self=True))
-        )
+            Q(category__in=descendants)  # 使用get_descendants方法获取的QuerySet
+        )[:3]
         root_nodes_data[root_node] = products
 
     context_data = {
@@ -25,9 +48,9 @@ def products_index(request):
         'partial_template_path': 'products/partial/main-index.html',
     }
 
-    products = Product.objects.active().all()
-
     return render(request, 'products/product.html', context_data)
+
+
 
 
 class CategoryProductListView(ListView):
