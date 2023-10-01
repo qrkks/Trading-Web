@@ -137,8 +137,14 @@ class Product(models.Model):
             self.slug = slug
         super().save(*args, **kwargs)
 
+    # def get_absolute_url(self):
+    #     return reverse("product-detail", kwargs={"slug": self.slug})
     def get_absolute_url(self):
-        return reverse("product-detail", kwargs={"slug": self.slug})
+        # 获取该产品所属分类及其所有祖先的 slug
+        category_path = '/'.join([cat.slug for cat in self.category.get_ancestors(include_self=True)])
+        
+        # 使用 reverse 函数和动态的分类路径来生成 URL
+        return reverse('product-detail', args=[category_path, self.slug])
 
 
 

@@ -1,0 +1,32 @@
+<div x-data="{ slideIndex: 0, slides: {{ images|length }}, timer: null }" 
+     x-init="timer = setInterval(() => slideIndex = (slideIndex + 1) % slides, 3000)" 
+     @mouseenter="clearInterval(timer)" 
+     @mouseleave="timer = setInterval(() => slideIndex = (slideIndex + 1) % slides, 3000)" 
+     class="relative w-full mx-auto overflow-hidden bg-white rounded-lg shadow-lg max-w-full-md">
+
+  <div class="flex transition-transform duration-1000" :style="'transform: translateX(-' + (slideIndex * 100) + '%)'">
+    {% for image in images %}
+      <div class="relative flex-none w-full">
+        <img src="{{ image.image.url }}" alt="Product Image" class="object-cover w-full h-auto">
+      </div>
+    {% endfor %}
+  </div>
+
+  <template x-if="slides > 1">
+    <div>
+      <!-- Navigation Arrows -->
+      <button @click="slideIndex = slideIndex === 0 ? slides - 1 : slideIndex - 1" class="absolute left-0 p-4 transform -translate-y-1/2 top-1/2">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <button @click="slideIndex = (slideIndex + 1) % slides" class="absolute right-0 p-4 transform -translate-y-1/2 top-1/2">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+    <!-- Indicators -->
+    <div class="absolute bottom-0 pb-2 transform -translate-x-1/2 left-1/2">
+      <template x-for="i in slides" :key="i">
+        <span @click="slideIndex = i - 1" :class="{ 'bg-white': slideIndex === i - 1, 'bg-gray-300': slideIndex !== i - 1 }" class="inline-block w-4 h-1 mx-1 rounded-full cursor-pointer"></span>
+      </template>
+    </div>
+  </template>
+</div>

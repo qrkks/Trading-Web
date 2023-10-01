@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-between h-[100%]">
+<div class="flex flex-col justify-between h-[100%] group">
   <a
     href="{{product.get_absolute_url}}"
     hx-get="{{product.get_absolute_url}}"
@@ -6,19 +6,19 @@
     hx-push-url="true"
     class="flex-grow block "
   >
-    <div
-      class="relative flex flex-col justify-between flex-grow h-full overflow-hidden transition duration-300 ease-out bg-white rounded shadow-md hover:shadow-xl hover:scale-105 hover:cursor-pointer group"
-    >
-      <div>
-        <img
-          src="{{product.images.first.image.url}}"
-          alt="{{product.name}}"
-          class="object-cover w-full max-h-64"
-        />
-      </div>
-      <div class="m-4 ">
-        <span class="block text-sm text-gray-500">{{product.slug}} </span>
-      </div>
+  <div class="relative flex flex-col justify-between flex-grow  h-[300px] overflow-hidden transition duration-300 ease-out bg-white rounded shadow-md group-hover:shadow-xl   group-hover:cursor-pointer ">
+    <div class="relative flex-grow overflow-hidden">
+      <img
+        src="{{product.images.first.image.url}}"
+        alt="{{product.name}}"
+        class="object-cover w-full h-full duration-300 group-hover:scale-105"
+      />
     </div>
+    <div class="flex items-center justify-between m-4">
+      <span class="w-full p-1 text-sm text-gray-500 duration-300">{{product.slug}}</span>
+      <!-- <span>Learn more</span> -->
+    </div>
+  </div>
+  
   </a>
 </div>

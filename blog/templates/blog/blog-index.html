@@ -2,9 +2,9 @@
 {% block content %}
 <div class="flex lg:px-28 ">
 
-  <main class="w-full px-5 mt-5" id="main-content">
+  <main class="px-12 mt-5 prose max-w-none" id="main-content">
     {% comment %} {% include partial_template_path %} {% endcomment %}
-<div class="p-2 sm:p-20">
+<div class="p-2 bg-white sm:p-20">
   {% for root_node,blogs in root_nodes_data.items %}
     <h1 class="text-3xl font-bold">
       {{ root_node.name }}

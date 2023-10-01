@@ -1,5 +1,6 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
+from adminsortable2.admin import SortableAdminMixin
 from .models import Category, Blog
 
 # Register your models here.
@@ -17,5 +18,7 @@ class BlogCategoryAdmin(DraggableMPTTAdmin):
 
 
 @admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
-    pass
+class BlogAdmin(SortableAdminMixin,admin.ModelAdmin):
+    list_display = ['title','custom_order','slug','category']
+    list_display_links = [x for x in list_display if x not in ['custom_order']]
+    ordering = ['custom_order']

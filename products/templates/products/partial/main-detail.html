@@ -2,11 +2,14 @@
     <h2 class="p-2 text-lg font-bold uppercase">products Detail</h2>
   </div>
   <div class="flex p-5 m-1 bg-white rounded-lg shadow justify-evenly">
-    <img
+    <!-- <img
       class="object-contain w-5/12 rounded"
       src="{{product.images.first.image.url}}"
       alt="{{product.name}}'s image"
-    />
+    /> -->
+    <div class="w-6/12">
+      {%include 'products/partial/carousel-product.html'%}
+    </div>
     <div class="w-5/12">
       <ul>
         {% for attribute, value in product_data.items %}        

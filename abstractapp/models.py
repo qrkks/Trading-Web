@@ -1,11 +1,15 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
 # 抽象模型
 class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    custom_order = models.IntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    is_featured = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True,null=True,blank=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True,blank=True)
 
     class Meta:
         abstract = True

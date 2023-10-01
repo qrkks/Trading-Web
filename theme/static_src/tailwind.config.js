@@ -43,12 +43,19 @@ module.exports = {
     ],
     theme: {
         extend: {
-            fontFamily:{
-                nunito:['Nunito'],
-                montserrat:['Montserrat'],
-                ubuntu:['Ubuntu'],
+            fontFamily: {
+                nunito: ['Nunito'],
+                montserrat: ['Montserrat'],
+                ubuntu: ['Ubuntu'],
             }
         },
+        // typography: {
+        //     DEFAULT: {
+        //         css: {
+        //             maxWidth: '100ch', // add required value here
+        //         }
+        //     }
+        // },
     },
     plugins: [
         /**

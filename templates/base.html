@@ -16,10 +16,11 @@
     <script src="https://unpkg.com/htmx.org@1.9.5"
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
   </head>
   <body x-data="{openMobileNav:false}" class="bg-gray-50 font-montserrat">
-    <header class="sticky top-0 z-50 w-full">
-      <div class="flex items-center justify-between px-8 py-2 bg-white shadow-xl">
+    <header class=" sticky top-0 z-50 w-full {% block header_class %}shadow{% endblock %}">
+      <div class="flex items-center justify-between h-20 px-8 py-2 bg-white ">
         <!-- 1.logo -->
         <a href="/" class="text-lg font-bold">CiyeLogo</a>
         <!-- 2.hamburger -->
@@ -48,7 +49,7 @@
         <nav class="hidden md:flex">
           {% include 'partial/nav-list.html' %}
         </nav>
-        <div class="hidden md:block">
+        <div class="hidden md:block shrink">
           {% include 'partial/search-bar.html' %}
         </div>
       </div>
@@ -62,13 +63,18 @@
         </div> -->
       </nav>
     </header>
-    <div class="flex justify-center p-4 bg-cyan-200">
-      <a href="" class="btn">button</a>
-    </div>
-    <div id="search-results" class="flex justify-center">
+    <!-- <div class="flex justify-center p-4 bg-gray-100">
+      <div class="breadcrumbs">
+        {% for title, url in request.breadcrumbs %}
+            <a href="{{ url }}">{{ title }}</a>
+            {% if not forloop.last %}&raquo;{% endif %}
+        {% endfor %}
+    </div>    </div> -->
+    <!-- <div id="search-results" class="flex justify-center">
       {% include 'partial/search-results.html' %}
-    </div>
+    </div> -->
     {% block content %}
     {% endblock content %}
+    
   </body>
 </html>

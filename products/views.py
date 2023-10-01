@@ -1,7 +1,9 @@
+from django.shortcuts import render, redirect
 from typing import Any
+from django.http import Http404
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Category, Product
 # Create your views here.
 
@@ -20,13 +22,12 @@ def products_index(request):
 
     context_data = {
         'root_nodes_data': root_nodes_data,
-        'partial_template_path':'products/partial/main-index.html',
+        'partial_template_path': 'products/partial/main-index.html',
     }
 
     products = Product.objects.active().all()
 
-    return render(request, 'products/product.html', context_data )
-
+    return render(request, 'products/product.html', context_data)
 
 
 class CategoryProductListView(ListView):
@@ -34,8 +35,8 @@ class CategoryProductListView(ListView):
     context_object_name = 'products'  # 指定模板上下文变量的名称
     paginate_by = 12
     extra_context = {
-        'partial_template_path':"products/partial/main-list.html",
-        'main_title':'products list',
+        'partial_template_path': "products/partial/main-list.html",
+        'main_title': 'products list',
     }
 
     def get_queryset(self):
@@ -47,8 +48,9 @@ class CategoryProductListView(ListView):
         else:
             slugs = category_path.split('/')
             category_slug = slugs.pop()
-            # 获取 Category 对象    
-            category:Category = get_object_or_404(Category, slug=category_slug)
+            # 获取 Category 对象
+            category: Category = get_object_or_404(
+                Category, slug=category_slug)
 
             # 使用 Q 对象来构建查询，包括类别及其所有子类别的产品
             products = Product.objects.active().filter(
@@ -56,7 +58,7 @@ class CategoryProductListView(ListView):
             )
 
         return products
-    
+
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
             # 处理HTMX请求，只返回列表部分的HTML内容
@@ -66,14 +68,13 @@ class CategoryProductListView(ListView):
             return super().render_to_response(context, **response_kwargs)
 
 
-
 class ProductDetail(DetailView):
     template_name = 'products/product.html'
     model = Product
     context_object_name = 'product'
     # slug_field = 'slug'
     extra_context = {
-        'partial_template_path':"products/partial/main-detail.html"
+        'partial_template_path': "products/partial/main-detail.html"
     }
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
@@ -82,20 +83,40 @@ class ProductDetail(DetailView):
         # 获取产品对象
         product = context['object']
 
+        # 获取图片
+        images = product.images.all()
+
         # 获取所有属性名
         attribute_names = [field.name for field in Product._meta.get_fields()]
 
         # 筛选满足条件的属性名，不以"page"，'is'开头
-        filtered_attribute_names = [attr for attr in attribute_names if not (attr.startswith("page") or attr.startswith('is') or attr  in ['images','custom_order'] )]
-
+        filtered_attribute_names = [attr for attr in attribute_names if not (attr.startswith(
+            "page") or attr.startswith('is') or attr in ['images', 'custom_order'])]
 
         # 创建一个字典，包含属性名和对应的值，将下划线替换为空格
-        product_data = {attr.replace("_", " "): getattr(product, attr) for attr in filtered_attribute_names}
+        product_data = {attr.replace("_", " "): getattr(
+            product, attr) for attr in filtered_attribute_names}
 
         # 将 product_data 添加到上下文
         context['product_data'] = product_data
+        context['images'] = images
         return context
-    
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+
+        correct_category_path = '/'.join(
+            [cat.slug for cat in self.object.category.get_ancestors(include_self=True)])
+        if correct_category_path != self.kwargs['category_path']:
+            # 如果你想重定向到正确的URL，可以使用下面的代码：
+            correct_url = f"/products/{correct_category_path}/{self.object.slug}/"
+            return redirect(correct_url, permanent=True)
+
+            # 或者，如果你想显示一个404错误页面，可以使用下面的代码：
+            # raise Http404("Page not found")
+
+        return response
+
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
             # 处理HTMX请求，只返回列表部分的HTML内容
@@ -104,4 +125,4 @@ class ProductDetail(DetailView):
             # 处理常规请求，返回整个页面的HTML
             return super().render_to_response(context, **response_kwargs)
 
-    
+

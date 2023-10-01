@@ -41,14 +41,16 @@ class ProductSearchView(ListView):
         q = self.request.GET.get('q', '').strip()
         if q == '':
             self.extra_context['main_title'] = 'search'
-            return Product.objects.none()
+            results = Product.objects.none()
+            return results
         else:
-            self.extra_context['main_title'] = 'Search results'
-            return Product.objects.active().filter(
+            results = Product.objects.active().filter(
                 Q(name__icontains=q) |
                 Q(slug__icontains=q) |
                 Q(description__icontains=q)
             )
+            self.extra_context['main_title'] = f'{results.count()} results in search "{q}"'
+            return results
 
 
     def render_to_response(self, context, **response_kwargs):

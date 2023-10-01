@@ -3,13 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('',views.index),
+    path('',views.index,name='index'),
+    path('about/',views.about)
 ]
 
-htmx_urlpatterns = [
-    path('to-search/',views.search,name='search'),
-    # path('recipes/',views.RecipeList.as_view(),name='recipe-list'),
-    # path('add-recipe',views.add_recipe,name='add-recipe'),
-]
-
-urlpatterns += htmx_urlpatterns
