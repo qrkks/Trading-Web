@@ -30,6 +30,7 @@ urlpatterns = [
     # path('tinymce/', include('tinymce.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('blog/',include('blog.urls')),
+    path('form-handlers/',include('form_handlers.urls')),
     path('',include('pages.urls')),
 ]
 

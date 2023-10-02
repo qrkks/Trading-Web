@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'django_browser_reload',
-    # 'django.contrib.staticfiles',  # 静态文件支持
 
     # plug in
     'django_extensions',
@@ -57,13 +56,14 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # "debug_toolbar",
     'taggit',
+    'widget_tweaks',
 
     # apps
     'pages',
     'products',
     'search',
     'blog',
-    'utils',
+    'form_handlers',
 ]
 
 MIDDLEWARE = [
@@ -198,3 +198,13 @@ CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
 #         'allowedContent': True,
 #     },
 # }
+
+# 邮件服务器
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = '34028312@qq.com'  # 你的 Gmail 地址
+EMAIL_HOST_PASSWORD = 'oylpijgmzjjobiif'  # 你的 Gmail 密码
+ALLOWED_HOSTS = []

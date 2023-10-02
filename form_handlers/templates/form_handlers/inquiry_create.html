@@ -1,0 +1,102 @@
+<div class="mx-auto">
+    <form hx-post="{% url 'inquiry_create' %}"
+          hx-swap="outerHTML"
+          hx-on::after-request="this.reset()"
+          hx-indicator="#submitting"
+          class="flex justify-center flex-col items-center">
+        {% csrf_token %}
+        <div>
+            {{ form.name.label_tag }} {{ form.name }}
+            {% if form.name.errors %}
+                <div class="invalid-feedback">
+                    {{ form.name.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.institution.label_tag }} {{ form.institution }}
+            {% if form.institution.errors %}
+                <div class="invalid-feedback">
+                    {{ form.institution.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.email.label_tag }} {{ form.email }}
+            {% if form.email.errors %}
+                <div class="invalid-feedback">
+                    {{ form.email.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.phone.label_tag }} {{ form.phone }}
+            {% if form.phone.errors %}
+                <div class="invalid-feedback">
+                    {{ form.phone.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.country_region.label_tag }} {{ form.country_region }}
+            {% if form.country_region.errors %}
+                <div class="invalid-feedback">
+                    {{ form.country_region.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.state.label_tag }} {{ form.state }}
+            {% if form.state.errors %}
+                <div class="invalid-feedback">
+                    {{ form.state.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.city.label_tag }} {{ form.city }}
+            {% if form.city.errors %}
+                <div class="invalid-feedback">
+                    {{ form.city.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.message.label_tag }} {{ form.message }}
+            {% if form.message.errors %}
+                <div class="invalid-feedback">
+                    {{ form.message.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <input type="submit"  class="px-4 py-2 rounded-full bg-cyan-500 text-white cursor-pointer" value="Submit">
+    </form>
+    <div id="submitted" class="mt-4 p-4 bg-green-100 hidden text-green-800 border border-green-300 rounded flex justify-between items-center">
+        Submitted Successfully! 
+        <button id="closeButton" class="px-4 py-2 rounded-full bg-green-500 text-white cursor-pointer ">Close</button>
+    </div>
+    
+    <div id="submitting"  class="htmx-indicator mt-4 p-4 bg-yellow-100 text-yellow-800 border border-yellow-300 rounded">
+        Submitting...
+    </div>
+
+    <ul>
+        This is list:
+        {% for inquiry in inquiries %}
+            <li>
+                {{ inquiry.name }} - {{ inquiry.institution }} - {{ inquiry.email }} - {{ inquiry.phone }} - {{ inquiry.country_region }} - {{ inquiry.state }} - {{ inquiry.city }} - {{ inquiry.message }} - {{ inquiry.source_webpage }} - {{ inquiry.source_ip }} - {{ inquiry.country_from_ip }}
+            </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+<script>
+    document.body.addEventListener('htmx:afterOnLoad', function(event) {
+        document.getElementById('submitted').classList.remove('hidden');
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('submitted').classList.add('hidden');
+    });
+</script>
