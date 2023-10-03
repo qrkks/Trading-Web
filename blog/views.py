@@ -22,7 +22,7 @@ class BlogDetail(DetailView):
     model = Blog
 
 def blog_index(request):
-    root_nodes = Category.objects.filter(level=1)
+    root_nodes = Category.objects.filter(level=0)
 
     root_nodes_data = {}
     for root_node in root_nodes:

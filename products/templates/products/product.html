@@ -4,18 +4,22 @@
 
 {% include 'search/partial/searchbar-product.html' %}
 
-<div class="flex flex-col lg:px-28 md:flex-row">
+<div class="flex flex-col lg:px-5 lg:flex-row">
 
   <main class="w-full px-5 mt-5" id="main-content">
     {% include partial_template_path %}
+
   </main>
-  <aside class="mt-5 mr-5 text-center">
+  <aside class="mt-4 shrink mr-5 text-center">
     <h2 class="p-2 text-lg font-bold uppercase">products category</h2>
     {%with categories=product_categories%}
     {% include "partial/sidebar.html" %}
     {%endwith%}
   </aside>
-  {%include 'partial/button-contact.html'%}
 
+</div>
+<div class="mt-10">
+
+  {% include "form_handlers/inquiry.html" %}
 </div>
 {% endblock content %}

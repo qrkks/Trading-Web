@@ -13,3 +13,14 @@ class HomeCarouselImage(BaseModel):
 
     def __str__(self) -> str:
         return self.image.url
+    
+
+class ContactInformation(BaseModel):
+    name = models.CharField(max_length=50,null=True,blank=True)
+    detail = models.CharField(max_length=100,null=True,blank=True)
+    image = models.ImageField(upload_to='contact_information/images',null=True,blank=True)
+
+class SocialMedia(BaseModel):
+    name = models.CharField(max_length=50,null=True,blank=True)
+    link = models.CharField(max_length=100,null=True,blank=True)
+

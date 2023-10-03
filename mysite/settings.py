@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'ckeditor',
     'ckeditor_uploader',
-    # "debug_toolbar",
+    "debug_toolbar",
     'taggit',
     'widget_tweaks',
 
@@ -77,7 +77,7 @@ MIDDLEWARE = [
 
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     # debug toolbar
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     # 自定义面包屑
     # 'abstractapp.middlewares.BreadcrumbMiddleware',
 
@@ -101,6 +101,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 # categories
                 'abstractapp.custom_context_processors.categories',
+                'abstractapp.custom_context_processors.inquiry_form',
 
                 # Grappelli
                 # 'django.template.context_processors.request',
@@ -203,7 +204,7 @@ CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 465
-EMAIL_USE_TLS = False
+# EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = '34028312@qq.com'  # 你的 Gmail 地址
 EMAIL_HOST_PASSWORD = 'oylpijgmzjjobiif'  # 你的 Gmail 密码

@@ -2,7 +2,7 @@
      x-init="timer = setInterval(() => slideIndex = (slideIndex + 1) % slides, 3000)" 
      @mouseenter="clearInterval(timer)" 
      @mouseleave="timer = setInterval(() => slideIndex = (slideIndex + 1) % slides, 3000)" 
-     class="relative w-full mx-auto overflow-hidden bg-white rounded-lg shadow-lg max-w-full-md">
+     class="relative w-full mx-auto overflow-hidden bg-white rounded shadow-lg max-w-full-md">
 
   <div class="flex transition-transform duration-1000" :style="'transform: translateX(-' + (slideIndex * 100) + '%)'">
     {% for image in images %}

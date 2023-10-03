@@ -1,19 +1,9 @@
-<aside class="" x-cloak="">
-  <div class="flex items-center justify-center p-2 text-gray-800 capitalize">
-    <ul class="w-56 px-2 border-y-4 root border-cyan-300">
-      <!-- <li class="py-2 pl-0" x-data="{ isOpen: true }">
-        <div class="flex items-center justify-between font-semibold border-b border-cyan-100">
-          <a class="inline-flex items-center duration-300 hover:text-cyan-400"
-             href=""
-             hx-get="{% url 'category-products' 'all-products' %}"
-             hx-target="#main-content"
-             hx-push-url="true">all products
-          </a>
-        </div>
-      </li> -->
+<aside class="bg-white p-4 shadow rounded mt-1" x-cloak="" >
+  <div class="flex items-center justify-center py-2 text-gray-500 capitalize w-full">
+    <ul class="lg:w-56  border-y-2  root border-cyan-400 w-full">
       {% load mptt_tags %} {% recursetree categories %}
-      <li class=" pl-{{ node.level }}  " x-data="{ isOpen: true, activeCategory: '' }"> <!-- 1. 在x-data中添加 activeCategory变量 -->
-        <div class="flex items-center justify-between py-3 border-b border-cyan-100">
+      <li class=" pl-{{ node.level|add:'1' }} " x-data="{ isOpen: true, activeCategory: '' }"> <!-- 1. 在x-data中添加 activeCategory变量 -->
+        <div class="flex items-center justify-between py-2 border-b border-white">
             <a
               class="inline-flex items-center duration-300"
               href="{{ node.get_absolute_url }}"
@@ -24,12 +14,15 @@
             >
             <div class="relative inline-block group">
               <span
-                class="absolute bottom-0 left-0 w-full h-0.5 duration-300 bg-transparent group-hover:bg-red-500"
+                class="absolute bottom-0 left-0 w-full h-1 duration-300 bg-transparent group-hover:bg-red-500"
               ></span>
               <span
-                class="relative block text-center duration-300 transform group-hover:-translate-y-1 group-hover:text-cyan-400"
+                class="relative block text-center duration-300 transform group-hover:-translate-y-1 group-hover:text-cyan-400 {% if node.level == 0 %}font-bold{% endif %}{% if node.level == 1 %}font-semibold{% endif %}"
               >
-                {{ node.name }}
+              {% if node.level > 1 %}
+              -
+              {% endif %}
+              {{ node.name }}
               </span>
             </div>
           </a>

@@ -17,9 +17,10 @@
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
   </head>
   <body x-data="{openMobileNav:false}" class="bg-gray-50 font-montserrat">
-    <header class=" sticky top-0 z-50 w-full {% block header_class %}shadow{% endblock %}">
+    <header class=" sticky top-0 z-50 w-full {% block header_class %}shadow-lg{% endblock %}">
       <div class="flex items-center justify-between h-20 px-8 py-2 bg-white ">
         <!-- 1.logo -->
         <a href="/" class="text-lg font-bold">CiyeLogo</a>
@@ -75,6 +76,7 @@
     </div> -->
     {% block content %}
     {% endblock content %}
-    
+    {%include 'partial/button-contact.html'%}
+
   </body>
 </html>

@@ -1,14 +1,14 @@
 <!-- templates/partial/pagination.html -->
-<div class="flex flex-wrap items-center justify-center p-4 my-4 space-x-1 text-gray-700 select-none pagination"
+<div class="flex flex-wrap items-center justify-center p-4 my-4 space-x-1  select-none pagination text-white"
      x-data>
-  <span class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-200 group">{{ page_obj.number }} / {{ paginator.num_pages }}</span>
+  <span class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-400 group">{{ page_obj.number }} / {{ paginator.num_pages }}</span>
   <!-- Previous Page -->
   {% if page_obj.has_previous %}
     <a href="?page={{ page_obj.previous_page_number }} "
        hx-get="?page={{ page_obj.previous_page_number }}"
        hx-target="#main-content"
        hx-push-url="true"
-       class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-200 group"
+       class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-400 group"
        x-ref="previousLink"
        @keydown.window="$event.keyCode === 37 ? $refs.previousLink.click() : null">
       <span class="duration-300 ease-in-out group-hover:border-b-4 group-hover:border-red-500">Previous</span></a>
@@ -18,7 +18,7 @@
   <!-- Individual Page Numbers -->
   {% for page_num in paginator.page_range %}
     {% if page_obj.number == page_num %}
-      <p class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-200 group">
+      <p class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-400 group">
         <span class="border-b-4 border-red-500">{{ page_num }}</span>
       </p>
     {% else %}
@@ -26,7 +26,7 @@
          hx-get="?page={{ page_num }}"
          hx-target="#main-content"
          hx-push-url="true"
-         class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-200 group">
+         class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-400 group">
         <span class="duration-300 ease-in-out group-hover:border-b-4 group-hover:border-red-500">
           {{ page_num }}
         </span></a>
@@ -39,7 +39,7 @@
          hx-target="#main-content"
          hx-push-url="true"
          x-ref="nextLink"
-         class="px-3 py-2 transition duration-300 ease-in-out rounded-md bg-cyan-200 group"
+         class="px-3 py-2 transition duration-300 ease-in-out rounded-md bg-cyan-400 group"
          @keydown.window="$event.keyCode === 39 ? $refs.nextLink.click() : null">
          <span class="duration-300 ease-in-out group-hover:border-b-4 group-hover:border-red-500">Next</span></a>
       </a>

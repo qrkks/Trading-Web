@@ -1,0 +1,109 @@
+<!--
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+-->
+<section class="bg-gray-100">
+  <div class="custom-container px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+      <div class="lg:col-span-2 lg:py-12">
+        <p class="max-w-xl text-lg">
+          At the same time, the fact that we are wholly owned and totally
+          independent from manufacturer and other group control gives you
+          confidence that we will only recommend what is right for you.
+        </p>
+        <div class="mt-8">
+          <a href="" class="text-2xl font-bold text-pink-600">
+            0151 475 4450
+          </a>
+          <address class="mt-2 not-italic">
+            282 Kevin Brook, Imogeneborough, CA 58517
+          </address>
+        </div>
+      </div>
+      <div class="rounded bg-white p-8 shadow lg:col-span-3 lg:p-12">
+        <form hx-post="{% url 'inquiry_create' %}"
+              hx-on::after-request="this.reset()"
+              hx-indicator="#submitting"
+              hx-swap="outerHTML"
+              class="space-y-4"
+              hx-target="#submitted">
+          {% csrf_token %}
+          {% load widget_tweaks %}
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="sr-only">
+                Name
+              </label>
+              {% render_field inquiry_form.name class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Name *" %}
+            </div>
+            <div>
+              <label class="sr-only">
+                Institution
+              </label>
+              {% render_field inquiry_form.institution class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Institution *" %}
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="sr-only">
+                Email
+              </label>
+              {% render_field inquiry_form.email class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Email address *"  id="email" %}
+            </div>
+            <div>
+              <label class="sr-only">
+                Phone
+              </label>
+              {% render_field inquiry_form.phone class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Phone Number" id="phone" %}
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+            <div>
+              {% render_field inquiry_form.country_region class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Country/Region *" %}
+            </div>
+            <div>
+              {% render_field inquiry_form.state class="w-full rounded border-gray-200 p-3 text-sm" placeholder="State" %}
+            </div>
+            <div>
+              {% render_field inquiry_form.city class="w-full rounded border-gray-200 p-3 text-sm" placeholder="City" %}
+            </div>
+          </div>
+          <div>
+            <label class="sr-only">
+              Message
+            </label>
+            {% render_field inquiry_form.message class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Message *" rows="8" id="message" %}
+          </div>
+          <div class="mt-4 flex justify-between items-center">
+            <button type="submit"
+                    class=" w-full relative rounded bg-cyan-500 px-5 py-3 font-medium text-white sm:w-auto ">
+              Send Enquiry
+              <div id="submitting"
+                   class="absolute left-1/2 -translate-x-1/2 top-1/2 transform htmx-indicator -translate-y-1/2  inline-flex shrink opacity-0  duration-500  rounded">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     style="margin: auto;
+                            display: block;
+                            shape-rendering: auto;
+                            animation-play-state: running;
+                            animation-delay: 0s"
+                     viewBox="0 0 100 100"
+                     preserveAspectRatio="xMidYMid"
+                     class="w-9 ">
+                  <path d="M10 50A40 40 0 0 0 90 50A40 50 0 0 1 10 50" fill="#93dbe9" stroke="#93dbe9" style="animation-play-state: running; animation-delay: 0s;">
+                  <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 55;360 50 55" style="animation-play-state: running; animation-delay: 0s;">
+                  </animateTransform>
+                  </path>
+                </svg>
+              </div>
+            </button>
+            <div id="submitted" >
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
