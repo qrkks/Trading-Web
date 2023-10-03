@@ -15,6 +15,8 @@ class Inquiry(models.Model):
     source_webpage = models.URLField(blank=True,null=True)
     source_ip = models.GenericIPAddressField(blank=True,null=True)
     country_from_ip = models.CharField(max_length=100, blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True,blank=True,editable=False)
+    updated_at = models.DateTimeField(auto_now=True,null=True,blank=True,editable=False)
 
     def __str__(self):
         return self.name

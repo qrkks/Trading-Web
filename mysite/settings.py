@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'search',
     'blog',
     'form_handlers',
+    # 'utils',
 ]
 
 MIDDLEWARE = [
