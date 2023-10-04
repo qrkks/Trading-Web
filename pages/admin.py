@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HomeCarouselImage, SocialMedia, ContactInformation
+from .models import Faq, HomeCarouselImage, SocialMedia, ContactInformation
 from adminsortable2.admin import SortableAdminMixin
 
 # Register your models here.
@@ -18,4 +18,9 @@ class ContactInformationAdmin(admin.ModelAdmin):
 @admin.register(SocialMedia)
 class SocialMediaAdmin(admin.ModelAdmin):
     list_display = ['name','link']
+    list_display_links = list_display
+
+@admin.register(Faq)
+class FaqAdmin(admin.ModelAdmin):
+    list_display = ['question','answer']
     list_display_links = list_display

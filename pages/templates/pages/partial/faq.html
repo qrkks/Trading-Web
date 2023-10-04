@@ -1,0 +1,35 @@
+<div class="container text-grey mx-auto "
+x-data="{ openFaqIndex: null }">
+
+<div class="leading-loose text-lg mt-6">
+{% for faq in faqs %}
+ <div>
+   <button @click="openFaqIndex = openFaqIndex === {{ forloop.counter0 }} ? null : {{ forloop.counter0 }}"
+           class="w-full font-bold py-3 flex justify-between items-center mt-4"
+           :class="{{ forloop.counter0 }} !== {{ faqs.count }} - 1 && 'border-b border-gray-400'">
+     <div>
+       {{ faq.question }}
+     </div>
+     <svg x-show="openFaqIndex !== {{ forloop.counter0 }}"
+          class="fill-current"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24">
+       <path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm1-9h2a1 1 0 010 2h-2v2a1 1 0 01-2 0v-2H9a1 1 0 010-2h2V9a1 1 0 012 0v2z" />
+     </svg>
+     <svg x-show="openFaqIndex === {{ forloop.counter0 }}"
+          class="fill-current"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24">
+       <path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm4-8a1 1 0 01-1 1H9a1 1 0 010-2h6a1 1 0 011 1z" />
+     </svg>
+   </button>
+   <div x-show="openFaqIndex === {{ forloop.counter0 }}"
+        class="text-gray-700 text-sm mt-2">
+     {{ faq.answer }}
+   </div>
+ </div>
+{% endfor %}
+</div>
+</div>

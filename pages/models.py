@@ -24,3 +24,6 @@ class SocialMedia(BaseModel):
     name = models.CharField(max_length=50,null=True,blank=True,unique=True)
     link = models.CharField(max_length=100,null=True,blank=True)
 
+class Faq(BaseModel):
+    question = models.TextField()
+    answer = models.TextField()

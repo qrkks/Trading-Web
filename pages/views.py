@@ -7,13 +7,20 @@ from django.contrib.auth import get_user_model
 from django.views.generic.list import ListView
 
 from form_handlers.forms import InquiryForm
-
+from .models import Faq
 
 # Create your views here.
 def index(request):
-    return render(request,'pages/index.html')
+    faqs = Faq.objects.filter(is_active=True)
+
+    return render(request,'pages/index.html',{
+        'faqs':faqs,
+    })
 
 def about(request):
     return render(request,'pages/about.html',{
         'form':InquiryForm(),
     })
+
+def contact(request):
+    return render(request,'pages/contact.html')
