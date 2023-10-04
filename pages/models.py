@@ -16,11 +16,11 @@ class HomeCarouselImage(BaseModel):
     
 
 class ContactInformation(BaseModel):
-    name = models.CharField(max_length=50,null=True,blank=True)
-    detail = models.CharField(max_length=100,null=True,blank=True)
+    name = models.CharField(max_length=50,null=True,blank=True,unique=True)
+    info = models.CharField(max_length=100,null=True,blank=True)
     image = models.ImageField(upload_to='contact_information/images',null=True,blank=True)
 
 class SocialMedia(BaseModel):
-    name = models.CharField(max_length=50,null=True,blank=True)
+    name = models.CharField(max_length=50,null=True,blank=True,unique=True)
     link = models.CharField(max_length=100,null=True,blank=True)
 

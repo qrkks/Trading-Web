@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'search',
     'blog',
     'form_handlers',
-    # 'utils',
+    'utils',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +103,7 @@ TEMPLATES = [
                 # categories
                 'abstractapp.custom_context_processors.categories',
                 'abstractapp.custom_context_processors.inquiry_form',
+                'abstractapp.custom_context_processors.contact',
 
                 # Grappelli
                 # 'django.template.context_processors.request',
@@ -121,7 +122,11 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
+    # "another_db": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db copy.sqlite3",
+    # }
 }
 
 

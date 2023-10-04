@@ -12,7 +12,7 @@ class HomeCarouselImageAdmin(SortableAdminMixin,admin.ModelAdmin):
 
 @admin.register(ContactInformation)
 class ContactInformationAdmin(admin.ModelAdmin):
-    list_display = ['name','detail']
+    list_display = ['name','info']
     list_display_links = list_display
 
 @admin.register(SocialMedia)

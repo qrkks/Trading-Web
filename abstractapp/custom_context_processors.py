@@ -1,6 +1,7 @@
 from products.models import Category as ProductCategory  # 导入您的 Category 模型
 from blog.models import Category as BlogCategory
 from form_handlers.forms import InquiryForm
+from pages.models import ContactInformation, SocialMedia
 
 def categories(request):
     # 获取所有的分类数据
@@ -28,3 +29,11 @@ def inquiry_form(request):
     return {
         'inquiry_form':InquiryForm(),
     }
+
+def contact(request):
+    contacts = ContactInformation.objects.all()
+    contact_dict = {contact.name: contact for contact in contacts}
+    return {'contact': contact_dict}
+
+def social(request):
+    return {}

@@ -1,8 +1,8 @@
 <div>
   <h2 class="p-2 text-lg font-bold uppercase">
-    products list
+    products
   </h2>
-  {% for root_node, products in root_nodes_data.items %}
+  {% comment %} {% for root_node, products in root_nodes_data.items %}
     <h2 class="p-2 text-lg font-bold uppercase">
       {{ root_node.name }}
     </h2>
@@ -11,5 +11,7 @@
         {% include 'products\partial\card-product.html' %}
       {% endfor %}
     </div>
-  {% endfor %}
+  {% endfor %} {% endcomment %}
+
+  {% include "products/partial/featured-section.html" %}
 </div>

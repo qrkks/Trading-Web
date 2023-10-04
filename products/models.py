@@ -11,7 +11,7 @@ from slugify import slugify
 from abstractapp.models import BaseModel, SlugMixin
 from taggit.managers import TaggableManager
 
-# from utils.models import ViewCount
+from utils.models import ViewCount
 
 # Create your models here.
 
@@ -117,10 +117,10 @@ class Product(models.Model):
 
     # 关联关系
     related_products = models.ManyToManyField('self',blank=True)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     # 计数
-    # view_count = models.ForeignKey(ViewCount,on_delete=models.CASCADE,null=True,blank=True)
+    view_count = models.OneToOneField(ViewCount,on_delete=models.CASCADE,null=True,blank=True)
 
 
     # 分配自定义模型管理器给 objects 属性

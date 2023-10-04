@@ -40,7 +40,7 @@ def products_index(request):
         descendants = root_node.get_descendants(include_self=True)
         products = Product.objects.active().filter(
             Q(category__in=descendants)  # 使用get_descendants方法获取的QuerySet
-        )[:3]
+        )[:2]
         root_nodes_data[root_node] = products
 
     context_data = {
@@ -48,7 +48,7 @@ def products_index(request):
         'partial_template_path': 'products/partial/main-index.html',
     }
 
-    return render(request, 'products/product.html', context_data)
+    return render(request, 'products/product-index.html', context_data)
 
 
 

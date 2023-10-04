@@ -1,6 +1,6 @@
-<aside class="bg-white p-4 shadow rounded mt-1" x-cloak="" >
-  <div class="flex items-center justify-center py-2 text-gray-500 capitalize w-full">
-    <ul class="lg:w-56  border-y-2  root border-cyan-400 w-full">
+<aside class="bg-transparent py-4" x-cloak="" >
+  <div class="flex items-center justify-center py-2 text-gray-700 capitalize w-full">
+    <ul class="  border-y  root border-cyan-500 w-full">
       {% load mptt_tags %} {% recursetree categories %}
       <li class=" pl-{{ node.level|add:'1' }} " x-data="{ isOpen: true, activeCategory: '' }"> <!-- 1. 在x-data中添加 activeCategory变量 -->
         <div class="flex items-center justify-between py-2 border-b border-white">
@@ -69,7 +69,13 @@
           </span>
           {% endif %}
         </div>
-        <ul class="children" x-show.transition="isOpen">
+        <ul class="children" x-show="isOpen"
+        x-transition:enter="transition  duration-100" 
+        x-transition:enter-start="opacity-0 transform -translate-y-4" 
+        x-transition:enter-end="opacity-100 transform translate-y-0" 
+        x-transition:leave="transition duration-100" 
+        x-transition:leave-start="opacity-100 transform translate-y-0" 
+        x-transition:leave-end="opacity-0 transform -translate-y-4" >
           {{ children }}
         </ul>
       </li>

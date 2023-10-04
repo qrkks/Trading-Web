@@ -8,19 +8,21 @@
   <div class="custom-container px-4 py-16 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
       <div class="lg:col-span-2 lg:py-12">
-        <p class="max-w-xl text-lg">
-          At the same time, the fact that we are wholly owned and totally
-          independent from manufacturer and other group control gives you
-          confidence that we will only recommend what is right for you.
+        <p class=" text-lg tracking-wide">
+          Have a question or need assistance? Feel free to drop us an email at
         </p>
-        <div class="mt-8">
-          <a href="" class="text-2xl font-bold text-pink-600">
-            0151 475 4450
+        <div class="my-4">
+          <a href="mailto:{{ contact.email.info }}"
+             class="text-2xl font-bold text-red-600">
+            {{ contact.email.info }}
           </a>
-          <address class="mt-2 not-italic">
-            282 Kevin Brook, Imogeneborough, CA 58517
-          </address>
+          <!-- <address class="mt-2 not-italic">
+              282 Kevin Brook, Imogeneborough, CA 58517
+            </address> -->
         </div>
+        <p class=" text-lg tracking-wide">
+          for a direct response. Alternatively, you can conveniently use the inquiry form adjacent to this text. We’re here to assist you with any inquiries, concerns, or information you might need. Engage with us and let’s start the conversation - your feedback and questions are invaluable to us!
+        </p>
       </div>
       <div class="rounded bg-white p-8 shadow lg:col-span-3 lg:p-12">
         <form hx-post="{% url 'inquiry_create' %}"
@@ -78,7 +80,7 @@
           </div>
           <div class="mt-4 flex justify-between flex-wrap items-center flex-col sm:flex-row">
             <button type="submit"
-                    class=" w-full relative rounded bg-cyan-500 px-5 py-3 font-medium text-white sm:w-auto ">
+                    class=" w-full relative rounded  shadow  bg-cyan-500 px-5 py-3 font-medium text-white sm:w-auto ">
               Send Enquiry
               <div id="submitting"
                    class="absolute left-1/2 -translate-x-1/2 top-1/2 transform htmx-indicator -translate-y-1/2  inline-flex shrink opacity-0  duration-500  rounded">
@@ -99,8 +101,8 @@
                 </svg>
               </div>
             </button>
-            <div id="submitted" >
-          </div>
+            <div id="submitted">
+            </div>
           </div>
         </form>
       </div>
