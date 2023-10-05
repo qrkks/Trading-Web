@@ -1,18 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-<section>
-  {% include "pages/partial/banner.html" %}
-</section>
-  <section class="custom-container">
-    {% include "pages/partial/carousel-hero.html" %}
+  <section>
+    {% include "pages/partial/banner.html" %}
   </section>
-  <section class="custom-container py-20">
-    <h2 class="text-2xl font-bold text-center">
-      FAQs
-    </h2>
-    {% include 'pages/partial/faq.html' %}
-  </section>
+
   <section class="">
     {% include "pages/partial/section.html" %}
+  </section>
+  
+  <section>
+    <div class="custom-container py-20">
+      <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center">
+        FAQs
+      </h2>
+      <div class="w-16 my-8 h-2 bg-cyan-500 mx-auto">
+      </div>
+      {% include 'pages/partial/faq.html' %}
+    </div>
+  </section>
+
+  <section class=" bg-gray-100">
+    <div class="custom-container py-10">
+      <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center ">
+        Products
+      </h2>
+      <div class="w-16 my-8 h-2 bg-cyan-500 mx-auto">
+      </div>
+      {% include "pages/partial/carousel-hero.html" %}
+    </div>
   </section>
 {% endblock %}

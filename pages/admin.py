@@ -11,16 +11,19 @@ class HomeCarouselImageAdmin(SortableAdminMixin,admin.ModelAdmin):
     ordering = 'custom_order',
 
 @admin.register(ContactInformation)
-class ContactInformationAdmin(admin.ModelAdmin):
+class ContactInformationAdmin(SortableAdminMixin,admin.ModelAdmin):
     list_display = ['name','info']
     list_display_links = list_display
+    ordering = 'custom_order',
 
 @admin.register(SocialMedia)
-class SocialMediaAdmin(admin.ModelAdmin):
+class SocialMediaAdmin(SortableAdminMixin,admin.ModelAdmin):
     list_display = ['name','link']
     list_display_links = list_display
+    ordering = 'custom_order',
 
 @admin.register(Faq)
-class FaqAdmin(admin.ModelAdmin):
+class FaqAdmin(SortableAdminMixin,admin.ModelAdmin):
     list_display = ['question','answer']
     list_display_links = list_display
+    ordering = ['custom_order']

@@ -31,7 +31,7 @@ def inquiry_form(request):
     }
 
 def contact(request):
-    contacts = ContactInformation.objects.all()
+    contacts = ContactInformation.objects.all().order_by('custom_order')
     contact_dict = {contact.name: contact for contact in contacts}
     return {'contact': contact_dict}
 

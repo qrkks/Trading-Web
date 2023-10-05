@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'taggit',
     'widget_tweaks',
-    # 'corsheaders',
 
     # apps
     'pages',
@@ -72,16 +71,20 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    # 'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+
+    # "django.middleware.csrf.CsrfViewMiddleware",
+    # 'abstractapp.middlewares.DisableCSRFMiddleware',
+
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+
     # debug toolbar
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
+
     # 自定义面包屑
     # 'abstractapp.middlewares.BreadcrumbMiddleware',
 
@@ -213,7 +216,3 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = '34028312@qq.com'  # 你的 Gmail 地址
 EMAIL_HOST_PASSWORD = 'oylpijgmzjjobiif'  # 你的 Gmail 密码
 
-# CORS_ALLOWED_ORIGINS = [
-#     "https://fc33-64-140-162-170.ngrok-free.app",  # add your frontend's deployed origin
-# ]
-CORS_ALLOW_ALL_ORIGINS = True

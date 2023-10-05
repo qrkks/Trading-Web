@@ -1,6 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="custom-container">
+    <header class="my-10 prose">
+      <h1>Contact us</h1>
+  </header>
+    {% comment %} <div class="grid my-10 grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8"> {% endcomment %}
+      <div class=" bg-gray-100 p-10 py-20">
+        Welcome to our Contact Page! We greatly value your feedback and inquiries. If you have any questions, suggestions, or require support, we are here to assist you. Please reach out to us through the following contact details, and our team will respond to you as quickly as possible, usually within 24 hours.
+      </div>
+      {% comment %} <div  class="p-5 bg-gray-200">
+        {% for name,c in contact.items %}
+        <dl class="">
+          <dt class="text-red-500 text-lg capitalize font-semibold p-2">{{name}}</dt>  
+          <dd>{{c.info}}</dd>
+        </dl>
+        {% endfor %}
+      </div> {% endcomment %}
+      <div class="flow-root p-10">
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          {% for name,c in contact.items %}
 
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">{{c.name}}</dt>
+            <dd class="text-gray-700 sm:col-span-2">{{c.info}}</dd>
+          </div>
+          {% endfor %}
+        </dl>
+      </div>
+    {% comment %} </div> {% endcomment %}
+    {% include "form_handlers/inquiry.html" %}
   </div>
 {% endblock content %}
