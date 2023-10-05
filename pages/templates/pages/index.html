@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-  <section>
+  <section >
     {% include "pages/partial/banner.html" %}
   </section>
 
-  <section class="">
+  <section class="py-20 bg-gray-100">
     {% include "pages/partial/section.html" %}
   </section>
-  
+
   <section>
     <div class="custom-container py-20">
       <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center">
@@ -20,7 +20,7 @@
   </section>
 
   <section class=" bg-gray-100">
-    <div class="custom-container py-10">
+    <div class="custom-container py-20">
       <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center ">
         Products
       </h2>
@@ -29,4 +29,15 @@
       {% include "pages/partial/carousel-hero.html" %}
     </div>
   </section>
+<section class="custom-container py-20">
+  <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center ">
+    Blog
+  </h2>
+  <div class="w-16 my-8 h-2 bg-cyan-500 mx-auto"></div>
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+    <div class=" rounded-lg bg-gray-200">{% include "blog/partial/card-blog.html" %}</div>
+    <div class=" rounded-lg bg-gray-200">{% include "blog/partial/card-blog.html" %}</div>
+    <div class=" rounded-lg bg-gray-200">{% include "blog/partial/card-blog.html" %}</div>
+  </div>
+</section>
 {% endblock %}

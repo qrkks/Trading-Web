@@ -12,9 +12,15 @@ class HomeCarouselImageAdmin(SortableAdminMixin,admin.ModelAdmin):
 
 @admin.register(ContactInformation)
 class ContactInformationAdmin(SortableAdminMixin,admin.ModelAdmin):
-    list_display = ['name','info']
+    list_display = ['name','info','link']
     list_display_links = list_display
     ordering = 'custom_order',
+    readonly_fields = 'link',
+
+    def save_model(self, request, obj, form, change):
+        # 使用link_template的值渲染rendered_link
+        obj.link = obj.link_template.replace("{{contact_info}}", obj.info)
+        super().save_model(request, obj, form, change)
 
 @admin.register(SocialMedia)
 class SocialMediaAdmin(SortableAdminMixin,admin.ModelAdmin):

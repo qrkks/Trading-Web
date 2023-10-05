@@ -19,8 +19,8 @@
               <span
                 class="relative block text-center duration-300 transform group-hover:-translate-y-1 group-hover:text-cyan-400 {% if node.level == 0 %}font-bold{% endif %}{% if node.level == 1 %}font-semibold{% endif %}"
               >
-              {% if node.level > 1 %}
-              -
+              {% if node.level > 0 %}
+              ·
               {% endif %}
               {{ node.name }}
               </span>

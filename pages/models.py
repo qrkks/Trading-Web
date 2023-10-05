@@ -19,6 +19,8 @@ class ContactInformation(BaseModel):
     name = models.CharField(max_length=50,null=True,blank=True,unique=True)
     info = models.CharField(max_length=100,null=True,blank=True)
     image = models.ImageField(upload_to='contact_information/images',null=True,blank=True)
+    link_template = models.CharField(max_length=200, help_text="Use {{contact_info}} to insert contact info",null=True,blank=True)
+    link = models.CharField(max_length=200,null=True,blank=True,editable=False)
 
 class SocialMedia(BaseModel):
     name = models.CharField(max_length=50,null=True,blank=True,unique=True)
