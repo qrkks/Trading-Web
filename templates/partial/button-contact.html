@@ -1,9 +1,12 @@
-<div data-dial-init class="fixed flex right-6 bottom-6 group">
+<div data-dial-init class="fixed flex right-6 bottom-6 group"
+    x-data="{scaleWechat:false}">
     <div id="speed-dial-menu-horizontal"
          class="flex items-center hidden mr-4 space-x-2">
         <button type="button"
                 data-tooltip-target="tooltip-wechat"
                 data-tooltip-placement="top"
+                @click="scaleWechat=!scaleWechat"
+                @touchend="scaleWechat=!scaleWechat"
                 class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400 ">
             <div class="w-6">
                 {% include "svg/contact/wechat.svg" %}
@@ -12,15 +15,34 @@
         </button>
         <div id="tooltip-wechat"
              role="tooltip"
+             @touchend="scaleWechat=!scaleWechat"
              class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-            Wechat
+             {{contact.wechat.info}}
+            <img src="{{contact.wechat.image.url}}" class="mx-auto h-16 w-16" :class="{'h-32 w-32':scaleWechat}" alt="{{contact.wechat.name}}">
+            <div class="tooltip-arrow" data-popper-arrow>
+            </div>
+        </div>
+        <a type="button"
+                data-tooltip-target="tooltip-qq"
+                data-tooltip-placement="top"
+                href="{{contact.qq.link}}"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+            <div class="w-6">
+                {% include "svg/contact/qq.svg" %}
+            </div>
+            <span class="sr-only">qq</span>
+        </a>
+        <div id="tooltip-qq"
+             role="tooltip"
+             class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            {{contact.qq.info}}
             <div class="tooltip-arrow" data-popper-arrow>
             </div>
         </div>
         <a type="button"
                 data-tooltip-target="tooltip-whatsapp"
                 data-tooltip-placement="top"
-                href="https://wa.me/{{contact.whatsapp.info}}?text=Hello%20there!"
+                href="{{contact.whatsapp.link}}"
                 class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
             <div class="w-6">
                 {% include "svg/contact/whatsapp.svg" %}
@@ -37,7 +59,7 @@
         <a type="button"
                 data-tooltip-target="tooltip-phone"
                 data-tooltip-placement="top"
-                href="tel:{{contact.phone.info}}"
+                href="{{contact.phone.link}}"
                 class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                 <div class="w-6">
                     {% include "svg/contact/phone.svg" %}
@@ -54,7 +76,7 @@
         <a type="button"
                 data-tooltip-target="tooltip-email"
                 data-tooltip-placement="top"
-                href="mailto:{{contact.email.info}}"
+                href="{{contact.email.link}}"
                 class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                 <div class="w-6">
                     {% include "svg/contact/email.svg" %}

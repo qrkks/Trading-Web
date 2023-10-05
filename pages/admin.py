@@ -19,7 +19,10 @@ class ContactInformationAdmin(SortableAdminMixin,admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         # 使用link_template的值渲染rendered_link
-        obj.link = obj.link_template.replace("{{contact_info}}", obj.info)
+        if obj.link_template:
+            obj.link = obj.link_template.replace("{{contact_info}}", obj.info)
+        else:
+            obj.link = None
         super().save_model(request, obj, form, change)
 
 @admin.register(SocialMedia)

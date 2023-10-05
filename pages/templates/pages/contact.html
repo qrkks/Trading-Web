@@ -21,8 +21,14 @@
           {% for name,c in contact.items %}
 
           <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-            <dt class="font-medium text-gray-900">{{c.name}}</dt>
-            <dd class="text-gray-700 sm:col-span-2">{{c.info}}</dd>
+            <dt class="font-medium text-gray-900 capitalize">{{c.name}}</dt>
+            <dd class="text-gray-700 sm:col-span-2">
+              {% if c.info and c.link %}
+              <a href="{{c.link}}" class="hover:underline-offset-4 underline-offset-2 underline">{{c.info}}</a>
+              {% else %}
+              {{c.info}}{% comment %}  {% endcomment %}
+              {% endif %}
+            </dd>
           </div>
           {% endfor %}
         </dl>
@@ -31,3 +37,4 @@
     {% include "form_handlers/inquiry.html" %}
   </div>
 {% endblock content %}
+
