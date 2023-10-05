@@ -16,6 +16,24 @@
       </div>
     {% endfor %}
   </div>
+  <template x-if="slides > 1">
+     <div>
+       <!-- Navigation Arrows -->
+       <button @click="slideIndex = slideIndex === 0 ? slides - 1 : slideIndex - 1" class="absolute left-0 p-4 transform -translate-y-1/2 top-1/2">
+         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+       </button>
+       <button @click="slideIndex = (slideIndex + 1) % slides" class="absolute right-0 p-4 transform -translate-y-1/2 top-1/2">
+         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+       </button>
+     </div>
+     <!-- Indicators -->
+     <div class="absolute bottom-0 pb-2 transform -translate-x-1/2 left-1/2">
+       <template x-for="i in slides" :key="i">
+         <span @click="slideIndex = i - 1" :class="{ 'bg-white': slideIndex === i - 1, 'bg-gray-300': slideIndex !== i - 1 }" class="inline-block w-4 h-1 mx-1 rounded-full cursor-pointer"></span>
+       </template>
+     </div>
+   </template>
+   
   <!-- Image Modal -->
   <div x-show="modalOpen"
        x-cloak
