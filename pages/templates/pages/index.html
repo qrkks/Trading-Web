@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-  {% include "pages/partial/carousel-hero.html" %}
-  <div class="custom-container py-20">
+<section>
+  {% include "pages/partial/banner.html" %}
+</section>
+  <section class="custom-container">
+    {% include "pages/partial/carousel-hero.html" %}
+  </section>
+  <section class="custom-container py-20">
     <h2 class="text-2xl font-bold text-center">
       FAQs
     </h2>
     {% include 'pages/partial/faq.html' %}
-  </div>
-  
+  </section>
+  <section class="">
+    {% include "pages/partial/section.html" %}
+  </section>
 {% endblock %}

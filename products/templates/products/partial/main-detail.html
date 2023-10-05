@@ -1,11 +1,11 @@
 <div>
     <h2 class="p-2 text-lg font-bold uppercase">products Detail</h2>
   </div>
-  <div class=" custom-container bg-white rounded shadow py-5">
-    <div class="w-2/3 mx-auto pt-12">
+  <div class=" custom-container bg-white rounded  py-5">
+    <div class=" mx-auto pt-12">
       {%include 'products/partial/carousel-product.html'%}
     </div>
-    <div class="w-full mt-10 p-5 py-12">
+    <div class="w-full mt-10 sm:p-5 py-12">
       <div class="flow-root">
         <dl class="-my-3 divide-y divide-gray-100 text-sm">
           {% for attribute, value in product_data.items %}        

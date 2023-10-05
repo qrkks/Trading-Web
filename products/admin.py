@@ -82,18 +82,18 @@ class CategoryFilter(admin.SimpleListFilter):
 
 
 @admin.register(Product)
-class ProductModelAdmin(SortableAdminMixin, admin.ModelAdmin):
-    # class ProductModelAdmin(admin.ModelAdmin):
+# class ProductModelAdmin(SortableAdminMixin, admin.ModelAdmin):
+class ProductModelAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Product._meta.get_fields() if  is_displayable_field(field)]
     # list_display = [field.name for field in Product._meta.get_fields() if field.name not in ['images','related_products','product','tags','TaggableManager','_TaggableManager'] ]
-    list_display = ['id', 'name', 'slug', 'category',
+    list_display = ['id', 'name', 'slug', 'category','custom_order',
                     'is_active', 'is_featured', 'created_at', 'updated_at']
     list_display_links = [x for x in list_display if x not in [
         'is_active', 'is_featured', 'custom_order']]
     # prepopulated_fields = {'slug': ('name',)}
     # list_display_links = 'name',
-    list_editable = ['is_active', 'is_featured',]  # 允许编辑的字段
+    list_editable = ['custom_order','is_active', 'is_featured',]  # 允许编辑的字段
     search_fields = ['name', 'slug',]
     inlines = [ProductImageAdmin]
-    ordering = ['custom_order', '-is_active', '-is_featured']
+    ordering = ['-custom_order', '-is_active', '-is_featured']
     list_filter = (CategoryFilter,)  # 允许通过类别过滤

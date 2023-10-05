@@ -1,16 +1,20 @@
-<div x-data="{ slideIndex: 0, slides: {{ images|length }}, timer: null }" 
+<div x-data="{ slideIndex: 0, slides: {{ images|length }}, timer: null, modalOpen: false, modalImage: '' }" 
      x-init="timer = setInterval(() => slideIndex = (slideIndex + 1) % slides, 3000)" 
      @mouseenter="clearInterval(timer)" 
      @mouseleave="timer = setInterval(() => slideIndex = (slideIndex + 1) % slides, 3000)" 
-     class="relative w-full mx-auto overflow-hidden bg-white rounded shadow-lg max-w-full-md">
+     @keydown.escape.window="modalOpen = false"
+     class="relative w-full mx-auto overflow-hidden bg-gray-50 rounded shadow-lg max-w-full-md" 
+     >
 
-  <div class="flex transition-transform duration-1000" :style="'transform: translateX(-' + (slideIndex * 100) + '%)'">
-    {% for image in images %}
-      <div class="relative flex-none w-full">
-        <img src="{{ image.image.url }}" alt="Product Image" class="object-cover w-full h-auto">
+     <div class="flex transition-transform duration-1000" :style="'transform: translateX(-' + (slideIndex * 100) + '%)'">
+      {% for image in images %}
+      <div @click="modalOpen = true, modalImage = '{{ image.image.url }}'" class="relative flex-none w-full h-full cursor-pointer flex items-center justify-center">
+        <img src="{{ image.image.url }}" alt="Product Image" class="object-contain max-h-full max-w-full">
       </div>
     {% endfor %}
+    
   </div>
+  
 
   <template x-if="slides > 1">
     <div>
@@ -29,4 +33,11 @@
       </template>
     </div>
   </template>
+
+  <!-- Image Modal -->
+  <div x-show="modalOpen" x-cloak class="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center" @click="modalOpen = false">
+    <div class="relative max-w-full max-h-screen overflow-auto">
+      <img :src="modalImage" class="block max-w-full max-h-screen mx-auto" alt="Modal Image">
+    </div>
+  </div>
 </div>

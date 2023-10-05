@@ -27,7 +27,8 @@ SECRET_KEY = "django-insecure-^rh0tub&o5@d(6lf65(imoqb7f(t$ni2it8aikxxtxghy*_=k=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'taggit',
     'widget_tweaks',
+    # 'corsheaders',
 
     # apps
     'pages',
@@ -70,6 +72,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # 'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -78,7 +81,7 @@ MIDDLEWARE = [
 
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     # debug toolbar
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     # 自定义面包屑
     # 'abstractapp.middlewares.BreadcrumbMiddleware',
 
@@ -200,11 +203,6 @@ CLEANUP_KEEP_DAYS = 1  # Adjust this value as needed
 # CKeditor
 # CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'allowedContent': True,
-#     },
-# }
 
 # 邮件服务器
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -214,4 +212,8 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = '34028312@qq.com'  # 你的 Gmail 地址
 EMAIL_HOST_PASSWORD = 'oylpijgmzjjobiif'  # 你的 Gmail 密码
-ALLOWED_HOSTS = []
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://fc33-64-140-162-170.ngrok-free.app",  # add your frontend's deployed origin
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
