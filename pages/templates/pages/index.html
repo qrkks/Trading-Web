@@ -20,15 +20,14 @@
     <div class="custom-bar mx-auto">
     </div>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+      {% with blog as object_list %}
+      {% for object in object_list %}
       <div class=" rounded-lg bg-gray-200">
         {% include "blog/partial/card-blog.html" %}
       </div>
-      <div class=" rounded-lg bg-gray-200">
-        {% include "blog/partial/card-blog.html" %}
-      </div>
-      <div class=" rounded-lg bg-gray-200">
-        {% include "blog/partial/card-blog.html" %}
-      </div>
+      {% endfor %}
+      {% endwith %}
+
     </div>
     <div class="mt-12 text-center">
       <a href="/blog/">

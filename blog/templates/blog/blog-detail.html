@@ -2,17 +2,9 @@
 {% block content %}
   <div class="flex flex-col-reverse lg:grid grid-cols-1   lg:grid-cols-[1fr_280px] ">
     <main id="main-content">
-      <div class="prose custom-container  mt-10">
-        <h1>
-          {{ object.title }}
-        </h1>
-        <div class="custom-bar -mt-8"></div>
-        <div class="" id="cke">
-          {{ object.content|safe }}
-        </div>
-      </div>
+     {% include "blog/partial/main-detail.html" %}
     </main>
-    <aside class="mt-5 mr-5 text-center">
+    <aside class=" m-5 text-center">
       <h2 class="p-2 text-lg font-bold uppercase">
         blog category
       </h2>

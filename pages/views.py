@@ -8,13 +8,16 @@ from django.views.generic.list import ListView
 
 from form_handlers.forms import InquiryForm
 from .models import Faq
+from blog.models import Blog
 
 # Create your views here.
 def index(request):
     faqs = Faq.objects.filter(is_active=True)
+    blog = Blog.objects.all()[:3]
 
     return render(request,'pages/index.html',{
         'faqs':faqs,
+        'blog':blog,
     })
 
 def about(request):

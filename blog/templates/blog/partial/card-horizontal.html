@@ -1,0 +1,52 @@
+{% for object in object_list %}
+<article class="flex {% cycle 'bg-gray-100' 'bg-white' %} my-4 transition hover:shadow">
+  {% if object.image %}
+    <div class="hidden  sm:block sm:basis-64">
+      <img alt="{{ object.title }}"
+           src="{{ object.image.url }}"
+           class="aspect-square h-full my-auto w-full object-cover" />
+    </div>
+  {% endif %}
+  <div class="flex flex-1 flex-col justify-between">
+    <div class="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
+      <div class="text-right ">
+        <a 
+        {% if parent_name != "main-list" %}
+href="{{ object.category.get_absolute_url }}"
+        {% endif %}>{{ object.category }}</a>
+      </div>
+      <a href="{{ object.get_absolute_url }}"
+      {% if parent_name == "main-list" %}
+      hx-get="{{ object.get_absolute_url }}"
+      hx-target="#main-content"
+      hx-push-url="true"
+      {% endif %}>
+        <h3 class="font-bold text-2xl capitalize text-gray-900">
+          {{ object.title }}
+        </h3>
+      </a>
+      <div>
+        <time datetime="{{ object.created_at }}"
+              class="flex items-center justify-between gap-4 text-xs font-semibold capitalize text-gray-900">
+          <span>{{ object.created_at|date }}</span>
+          {% comment %} <span>{{ object.created_at|date:'M j' }}</span> {% endcomment %}
+        </time>
+      </div>
+      <p class="mt-2 line-clamp-4 text-sm/relaxed text-gray-700">
+        {{ object.description }}
+      </p>
+    </div>
+    <div class="sm:flex sm:items-end sm:justify-end">
+      <a href="{{ object.get_absolute_url }}"
+      {% if parent_name == "main-list" %}
+      hx-get="{{ object.get_absolute_url }}"
+      hx-target="#main-content"
+      hx-push-url="true"
+      {% endif %}
+         class="block bg-cyan-500 px-5 py-3 text-center text-xs font-bold uppercase text-white transition hover:underline hover:underline-offset-4">
+        Read Blog
+      </a>
+    </div>
+  </div>
+</article>
+  {% endfor %}

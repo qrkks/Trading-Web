@@ -1,0 +1,14 @@
+<div class="prose custom-container  mt-10">
+  <h1>
+    {{ object.title }}
+  </h1>
+  <div class="custom-bar -mt-8"></div>
+  {% if object.image %}
+  <div><img src="{{object.image.url}}" alt="{{object.title}}" class="object-cover max-h-72 w-full"></div>
+  {% endif %}
+  <div class="p-2">{{object.created_at}}</div>
+  <div class="rounded-lg bg-gray-200 px-5 py-2 border border-gray-300 shadow">
+    abstract:{{ object.description|linebreaks }}
+  </div>
+  <div>{{object.content|safe}}</div>
+</div>

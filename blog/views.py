@@ -1,3 +1,5 @@
+from typing import Any
+from django import http
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.db.models import QuerySet
@@ -7,6 +9,7 @@ from .models import Blog, Category
 
 class BlogList(ListView):
     template_name = 'blog/blog-list.html'
+    paginate_by = 12
 
     def get_queryset(self):
         category_path:str = self.kwargs['path']
@@ -15,22 +18,40 @@ class BlogList(ListView):
         blogs = Blog.objects.filter(category__in = category.get_descendants(include_self=True))
         return blogs
     
-    
+    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
+        if self.request.headers.get('HX-Request') == 'true':
+            # This is an HTMX request
+            # Your logic for handling HTMX request goes here
+            return render(self.request,'blog/partial/main-list.html',context)
+        return super().render_to_response(context, **response_kwargs)
 
 class BlogDetail(DetailView):
     template_name = 'blog/blog-detail.html'
     model = Blog
 
-def blog_index(request):
-    root_nodes = Category.objects.filter(level=0)
+    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
+        if self.request.headers.get('HX-Request') == 'true':
+            # This is an HTMX request
+            # Your logic for handling HTMX request goes here
+            return render(self.request,'blog/partial/main-detail.html',context)
+        return super().render_to_response(context, **response_kwargs)
 
-    root_nodes_data = {}
-    for root_node in root_nodes:
-        blogs:QuerySet[Blog] = Blog.objects.filter(category__in=root_node.get_descendants(include_self=True))[:3]
-        root_nodes_data[root_node] = blogs
+# def blog_index(request):
+#     root_nodes = Category.objects.filter(level=0)
 
-    context = {
-        'root_nodes_data':root_nodes_data,
-    }
-    # print(f"context:{context}")
-    return render(request,'blog/blog-index.html',context)
+#     root_nodes_data = {}
+#     for root_node in root_nodes:
+#         blogs:QuerySet[Blog] = Blog.objects.filter(category__in=root_node.get_descendants(include_self=True))[:3]
+#         root_nodes_data[root_node] = blogs
+
+#     context = {
+#         'root_nodes_data':root_nodes_data,
+#     }
+#     # print(f"context:{context}")
+#     return render(request,'blog/blog-index.html',context)
+
+class BlogIndex(ListView):
+    model = Blog
+    paginate_by = 12
+    template_name = "blog/blog-index.html"
+

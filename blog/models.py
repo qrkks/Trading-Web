@@ -6,6 +6,8 @@ from slugify import slugify
 from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor_uploader.fields import RichTextUploadingField
 
+from abstractapp.models import BaseModel
+
 # Create your models here.
 
 
@@ -63,7 +65,7 @@ def get_upload_path(instance, filename):
     return os.path.join('blog/images/', filename)
 
 
-class Blog(models.Model):
+class Blog(BaseModel):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True,blank=True,null=True)
     description = models.TextField(null=True, blank=True)
@@ -91,3 +93,5 @@ class Blog(models.Model):
     def get_absolute_url(self):
         return reverse("blog-detail", kwargs={"slug": self.slug})
     
+    class Meta:
+        ordering = ['-custom_order','-is_featured', '-id',]
