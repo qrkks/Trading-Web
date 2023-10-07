@@ -123,6 +123,15 @@ class ProductDetail(DetailView):
         # 将 product_data 添加到上下文
         context['product_data'] = product_data
         context['images'] = images
+
+        # 获取上一个和下一个产品
+        previous_product = Product.objects.filter(id__lt=self.object.id).order_by('-id').first()
+        next_product = Product.objects.filter(id__gt=self.object.id).order_by('id').first()
+
+        # 将上一个和下一个产品添加到上下文中
+        context['previous_product'] = previous_product
+        context['next_product'] = next_product
+        
         return context
 
     def dispatch(self, request, *args, **kwargs):

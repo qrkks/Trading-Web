@@ -8,8 +8,9 @@ from .models import Blog, Category
 # Create your views here.
 
 class BlogList(ListView):
-    template_name = 'blog/blog-list.html'
+    template_name = 'blog/blog.html'
     paginate_by = 12
+    extra_context = {'partial_template_path':'blog/partial/main-list.html'}
 
     def get_queryset(self):
         category_path:str = self.kwargs['path']
@@ -26,8 +27,9 @@ class BlogList(ListView):
         return super().render_to_response(context, **response_kwargs)
 
 class BlogDetail(DetailView):
-    template_name = 'blog/blog-detail.html'
+    template_name = 'blog/blog.html'
     model = Blog
+    extra_context = {'partial_template_path':'blog/partial/main-detail.html'}
 
     def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
         if self.request.headers.get('HX-Request') == 'true':
