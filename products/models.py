@@ -131,7 +131,7 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['-is_active','-is_featured','custom_order', '-name']
+        ordering = ['-is_active','-is_featured','custom_order','-name']
 
     def save(self, *args, **kwargs):
         if not self.slug:
