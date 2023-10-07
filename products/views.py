@@ -60,26 +60,26 @@ class CategoryProductListView(ListView):
     paginate_by = 12
     extra_context = {
         'partial_template_path': "products/partial/main-list.html",
-        'main_title': 'products list',
+        # 'main_title': category_name,
     }
 
     def get_queryset(self):
         # 获取 category_path 参数并拆分为 slugs 列表
         category_path = self.kwargs['category_path']
 
-        if category_path == 'all-products':
-            products = Product.objects.active().all()
-        else:
-            slugs = category_path.split('/')
-            category_slug = slugs.pop()
-            # 获取 Category 对象
-            category: Category = get_object_or_404(
-                Category, slug=category_slug)
+        # if category_path == 'all-products':
+        #     products = Product.objects.active().all()
+        # else:
+        category_path_list:list = category_path.split('/')
+        category_slug:str = category_path_list.pop()
+        # 获取 Category 对象
+        category: Category = get_object_or_404(
+            Category, slug=category_slug)
 
-            # 使用 Q 对象来构建查询，包括类别及其所有子类别的产品
-            products = Product.objects.active().filter(
-                Q(category__in=category.get_descendants(include_self=True))
-            )
+        # 使用 Q 对象来构建查询，包括类别及其所有子类别的产品
+        products = Product.objects.active().filter(
+            Q(category__in=category.get_descendants(include_self=True))
+        )
 
         return products
     
@@ -97,6 +97,9 @@ class CategoryProductListView(ListView):
         for ancestor in category.get_ancestors(include_self=True):
             breadcrumbs.append({'name': ancestor.name, 'url': ancestor.get_absolute_url()})
         context['breadcrumbs'] = breadcrumbs
+
+        # 添加标题 - 类别名
+        context['main_title'] = category.name
 
         return context
 
@@ -163,6 +166,9 @@ class ProductDetail(DetailView):
         # 为当前产品添加一个面包屑
         breadcrumbs.append({'name': self.object.name, 'url': self.object.get_absolute_url()})
         context['breadcrumbs'] = breadcrumbs  # 添加到上下文中
+
+        # 添加标题-产品名
+        context['main_title'] = product.name
         
         return context
     
