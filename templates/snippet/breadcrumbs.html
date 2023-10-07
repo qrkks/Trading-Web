@@ -1,6 +1,6 @@
 <nav aria-label="Breadcrumb"
-     class="mb-5 flex  gap-1 items-center justify-center">
-  <ol class="flex items-center gap-1 text-sm border-b border-gray-200 flex-wrap  text-gray-500   w-full px-3 py-2  mb-10 ">
+     class=" flex mb-3 gap-1 items-center justify-center">
+  <ol class="flex items-center gap-1 text-sm border-b border-gray-200 flex-wrap  text-gray-500   w-full px-3 py-2   ">
     {% for crumb in breadcrumbs %}
       {% if not forloop.last %}
         <li>
@@ -8,6 +8,7 @@
              hx-get="{{ crumb.url }}"
              hx-push-url="true"
              hx-target="#main-content"
+             hx-boost="true"
              class="block transition hover:text-cyan-500 capitalize"> {{ crumb.name }} </a>
         </li>
         <li>

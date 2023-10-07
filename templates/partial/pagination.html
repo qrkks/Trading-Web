@@ -8,6 +8,7 @@
        hx-get="?page={{ page_obj.previous_page_number }}"
        hx-target="#main-content"
        hx-push-url="true"
+       hx-boost="true"
        class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group"
        x-ref="previousLink"
        @keydown.window="$event.keyCode === 37 ? $refs.previousLink.click() : null">
@@ -26,6 +27,7 @@
          hx-get="?page={{ page_num }}"
          hx-target="#main-content"
          hx-push-url="true"
+         hx-boost="true"
          class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">
         <span class="duration-300 ease-in-out group-hover:border-b group-hover:border-red-500">
           {{ page_num }}
@@ -38,8 +40,9 @@
          hx-get="?page={{ page_obj.next_page_number }}"
          hx-target="#main-content"
          hx-push-url="true"
-         x-ref="nextLink"
+         hx-boost="true"
          class="px-3 py-2 transition duration-300 ease-in-out rounded-md bg-cyan-500 group"
+         x-ref="nextLink"
          @keydown.window="$event.keyCode === 39 ? $refs.nextLink.click() : null">
          <span class="duration-300 ease-in-out group-hover:border-b group-hover:border-red-500">Next</span></a>
       </a>

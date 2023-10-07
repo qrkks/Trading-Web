@@ -10,6 +10,7 @@
               hx-get="{{ node.get_absolute_url }}"
               hx-target="#main-content"
               hx-push-url="true"
+              hx-boost="true"
               @click="activeCategory = '{{ node.name }}'" 
             >
             <div class="relative inline-block group">

@@ -15,6 +15,7 @@
         hx-get="{{ object.category.get_absolute_url }}"
         hx-target="#main-content"
         hx-push-url="true"
+        hx-boost="true"
        >{{ object.category }}</a>
       </div>
       <a href="{{ object.get_absolute_url }}"
@@ -22,6 +23,7 @@
       hx-get="{{ object.get_absolute_url }}"
       hx-target="#main-content"
       hx-push-url="true"
+      hx-boost="true"
       {% endif %}>
         <h3 class="font-bold text-2xl capitalize text-gray-900">
           {{ object.title }}

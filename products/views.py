@@ -38,9 +38,9 @@ def products_index(request):
     root_nodes_data = {}
 
     for category in root_nodes:
-        descendants = category.get_descendants(include_self=True)
+        all_category = category.get_descendants(include_self=True)
         products = Product.objects.active().filter(
-            Q(category__in=descendants)  # 使用get_descendants方法获取的QuerySet
+            Q(category__in=all_category)  # 使用get_descendants方法获取的QuerySet
         )[:2]
         root_nodes_data[category] = products
 
@@ -57,7 +57,7 @@ def products_index(request):
 class CategoryProductListView(ListView):
     template_name = 'products/product.html'  # 指定模板文件路径
     context_object_name = 'products'  # 指定模板上下文变量的名称
-    paginate_by = 12
+    paginate_by = 9
     extra_context = {
         'partial_template_path': "products/partial/main-list.html",
         # 'main_title': category_name,
@@ -103,9 +103,6 @@ class CategoryProductListView(ListView):
 
         return context
 
-
-
-
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
             # 处理HTMX请求，只返回列表部分的HTML内容
@@ -149,8 +146,8 @@ class ProductDetail(DetailView):
         context['images'] = images
 
         # 获取上一个和下一个对象
-        previous_object = Product.objects.filter(id__lt=self.object.id).order_by('-id').first()
-        next_object = Product.objects.filter(id__gt=self.object.id).order_by('id').first()
+        previous_object = Product.objects.filter(category=self.object.category).filter(id__lt=self.object.id).order_by('-id').first()
+        next_object = Product.objects.filter(category=self.object.category).filter(id__gt=self.object.id).order_by('id').first()
 
         # 将上一个和下一个对象添加到上下文中
         context['previous_object'] = previous_object

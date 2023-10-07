@@ -56,7 +56,7 @@ class ProductSearchView(ListView):
             #     Q(slug__icontains=q) |
             #     Q(description__icontains=q)
             # )
-            self.extra_context['main_title'] = f'{results.count()} results in search "{q}"'
+            self.extra_context['main_title'] = f'{results.count()} results found for "{q}"'
             return results
 
 

@@ -56,8 +56,8 @@ class BlogDetail(DetailView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
                 # 获取上一个和下一个对象
-        previous_object = Blog.objects.filter(id__lt=self.object.id).order_by('-id').first()
-        next_object = Blog.objects.filter(id__gt=self.object.id).order_by('id').first()
+        previous_object = Blog.objects.filter(category=self.object.category).filter(id__lt=self.object.id).order_by('-id').first()
+        next_object = Blog.objects.filter(category=self.object.category).filter(id__gt=self.object.id).order_by('id').first()
 
         # 将上一个和下一个对象添加到上下文中
         context['previous_object'] = previous_object

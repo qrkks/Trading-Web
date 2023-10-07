@@ -9,8 +9,8 @@
   <div>
     {% include "snippet/breadcrumbs.html" %}
   </div>
-  {% comment %} {% for object in object_list %} {% endcomment %}
-  {% include "blog/partial/card-horizontal.html" with parent_name='main-list' %}
-  {% comment %} {% endfor %} {% endcomment %}
+  <article>
+    {% include "blog/partial/card-horizontal.html" with parent_name='main-list' %}
+  </article>
   {% include "partial/pagination.html" %}
 </div>

@@ -84,7 +84,7 @@ MIDDLEWARE = [
     "django_browser_reload.middleware.BrowserReloadMiddleware",
 
     # debug toolbar
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 
     # 自定义面包屑
     # 'abstractapp.middlewares.BreadcrumbMiddleware',

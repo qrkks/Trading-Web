@@ -2,6 +2,7 @@
    hx-get="{{ product.get_absolute_url }}"
    hx-target="#main-content"
    hx-push-url="true"
+   hx-boost="true"
    class="group block">
   <div class="relative h-[250px] sm:h-[350px]">
     <img src="{{ product.images.all.0.image.url }}"

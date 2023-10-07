@@ -1,4 +1,4 @@
-<div class="    custom-container  ">
+<article class="    custom-container  ">
   <div class="prose max-w-none">
     <h1 class=" mt-10 capitalize">
       {{ main_title }}
@@ -9,6 +9,10 @@
   <div>
     {% include "snippet/breadcrumbs.html" %}
   </div>
+  {% with next_name=next_object.title previous_name=previous_object.title %}
+  {% include "snippet/pagination-prev-next.html" %}
+  {% endwith %}
+
   <div class="prose max-w-none">
     {% if object.image %}
       <div>
@@ -30,4 +34,4 @@
       {{ object.content|safe }}
     </div>
   </div>
-</div>
+</article>

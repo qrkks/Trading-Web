@@ -1,18 +1,20 @@
-<div>
-  <div class="prose">
-    <h1 class=" mt-10 capitalize">
-      {{ main_title }}
-    </h1>
-    <div class="custom-bar -mt-8">
+<div class="custom-container">
+  <div>
+    <div class="prose max-w-none">
+      <h1 class=" mt-10 capitalize">
+        {{ main_title }}
+      </h1>
+      <div class="custom-bar -mt-8">
+      </div>
+    </div>
+    <div>
+      {% include "snippet/breadcrumbs.html" %}
     </div>
   </div>
-  <div>
-    {% include "snippet/breadcrumbs.html" %}
+  <div class="grid w-full gap-8 md:gap-12 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
+    {% for product in products %}
+      {% include "products/partial/card-product.html" %}
+    {% endfor %}
   </div>
+  {% include 'partial/pagination.html' %}
 </div>
-<div class="grid w-full gap-8 md:gap-12 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
-  {% for product in products %}
-    {% include "products/partial/card-product.html" %}
-  {% endfor %}
-</div>
-{% include 'partial/pagination.html' %}

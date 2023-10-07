@@ -1,0 +1,42 @@
+<ol class="flex mb-10 justify-between gap-2 text-sm items-center px-2" x-data>
+  <li>
+    {% if previous_object %}
+      <a href="{{ previous_object.get_absolute_url }}"
+         hx-get="{{ previous_object.get_absolute_url }}"
+         hx-target="#main-content"
+         hx-push-url="true"
+         hx-boost="true"
+         x-ref="previousLink"
+         @keydown.window="$event.keyCode === 37 ? $refs.previousLink.click() : null"
+        class="inline-flex h-8 ps-1 pe-3 items-center justify-center rounded  border-gray-200 bg-white text-gray-400 rtl:rotate-180">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-3 w-3"
+             viewBox="0 0 20 20"
+             fill="currentColor">
+          <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>
+        <span class="ms-2 capitalize">        {{ previous_name }}</span>
+      </a>
+    {% endif %}
+  </li>
+  <li>
+    {% if next_object %}
+      <a href="{{ next_object.get_absolute_url }}"
+         hx-get="{{ next_object.get_absolute_url }}"
+         hx-target="#main-content"
+         hx-push-url="true"
+         hx-boost="true"
+         x-ref="nextLink"
+         @keydown.window="$event.keyCode === 39 ? $refs.nextLink.click() : null"
+         class="inline-flex h-8 ps-3 pe-1 items-center justify-center rounded  border-gray-200 bg-white text-gray-400 rtl:rotate-180">
+        <span class="me-2 capitalize">{{ next_name }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-3 w-3"
+             viewBox="0 0 20 20"
+             fill="currentColor">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    {% endif %}
+  </li>
+</ol>
