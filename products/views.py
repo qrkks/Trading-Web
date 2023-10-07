@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from typing import Any
 from django.http import Http404
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
@@ -36,12 +37,12 @@ def products_index(request):
 
     root_nodes_data = {}
 
-    for root_node in root_nodes:
-        descendants = root_node.get_descendants(include_self=True)
+    for category in root_nodes:
+        descendants = category.get_descendants(include_self=True)
         products = Product.objects.active().filter(
             Q(category__in=descendants)  # 使用get_descendants方法获取的QuerySet
         )[:2]
-        root_nodes_data[root_node] = products
+        root_nodes_data[category] = products
 
     context_data = {
         'root_nodes_data': root_nodes_data,
@@ -81,6 +82,26 @@ class CategoryProductListView(ListView):
             )
 
         return products
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # 获取当前类别
+        category_path = self.kwargs['category_path']
+        slugs = category_path.split('/')
+        category_slug = slugs[-1]  # 获取最后一个 slug 作为当前类别的 slug
+        category = get_object_or_404(Category, slug=category_slug)  # 获取当前类别对象
+
+        # 构建面包屑
+        breadcrumbs = []
+        for ancestor in category.get_ancestors(include_self=True):
+            breadcrumbs.append({'name': ancestor.name, 'url': ancestor.get_absolute_url()})
+        context['breadcrumbs'] = breadcrumbs
+
+        return context
+
+
+
 
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
@@ -131,23 +152,36 @@ class ProductDetail(DetailView):
         # 将上一个和下一个产品添加到上下文中
         context['previous_product'] = previous_product
         context['next_product'] = next_product
+
+        # 创建面包屑列表
+        category = self.object.category
+        breadcrumbs = []
+
+        for ancestor in category.get_ancestors(include_self=True):
+            breadcrumbs.append({'name': ancestor.name, 'url': ancestor.get_absolute_url()})
+        
+        # 为当前产品添加一个面包屑
+        breadcrumbs.append({'name': self.object.name, 'url': self.object.get_absolute_url()})
+        context['breadcrumbs'] = breadcrumbs  # 添加到上下文中
         
         return context
+    
+    
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     response = super().dispatch(request, *args, **kwargs)
 
-        correct_category_path = '/'.join(
-            [cat.slug for cat in self.object.category.get_ancestors(include_self=True)])
-        if correct_category_path != self.kwargs['category_path']:
-            # 如果你想重定向到正确的URL，可以使用下面的代码：
-            correct_url = f"/products/{correct_category_path}/{self.object.slug}/"
-            return redirect(correct_url, permanent=True)
+    #     correct_category_path = '/'.join(
+    #         [cat.slug for cat in self.object.category.get_ancestors(include_self=True)])
+    #     if correct_category_path != self.kwargs['category_path']:
+    #         # 如果你想重定向到正确的URL，可以使用下面的代码：
+    #         correct_url = f"/products/{correct_category_path}/{self.object.slug}/"
+    #         return redirect(correct_url, permanent=True)
 
-            # 或者，如果你想显示一个404错误页面，可以使用下面的代码：
-            # raise Http404("Page not found")
+    #         # 或者，如果你想显示一个404错误页面，可以使用下面的代码：
+    #         # raise Http404("Page not found")
 
-        return response
+    #     return response
 
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':

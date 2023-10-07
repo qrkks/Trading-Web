@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'blog',
     'form_handlers',
     'utils',
+    'abstractapp',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
 
-    "django.middleware.csrf.CsrfViewMiddleware",
+    # "django.middleware.csrf.CsrfViewMiddleware",
     # 'abstractapp.middlewares.DisableCSRFMiddleware',
 
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -87,8 +88,6 @@ MIDDLEWARE = [
 
     # 自定义面包屑
     # 'abstractapp.middlewares.BreadcrumbMiddleware',
-
-
 ]
 
 ROOT_URLCONF = "mysite.urls"
@@ -215,4 +214,5 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = '34028312@qq.com'  # 你的 Gmail 地址
 EMAIL_HOST_PASSWORD = 'oylpijgmzjjobiif'  # 你的 Gmail 密码
+
 

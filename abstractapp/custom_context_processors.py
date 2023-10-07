@@ -9,7 +9,7 @@ def categories(request):
     # 获取所有的分类数据
     product_categories = ProductCategory.objects.all()
     # 查找根节点，假设根节点没有父节点
-    product_root_categories = ProductCategory.objects.filter(Q(level=0)|Q(level=1))
+    product_root_categories = ProductCategory.objects.filter(Q(level=1)|Q(level=1))
 
     
 

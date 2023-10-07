@@ -44,11 +44,18 @@ class ProductSearchView(ListView):
             results = Product.objects.none()
             return results
         else:
-            results = Product.objects.active().filter(
-                Q(name__icontains=q) |
-                Q(slug__icontains=q) |
-                Q(description__icontains=q)
-            )
+            query = Q()
+            for term in q.split():
+                query &= (
+                    Q(name__icontains=term) | Q(slug__icontains=term) | Q(description__icontains=term)
+                    )
+            results = Product.objects.active().filter(query)
+
+            # results = Product.objects.active().filter(
+            #     Q(name__icontains=q) |
+            #     Q(slug__icontains=q) |
+            #     Q(description__icontains=q)
+            # )
             self.extra_context['main_title'] = f'{results.count()} results in search "{q}"'
             return results
 

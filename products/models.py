@@ -44,6 +44,9 @@ class Category(MPTTModel):
         # 将列表转换为路径字符串，使用斜杠分隔
         category_path = '/'.join(url_list)
         return reverse('category-products', args=[category_path])
+
+
+
     
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -88,9 +91,9 @@ class ProductManager(models.Manager):
 class Product(models.Model):
 
     # 基本信息
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100,blank=True,null=True,unique=True)
-    description = models.TextField(blank=True, null=True)
+    name = models.CharField(max_length=100,db_index=True)
+    slug = models.SlugField(max_length=100,blank=True,null=True,unique=True,db_index=True)
+    description = models.TextField(blank=True, null=True,db_index=True)
     custom_order = models.IntegerField(default=0)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='products', blank=True, null=True)
