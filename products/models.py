@@ -44,9 +44,6 @@ class Category(MPTTModel):
         # 将列表转换为路径字符串，使用斜杠分隔
         category_path = '/'.join(url_list)
         return reverse('category-products', args=[category_path])
-
-
-
     
     def save(self, *args, **kwargs):
         if not self.slug:

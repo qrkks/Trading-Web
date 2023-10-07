@@ -148,13 +148,13 @@ class ProductDetail(DetailView):
         context['product_data'] = product_data
         context['images'] = images
 
-        # 获取上一个和下一个产品
-        previous_product = Product.objects.filter(id__lt=self.object.id).order_by('-id').first()
-        next_product = Product.objects.filter(id__gt=self.object.id).order_by('id').first()
+        # 获取上一个和下一个对象
+        previous_object = Product.objects.filter(id__lt=self.object.id).order_by('-id').first()
+        next_object = Product.objects.filter(id__gt=self.object.id).order_by('id').first()
 
-        # 将上一个和下一个产品添加到上下文中
-        context['previous_product'] = previous_product
-        context['next_product'] = next_product
+        # 将上一个和下一个对象添加到上下文中
+        context['previous_object'] = previous_object
+        context['next_object'] = next_object
 
         # 创建面包屑列表
         category = self.object.category

@@ -91,7 +91,9 @@ class Blog(BaseModel):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("blog-detail", kwargs={"slug": self.slug})
+        # 获取该产品所属分类及其所有祖先的 slug
+        category_path = '/'.join([cat.slug for cat in self.category.get_ancestors(include_self=True)])
+        return reverse("blog-detail", args=[category_path, self.slug])
     
     class Meta:
         ordering = ['-custom_order','-is_featured', '-id',]

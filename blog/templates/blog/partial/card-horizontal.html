@@ -11,9 +11,11 @@
     <div class="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
       <div class="text-right ">
         <a 
-        {% if parent_name != "main-list" %}
-href="{{ object.category.get_absolute_url }}"
-        {% endif %}>{{ object.category }}</a>
+        href="{{ object.category.get_absolute_url }}"
+        hx-get="{{ object.category.get_absolute_url }}"
+        hx-target="#main-content"
+        hx-push-url="true"
+       >{{ object.category }}</a>
       </div>
       <a href="{{ object.get_absolute_url }}"
       {% if parent_name == "main-list" %}
@@ -29,14 +31,13 @@ href="{{ object.category.get_absolute_url }}"
         <time datetime="{{ object.created_at }}"
               class="flex items-center justify-between gap-4 text-xs font-semibold capitalize text-gray-900">
           <span>{{ object.created_at|date }}</span>
-          {% comment %} <span>{{ object.created_at|date:'M j' }}</span> {% endcomment %}
         </time>
       </div>
       <p class="mt-2 line-clamp-4 text-sm/relaxed text-gray-700">
         {{ object.description }}
       </p>
     </div>
-    <div class="sm:flex sm:items-end sm:justify-end">
+    {% comment %} <div class="sm:flex sm:items-end sm:justify-end">
       <a href="{{ object.get_absolute_url }}"
       {% if parent_name == "main-list" %}
       hx-get="{{ object.get_absolute_url }}"
@@ -46,7 +47,7 @@ href="{{ object.category.get_absolute_url }}"
          class="block bg-cyan-500 px-5 py-3 text-center text-xs font-bold uppercase text-white transition hover:underline hover:underline-offset-4">
         Read Blog
       </a>
-    </div>
+    </div> {% endcomment %}
   </div>
 </article>
   {% endfor %}

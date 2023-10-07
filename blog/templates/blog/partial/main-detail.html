@@ -1,14 +1,33 @@
-<div class="prose custom-container  mt-10">
-  <h1>
-    {{ object.title }}
-  </h1>
-  <div class="custom-bar -mt-8"></div>
-  {% if object.image %}
-  <div><img src="{{object.image.url}}" alt="{{object.title}}" class="object-cover max-h-72 w-full"></div>
-  {% endif %}
-  <div class="p-2">{{object.created_at}}</div>
-  <div class="rounded-lg bg-gray-200 px-5 py-2 border border-gray-300 shadow-sm">
-    <p class="-mb-4 font-medium">abstract</p>{{ object.description|linebreaks }}
+<div class="    custom-container  ">
+  <div class="prose max-w-none">
+    <h1 class=" mt-10 capitalize">
+      {{ main_title }}
+    </h1>
+    <div class="custom-bar -mt-8">
+    </div>
   </div>
-  <div>{{object.content|safe}}</div>
+  <div>
+    {% include "snippet/breadcrumbs.html" %}
+  </div>
+  <div class="prose max-w-none">
+    {% if object.image %}
+      <div>
+        <img src="{{ object.image.url }}"
+             alt="{{ object.title }}"
+             class="object-cover max-h-72 w-full">
+      </div>
+    {% endif %}
+    <div class="p-2">
+      {{ object.created_at }}
+    </div>
+    <div class="rounded-lg border  px-5 py-2  ">
+      <p class="-mb-4 font-medium tracking-wide">
+        abstract
+      </p>
+      {{ object.description|linebreaks }}
+    </div>
+    <div>
+      {{ object.content|safe }}
+    </div>
+  </div>
 </div>
