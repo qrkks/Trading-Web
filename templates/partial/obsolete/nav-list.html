@@ -1,0 +1,39 @@
+  
+  <li x-data="{openTab:false,showIcon:false}"
+  @click="openTab=!openTab"
+  @click.away="openTab=false"
+  class="relative duration-500 rounded cursor-pointer md:px-3 md:py-2 md:inline-flex">
+<!-- @mouseenter.stop="openTab=!openTab"
+@mouseleave.stop="openTab=!openTab"
+@touchend.stop="openTab=!openTab"
+@touchstart.stop="openTab=!openTab" -->
+<span class="items-center gap-1 duration-500 border-b-4 hover:border-red-500 md:inline-flex ">
+  blog
+</span>
+<div class=" md:absolute md:top-full md:left-1/2 md:transform md:-translate-x-1/2 min-w-max">
+  <ul x-show.transition="openTab"
+      x-transition:enter="transition duration-200"
+      x-transition:enter-start="opacity-0 transform -translate-y-3"
+      x-transition:enter-end="opacity-100 transform translate-y-0"
+      x-transition:leave="transition  duration-200"
+      x-transition:leave-start="opacity-100 transform translate-y-0"
+      x-transition:leave-end="opacity-0 transform -translate-y-3"
+      class="flex flex-col text-center ">
+    <a href="/blog/" class=" group">
+      <li class="inline-block w-full px-3 py-2 duration-500 md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 rounded-t-md">
+        <span class="font-semibold duration-500 border-b-4 border-gray-50 group-hover:border-red-500">
+        blog</span>
+      </li>
+    </a>
+    {% for node in blog_root_categories %}
+      <a href="{{ node.get_absolute_url }}" class=" group">
+        <li class="inline-block w-full px-3 py-2 duration-500   md:shadow-md hover:bg-slate-200 bg-gray-50 border-red-50 {% if forloop.last %}rounded-b-md{% endif %}">
+          <span class="duration-500 border-b-4 border-gray-50 group-hover:border-red-500">
+            {{ node.name }}
+          </span>
+        </li>
+      </a>
+    {% endfor %}
+  </ul>
+</div>
+</li>

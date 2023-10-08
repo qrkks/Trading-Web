@@ -27,3 +27,7 @@ def about(request):
 
 def contact(request):
     return render(request,'pages/contact.html')
+
+
+def test(request):
+    return render(request,'pages/more/test.html')

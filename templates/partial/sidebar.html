@@ -1,86 +1,64 @@
-<aside class="bg-transparent py-4 px-2 text-sm text-gray-600" x-cloak="" >
+<aside class="bg-transparent py-4 px-2 text-sm text-gray-600" x-cloak="">
   <div class="flex items-center justify-center py-2 text-gray-700 capitalize w-full">
     <ul class="  border-y-2  root border-cyan-500 w-full">
-      {% load mptt_tags %} {% recursetree categories %}
-      <li class=" pl-{{ node.level|add:'1' }} " x-data="{ isOpen: true, activeCategory: '' }"> <!-- 1. 在x-data中添加 activeCategory变量 -->
+      {% load mptt_tags %}
+      {% recursetree categories %}
+      <li class=" pl-{{ node.level|add:'1' }} "
+          x-data="{ isOpen: true, activeCategory: '' }">
+        <!-- 1. 在x-data中添加 activeCategory变量 -->
         <div class="flex items-center justify-between py-2 border-b border-white">
-            <a
-              class="inline-flex items-center duration-300"
-              href="{{ node.get_absolute_url }}"
-              hx-get="{{ node.get_absolute_url }}"
-              hx-target="#main-content"
-              hx-push-url="true"
-              hx-boost="true"
-              @click="activeCategory = '{{ node.name }}'" 
-            >
+          <a class="inline-flex items-center duration-300"
+             href="{{ node.get_absolute_url }}"
+             hx-get="{{ node.get_absolute_url }}"
+             hx-target="#main-content"
+             hx-push-url="true"
+             hx-boost="true"
+             @click="activeCategory = '{{ node.name }}'">
             <div class="relative inline-block group">
-              <span
-                class="absolute bottom-0 left-0 w-full h-1 duration-300 bg-transparent group-hover:bg-red-500"
-              ></span>
-              <span
-                class="relative block text-center duration-300 transform group-hover:-translate-y-1 group-hover:text-cyan-400 {% if node.level == 0 %}font-medium{% endif %}{% if node.level == 1 %}font-medium{% endif %}"
-              >
-              {% if node.level > 0 %}
-              ·
-              {% endif %}
-              {{ node.name }}
+              <span class="absolute bottom-0 left-0 w-full h-1 duration-300 bg-transparent group-hover:bg-red-500"></span>
+              <span class="relative block text-center duration-300 transform group-hover:-translate-y-1 group-hover:text-cyan-400 {% if node.level == 0 %}font-medium{% endif %}{% if node.level == 1 %}font-medium{% endif %}">
+                {% if node.level > 0 %}
+                  ·
+                {% endif %}
+                {{ node.name }}
               </span>
             </div>
           </a>
           {% if not node.is_leaf_node %}
-          <span
-            @click="isOpen = !isOpen"
-            x-show="isOpen"
-            class="cursor-pointer mr-1"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-3"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </span>
-          <span
-            @click="isOpen = !isOpen"
-            x-show="!isOpen"
-            class="cursor-pointer"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-3"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
-          </span>
+            <span @click="isOpen = !isOpen" x-show="isOpen" class="cursor-pointer mr-1">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   fill="none"
+                   viewBox="0 0 24 24"
+                   stroke-width="1.5"
+                   stroke="currentColor"
+                   class="w-3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+            <span @click="isOpen = !isOpen" x-show="!isOpen" class="cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   fill="none"
+                   viewBox="0 0 24 24"
+                   stroke-width="1.5"
+                   stroke="currentColor"
+                   class="w-3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </span>
           {% endif %}
         </div>
-        <ul class="children" x-show="isOpen"
-        x-transition:enter="transition  duration-100" 
-        x-transition:enter-start="opacity-0 transform -translate-y-4" 
-        x-transition:enter-end="opacity-100 transform translate-y-0" 
-        x-transition:leave="transition duration-100" 
-        x-transition:leave-start="opacity-100 transform translate-y-0" 
-        x-transition:leave-end="opacity-0 transform -translate-y-4" >
+        <ul class="children"
+            x-show="isOpen"
+            x-transition:enter="transition  duration-100"
+            x-transition:enter-start="opacity-0 transform -translate-y-4"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition duration-100"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-4">
           {{ children }}
         </ul>
       </li>
-      {% endrecursetree %}
-    </ul>
-  </div>
+    {% endrecursetree %}
+  </ul>
+</div>
 </aside>
