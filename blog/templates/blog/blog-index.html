@@ -1,13 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="custom-container ">
-    <div class="prose mt-10">
-      <h1>
-        Blog
-      </h1>
-      <div class="custom-bar -mt-8">
-      </div>
-    </div>
+    {% with main_title="blog" %}
+      {% include "snippet/page-title.html" %}
+    {% endwith %}
     {% include "blog/partial/card-horizontal.html" with parent_name="blog-index" %}
     {% include "partial/pagination.html" %}
   </div>

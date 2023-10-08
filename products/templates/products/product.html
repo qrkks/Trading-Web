@@ -4,22 +4,13 @@
 {% endblock %}
 {% block content %}
   {% include 'search/partial/searchbar-product.html' %}
-  <div class="flex flex-col-reverse lg:grid grid-cols-1 bg-white  lg:grid-cols-[1fr_280px] ">
-    <div class=" bg-white ">
-      <main class=" px-5 m-5 " id="main-content">
-        {% include partial_template_path %}
-      </main>
-    </div>
-    <aside class=" p-3 py-7 text-center bg-gray-50">
-      <h2 class="p-2 text-lg font-bold uppercase">
-        product categories
-      </h2>
-      {% with categories=product_categories %}
-        {% include "partial/sidebar.html" %}
-      {% endwith %}
-    </aside>
-  </div>
-  <div class="">
-    {% include "form_handlers/inquiry.html" %}
-  </div>
+  <section class="flex flex-col-reverse lg:grid grid-cols-1 bg-white  lg:grid-cols-[1fr_280px] ">
+    <main id="main-content">
+      {% include partial_template_path %}
+    </main>
+    {% with categories=product_categories category='product' %}
+      {% include "partial/sidebar.html" %}
+    {% endwith %}
+  </section>
+  {% include "form_handlers/inquiry.html" %}
 {% endblock content %}

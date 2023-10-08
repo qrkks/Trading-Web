@@ -1,16 +1,6 @@
-<div class="   custom-container ">
-  <div class="prose max-w-none">
-    <h1 class=" mt-10 capitalize">
-      {{ main_title }}
-    </h1>
-    <div class="custom-bar -mt-8">
-    </div>
-  </div>
-  <div>
-    {% include "snippet/breadcrumbs.html" %}
-  </div>
-  <article>
-    {% include "blog/partial/card-horizontal.html" with parent_name='main-list' %}
-  </article>
+<div class=" custom-container">
+  {% include "snippet/page-title.html" %}
+  {% include "snippet/breadcrumbs.html" %}
+  {% include "blog/partial/card-horizontal.html" with parent_name='main-list' %}
   {% include "partial/pagination.html" %}
 </div>

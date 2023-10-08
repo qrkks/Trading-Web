@@ -1,13 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="custom-container">
-    <div class="prose">
-      <h1 class="mt-10">
-        Products
-      </h1>
-      <div class="custom-bar -mt-8">
-      </div>
-    </div>
+    {% with main_title="products" %}
+    {% include "snippet/page-title.html" %}
+    {% endwith %}
     {% include "products/partial/featured-section.html" %}
   </div>
 </div>

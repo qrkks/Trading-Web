@@ -1,30 +1,24 @@
 <div class="custom-container">
   <div>
-    <div class="prose max-w-none">
-      <h1 class=" mt-10 capitalize">
-        {{ main_title }}
-      </h1>
-      <div class="custom-bar -mt-8">
-      </div>
-    </div>
+    {% include "snippet/page-title.html" %}
     {% include "snippet/breadcrumbs.html" %}
   </div>
   {% with next_name=next_object.name previous_name=previous_object.name %}
     {% include "snippet/pagination-prev-next.html" %}
   {% endwith %}
-  <div class=" bg-white rounded ">
-    <div class=" mx-auto ">
+  <div class="bg-white rounded ">
+    <div class="mx-auto ">
       {% include 'products/partial/carousel-product.html' %}
     </div>
-    <div class="w-full mt-10 sm:p-5 py-12">
+    <div class="w-full py-12 mt-10 sm:p-5">
       <div class="flow-root">
-        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+        <dl class="-my-3 text-sm divide-y divide-gray-100">
           {% for attribute, value in product_data.items %}
             <div class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-              <dt class="font-medium text-gray-900 px-2">
+              <dt class="px-2 font-medium text-gray-900">
                 {{ attribute }}
               </dt>
-              <dd class="text-gray-700 sm:col-span-2 px-2">
+              <dd class="px-2 text-gray-700 sm:col-span-2">
                 {{ value }}
               </dd>
             </div>
@@ -33,5 +27,5 @@
       </div>
     </div>
   </div>
-  <div class="text-center py-4 text-gray-400">* You could use the left and right arrow keys to navigate to the previous and next product, respectively.</div>
+  <div class="py-4 text-center text-gray-400">* You could use the left and right arrow keys to navigate to the previous and next product, respectively.</div>
 </div>

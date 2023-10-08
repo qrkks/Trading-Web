@@ -4,13 +4,9 @@
     <main id="main-content">
       {% include partial_template_path %}
     </main>
-    <aside class=" p-3 py-7 text-center bg-gray-50">
-      <h2 class="p-2 text-lg font-bold uppercase ">
-        blog categories
-      </h2>
-      {% with categories=blog_categories %}
+
+      {% with categories=blog_categories category='blog'%}
         {% include "partial/sidebar.html" %}
       {% endwith %}
-    </aside>
   </div>
 {% endblock %}

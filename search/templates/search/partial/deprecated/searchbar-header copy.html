@@ -1,0 +1,54 @@
+<form class="flex bg-white border rounded-lg shadow-inner">
+  <input type="search"
+         name="q"
+         placeholder="search"
+         class="px-4 bg-transparent border-none focus:ring-0"
+         hx-get="{% url 'search' %}"
+         hx-target="#search-results"
+         hx-boost="true"
+         hx-trigger="keyup change delay:500ms" />
+  {% comment %} <button class="px-4 py-1 m-1 text-white bg-teal-800 rounded-full" hx-get="{% url 'search' %}" hx-target="#search-results" hx-boost="true" hx-trigger="click">
+    Search
+  </button> {% endcomment %}
+</form>
+<div class="absolute right-0 bg-cyan-200"
+     id="search-results"
+
+     >
+</div>
+
+
+<div class="absolute right-0 bg-cyan-200" id="search-results" data-url="{% url 'clear-search-results' %}"></div>
+
+<script>
+  var shouldTrigger = true; // 初始化标志变量为 true
+
+  document.addEventListener('click', function(event) {
+    var searchResults = document.getElementById('search-results');
+
+    // 检查 #search-results 元素是否存在，标志变量是否为 true，以及点击是否在元素外部
+    if (shouldTrigger && searchResults && !searchResults.contains(event.target)) {
+      // 设置标志变量为 false
+      shouldTrigger = false;
+
+      // 获取元素的 data-url 属性中存储的 URL
+      var url = searchResults.getAttribute('data-url');
+      
+      // 使用 fetch API 发起 GET 请求
+      fetch(url, { method: 'GET' })
+        .then(response => response.text())
+        .then(data => {
+          // 使用服务器返回的数据更新 #search-results 元素的内容
+          searchResults.innerHTML = data;
+        })
+        .catch(error => {
+          console.error('Error during fetch operation: ', error);
+        });
+    }
+  });
+
+  // 当需要的时候设置 shouldTrigger 为 true
+  // 您可能需要根据您的实际逻辑来确定何时设置 shouldTrigger 为 true
+</script>
+
+

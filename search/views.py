@@ -51,11 +51,6 @@ class ProductSearchView(ListView):
                     )
             results = Product.objects.active().filter(query)
 
-            # results = Product.objects.active().filter(
-            #     Q(name__icontains=q) |
-            #     Q(slug__icontains=q) |
-            #     Q(description__icontains=q)
-            # )
             self.extra_context['main_title'] = f'{results.count()} results found for "{q}"'
             return results
 
@@ -65,3 +60,6 @@ class ProductSearchView(ListView):
             return render(self.request, 'products/partial/main-list.html', context)
 
         return super().render_to_response(context, **response_kwargs)
+    
+def clear_results(request):
+    return HttpResponse ()

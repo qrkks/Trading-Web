@@ -3,31 +3,30 @@
   <section>
     {% include "pages/partial/banner.html" %}
   </section>
-  <section class=" bg-gray-100">
-    <div class="custom-container py-20">
-      <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center ">
+  <section class="bg-gray-100 ">
+    <div class="py-20 custom-container">
+      <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl ">
         Products
       </h2>
-      <div class="custom-bar mx-auto">
+      <div class="mx-auto custom-bar">
       </div>
       {% include "pages/partial/carousel-hero.html" %}
     </div>
   </section>
-  <section class="custom-container py-20">
-    <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center ">
+  <section class="py-20 custom-container">
+    <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl ">
       Blog
     </h2>
-    <div class="custom-bar mx-auto">
+    <div class="mx-auto custom-bar">
     </div>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
       {% with blog as object_list %}
-      {% for object in object_list %}
-      <div class=" rounded-lg bg-gray-200">
-        {% include "blog/partial/card-blog.html" %}
-      </div>
-      {% endfor %}
+        {% for object in object_list %}
+          <div class="bg-gray-200 rounded-lg ">
+            {% include "blog/partial/card-blog.html" %}
+          </div>
+        {% endfor %}
       {% endwith %}
-
     </div>
     <div class="mt-12 text-center">
       <a href="/blog/">
@@ -39,11 +38,11 @@
     {% include "pages/partial/section.html" %}
   </section>
   <section>
-    <div class="custom-container py-20">
-      <h2 class="text-3xl font-bold sm:text-4xl text-gray-800 text-center">
+    <div class="py-20 custom-container">
+      <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl">
         FAQs
       </h2>
-      <div class="custom-bar mx-auto">
+      <div class="mx-auto custom-bar">
       </div>
       {% include 'pages/partial/faq.html' %}
     </div>

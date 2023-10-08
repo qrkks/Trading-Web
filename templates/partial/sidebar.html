@@ -1,6 +1,10 @@
-<aside class="bg-transparent py-4 px-2 text-sm text-gray-600" x-cloak="">
-  <div class="flex items-center justify-center py-2 text-gray-700 capitalize w-full">
-    <ul class="  border-y-2  root border-cyan-500 w-full">
+<aside class="p-3 text-center py-7 bg-gray-50">
+  <h2 class="p-2 text-lg font-bold uppercase">
+    {{category}} categories
+  </h2>
+<section class="px-2 py-4 text-sm text-gray-600 bg-transparent" x-cloak="">
+  <div class="flex items-center justify-center w-full py-2 text-gray-700 capitalize">
+    <ul class="w-full border-y-2 root ">
       {% load mptt_tags %}
       {% recursetree categories %}
       <li class=" pl-{{ node.level|add:'1' }} "
@@ -15,7 +19,7 @@
              hx-boost="true"
              @click="activeCategory = '{{ node.name }}'">
             <div class="relative inline-block group">
-              <span class="absolute bottom-0 left-0 w-full h-1 duration-300 bg-transparent group-hover:bg-red-500"></span>
+              <span class="absolute bottom-0 left-0 w-full h-0.5 duration-300 bg-transparent group-hover:bg-red-500"></span>
               <span class="relative block text-center duration-300 transform group-hover:-translate-y-1 group-hover:text-cyan-400 {% if node.level == 0 %}font-medium{% endif %}{% if node.level == 1 %}font-medium{% endif %}">
                 {% if node.level > 0 %}
                   ·
@@ -25,7 +29,7 @@
             </div>
           </a>
           {% if not node.is_leaf_node %}
-            <span @click="isOpen = !isOpen" x-show="isOpen" class="cursor-pointer mr-1">
+            <span @click="isOpen = !isOpen" x-show="isOpen" class="mr-1 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg"
                    fill="none"
                    viewBox="0 0 24 24"
@@ -61,4 +65,5 @@
     {% endrecursetree %}
   </ul>
 </div>
+</section>
 </aside>

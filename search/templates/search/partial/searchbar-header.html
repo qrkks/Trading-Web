@@ -1,0 +1,43 @@
+<form class="flex bg-white border rounded-lg shadow-inner">
+  <input type="search"
+         name="q"
+         placeholder="search"
+         class="px-4 bg-transparent border-none focus:ring-0"
+         hx-get="{% url 'search' %}"
+         hx-target="#search-results"
+         hx-boost="true"
+         hx-trigger="keyup change delay:500ms" />
+</form>
+<div class="absolute right-0 bg-cyan-200" id="search-results" style="display:none;">
+</div>
+
+
+<script>
+  document.addEventListener('click', function(e) {
+    const results = document.getElementById('search-results');
+    const searchBox = document.querySelector('input[name="q"]');
+  
+    if (!searchBox.contains(e.target) && !results.contains(e.target)) {
+      hideResults();
+    }
+  });
+  
+  document.querySelector('input[name="q"]').addEventListener('input', function() {
+    if (this.value.trim() !== '') {
+      showResults();
+    } else {
+      hideResults();
+    }
+  });
+  
+  function hideResults() {
+    const results = document.getElementById('search-results');
+    results.style.display = 'none';
+  }
+  
+  function showResults() {
+    const results = document.getElementById('search-results');
+    results.style.display = 'block';
+  }
+  </script>
+  
