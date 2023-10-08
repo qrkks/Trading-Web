@@ -146,8 +146,8 @@ class ProductDetail(DetailView):
         context['images'] = images
 
         # 获取上一个和下一个对象
-        previous_object = Product.objects.filter(category=self.object.category).filter(id__lt=self.object.id).order_by('-id').first()
-        next_object = Product.objects.filter(category=self.object.category).filter(id__gt=self.object.id).order_by('id').first()
+        previous_object = Product.objects.filter(category=self.object.category).filter(custom_order__lt=self.object.id).order_by('-id').first()
+        next_object = Product.objects.filter(category=self.object.category).filter(custom_order__gt=self.object.id).order_by('id').first()
 
         # 将上一个和下一个对象添加到上下文中
         context['previous_object'] = previous_object

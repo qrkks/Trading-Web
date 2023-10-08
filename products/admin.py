@@ -82,8 +82,8 @@ class CategoryFilter(admin.SimpleListFilter):
 
 
 @admin.register(Product)
-# class ProductModelAdmin(SortableAdminMixin, admin.ModelAdmin):
-class ProductModelAdmin(admin.ModelAdmin):
+class ProductModelAdmin(SortableAdminMixin, admin.ModelAdmin):
+# class ProductModelAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Product._meta.get_fields() if  is_displayable_field(field)]
     # list_display = [field.name for field in Product._meta.get_fields() if field.name not in ['images','related_products','product','tags','TaggableManager','_TaggableManager'] ]
     list_display = ['id', 'name', 'slug', 'category','custom_order',
