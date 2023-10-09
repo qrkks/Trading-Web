@@ -1,8 +1,6 @@
 <div class="custom-container">
-  <div>
     {% include "snippet/page-title.html" %}
       {% include "snippet/breadcrumbs.html" %}
-  </div>
   <div class="grid w-full gap-8 md:gap-12 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
     {% for product in products %}
       {% include "products/partial/card-product.html" %}
