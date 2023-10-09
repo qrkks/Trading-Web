@@ -1,14 +1,8 @@
-<!--
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
--->
 <section class="bg-gray-100">
-  <div class="custom-container px-4 py-16 sm:px-6 lg:px-8">
+  <div class="px-4 py-16 custom-container sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
       <div class="lg:col-span-2 lg:py-12">
-        <p class=" text-lg tracking-wide">
+        <p class="text-lg tracking-wide ">
           Have a question or need assistance? Feel free to drop us an email at
           {% comment %} CSRF Token: {{ csrf_token }} {% endcomment %}
         </p>
@@ -22,11 +16,11 @@
               282 Kevin Brook, Imogeneborough, CA 58517
             </address> -->
         </div>
-        <p class=" text-lg tracking-wide">
+        <p class="text-lg tracking-wide ">
           for a direct response. Alternatively, you can conveniently use the inquiry form adjacent to this text. We’re here to assist you with any inquiries, concerns, or information you might need. Engage with us and let’s start the conversation - your feedback and questions are invaluable to us!
         </p>
       </div>
-      <div class="rounded bg-white p-8 shadow lg:col-span-3 lg:p-12">
+      <div class="p-8 bg-white rounded shadow lg:col-span-3 lg:p-12">
         <form hx-post="{% url 'inquiry_create' %}"
               hx-on::after-request="this.reset()"
               hx-indicator="#submitting"
@@ -41,13 +35,13 @@
               <label class="sr-only">
                 Name
               </label>
-              {% render_field inquiry_form.name class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Name *" %}
+              {% render_field inquiry_form.name class="w-full p-3 text-sm border-gray-200 rounded" placeholder="Name *" %}
             </div>
             <div>
               <label class="sr-only">
                 Institution
               </label>
-              {% render_field inquiry_form.institution class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Institution *" %}
+              {% render_field inquiry_form.institution class="w-full p-3 text-sm border-gray-200 rounded" placeholder="Institution *" %}
             </div>
           </div>
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -55,38 +49,38 @@
               <label class="sr-only">
                 Email
               </label>
-              {% render_field inquiry_form.email class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Email address *"  id="email" %}
+              {% render_field inquiry_form.email class="w-full p-3 text-sm border-gray-200 rounded" placeholder="Email address *"  id="email" %}
             </div>
             <div>
               <label class="sr-only">
                 Phone
               </label>
-              {% render_field inquiry_form.phone class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Phone Number" id="phone" %}
+              {% render_field inquiry_form.phone class="w-full p-3 text-sm border-gray-200 rounded" placeholder="Phone Number" id="phone" %}
             </div>
           </div>
           <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
             <div>
-              {% render_field inquiry_form.country_region class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Country/Region *" %}
+              {% render_field inquiry_form.country_region class="w-full p-3 text-sm border-gray-200 rounded" placeholder="Country/Region *" %}
             </div>
             <div>
-              {% render_field inquiry_form.state class="w-full rounded border-gray-200 p-3 text-sm" placeholder="State" %}
+              {% render_field inquiry_form.state class="w-full p-3 text-sm border-gray-200 rounded" placeholder="State" %}
             </div>
             <div>
-              {% render_field inquiry_form.city class="w-full rounded border-gray-200 p-3 text-sm" placeholder="City" %}
+              {% render_field inquiry_form.city class="w-full p-3 text-sm border-gray-200 rounded" placeholder="City" %}
             </div>
           </div>
           <div>
             <label class="sr-only">
               Message
             </label>
-            {% render_field inquiry_form.message class="w-full rounded border-gray-200 p-3 text-sm" placeholder="Message *" rows="8" id="message" %}
+            {% render_field inquiry_form.message class="w-full p-3 text-sm border-gray-200 rounded" placeholder="Message *" rows="8" id="message" %}
           </div>
-          <div class="mt-4 flex justify-between flex-wrap items-center flex-col sm:flex-row">
+          <div class="flex flex-col flex-wrap items-center justify-between mt-4 sm:flex-row">
             <button type="submit"
-                    class=" w-full relative rounded hover:underline hover:underline-offset-4   shadow  bg-cyan-500 px-5 py-3 font-medium text-white sm:w-auto ">
+                    class="relative w-full px-5 py-3 font-medium text-white rounded shadow  hover:underline hover:underline-offset-4 bg-cyan-500 sm:w-auto">
               Send Enquiry
               <div id="submitting"
-                   class="absolute left-1/2 -translate-x-1/2 top-1/2 transform htmx-indicator -translate-y-1/2  inline-flex shrink opacity-0  duration-500  rounded">
+                   class="absolute inline-flex duration-500 transform -translate-x-1/2 -translate-y-1/2 rounded opacity-0 left-1/2 top-1/2 htmx-indicator shrink">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      xmlns:xlink="http://www.w3.org/1999/xlink"
                      style="margin: auto;

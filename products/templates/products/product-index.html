@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="custom-container">
+  <main class="custom-container">
     {% with main_title="products" %}
     {% include "snippet/page-title.html" %}
     {% endwith %}
     {% include "products/partial/featured-section.html" %}
-  </div>
+  </main>
 </div>
 <div class="mt-10">
   {% include "form_handlers/inquiry.html" %}

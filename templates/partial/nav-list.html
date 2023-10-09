@@ -7,7 +7,7 @@
   {% comment %} products {% endcomment %}
   <li x-data="{openTab:false,showIcon:false}"
       @mouseleave.stop="openTab=false"
-      class="relative duration-500 rounded cursor-pointer md:inline-flex">
+      class="relative duration-500 rounded md:inline-flex">
     <a href="/products/" class="group md:py-2">
       <div class="flex justify-between">
         <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 md:inline-flex "
@@ -17,7 +17,7 @@
         <span class="inline-block md:hidden ps-10"
               @click.prevent="openTab=!openTab"
               @click.away="openTab=false">
-          <span x-show="openTab" class="cursor-pointer">
+          <span x-show="openTab" class="">
             <svg xmlns="http://www.w3.org/2000/svg"
                  fill="none"
                  viewBox="0 0 24 24"
@@ -27,7 +27,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </span>
-          <span x-show="!openTab" class="cursor-pointer">
+          <span x-show="!openTab" class="">
             <svg xmlns="http://www.w3.org/2000/svg"
                  fill="none"
                  viewBox="0 0 24 24"
@@ -64,7 +64,7 @@
   {% comment %} blog {% endcomment %}
   <li x-data="{openTab:false,showIcon:false}"
       @mouseleave.stop="openTab=false"
-      class="relative duration-500 rounded cursor-pointer md:inline-flex">
+      class="relative duration-500 rounded md:inline-flex">
     <a href="/blog/" class="group md:py-2">
       <div class="flex justify-between">
         <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 md:inline-flex "
@@ -74,7 +74,7 @@
         <span class="inline-block md:hidden ps-10"
               @click.prevent="openTab=!openTab"
               @click.away="openTab=false">
-          <span x-show="openTab" class="cursor-pointer">
+          <span x-show="openTab" class="">
             <svg xmlns="http://www.w3.org/2000/svg"
                  fill="none"
                  viewBox="0 0 24 24"
@@ -84,7 +84,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </span>
-          <span x-show="!openTab" class="cursor-pointer">
+          <span x-show="!openTab" class="">
             <svg xmlns="http://www.w3.org/2000/svg"
                  fill="none"
                  viewBox="0 0 24 24"

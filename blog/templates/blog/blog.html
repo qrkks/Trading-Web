@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="flex flex-col lg:grid grid-cols-1 bg-white  lg:grid-cols-[1fr_280px] ">
-    <main id="main-content">
+  <main class="flex flex-col lg:grid grid-cols-1 bg-white  lg:grid-cols-[1fr_280px] ">
+    <section id="main-content">
       {% include partial_template_path %}
-    </main>
+    </section>
 
       {% with categories=blog_categories category='blog'%}
         {% include "partial/sidebar.html" %}
       {% endwith %}
-  </div>
+  </main>
 {% endblock %}

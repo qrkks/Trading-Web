@@ -1,4 +1,4 @@
-<div data-dial-init class="fixed flex right-6 bottom-6 group"
+<section data-dial-init class="fixed flex right-6 bottom-6 group"
     x-data="{scaleWechat:false}">
     <div id="speed-dial-menu-horizontal"
          class="flex items-center hidden mr-4 space-x-2">
@@ -17,7 +17,7 @@
              @touchend="scaleWechat=!scaleWechat"
              class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
              {{contact.wechat.info}}
-            <img src="{{contact.wechat.image.url}}" class="mx-auto h-16 w-16" :class="{'h-32 w-32':scaleWechat}" alt="{{contact.wechat.name}}">
+            <img src="{{contact.wechat.image.url}}" class="w-16 h-16 mx-auto" :class="{'h-32 w-32':scaleWechat}" alt="{{contact.wechat.name}}">
             <div class="tooltip-arrow" data-popper-arrow>
             </div>
         </div>
@@ -104,4 +104,4 @@
         </svg>
         <span class="sr-only">Open actions menu</span>
     </button>
-</div>
+</section>

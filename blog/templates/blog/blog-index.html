@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="custom-container ">
+  <main class="custom-container ">
     {% with main_title="blog" %}
       {% include "snippet/page-title.html" %}
     {% endwith %}
     {% include "blog/partial/card-horizontal.html" with parent_name="blog-index" %}
     {% include "partial/pagination.html" %}
-  </div>
+  </main>
 {% endblock %}
