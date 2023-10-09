@@ -1,7 +1,7 @@
 <ul class="flex flex-col gap-8 p-4 text-center uppercase md:flex-row md:p-0"
     x-cloak="">
-  <li class="inline-flex justify-start duration-500 rounded md:py-2 md:border-gray-100 hover:drop-shadow-md ">
-    <a class="text-left duration-500 border-b-4 border-white hover:border-red-500"
+  <li class="inline-flex justify-start duration-500 rounded md:py-2 ">
+    <a class="text-left duration-500 border-white border-y-4 hover:border-b-red-500"
        href="{% url 'index' %}">Home</a>
   </li>
   {% comment %} products {% endcomment %}
@@ -10,7 +10,7 @@
       class="relative duration-500 rounded cursor-pointer md:inline-flex">
     <a href="/products/" class="group md:py-2">
       <div class="flex justify-between">
-        <span class="items-center gap-1 duration-500 border-b-4 border-white hover:border-red-500 md:inline-flex "
+        <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 md:inline-flex "
               @mouseenter.stop="openTab=true">
           Products
         </span>
@@ -67,7 +67,7 @@
       class="relative duration-500 rounded cursor-pointer md:inline-flex">
     <a href="/blog/" class="group md:py-2">
       <div class="flex justify-between">
-        <span class="items-center gap-1 duration-500 border-b-4 border-white hover:border-red-500 md:inline-flex "
+        <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 md:inline-flex "
               @mouseenter.stop="openTab=true">
           blog
         </span>
@@ -118,12 +118,12 @@
       </ul>
     </div>
   </li>
-  <li class="inline-flex justify-start duration-500 rounded md:py-2 md:border-gray-100 hover:drop-shadow-md ">
-    <a class="duration-500 border-b-4 border-white hover:border-red-500"
+  <li class="inline-flex justify-start duration-500 rounded md:py-2 ">
+    <a class="duration-500 border-white border-y-4 hover:border-b-red-500"
        href="/contact/">contact</a>
   </li>
-  <li class="inline-flex justify-start duration-500 rounded md:py-2 md:border-gray-100 hover:drop-shadow-md ">
-    <a class="duration-500 border-b-4 border-white hover:border-red-500"
+  <li class="inline-flex justify-start duration-500 rounded md:py-2 ">
+    <a class="duration-500 border-white border-y-4 hover:border-b-red-500"
        href="/about/">about</a>
   </li>
 </ul>
