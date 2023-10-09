@@ -1,6 +1,7 @@
 from typing import Any
 from django import http
 from django.shortcuts import render
+from blog.models import Blog
 from products.models import Product
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
@@ -63,3 +64,18 @@ class ProductSearchView(ListView):
     
 def clear_results(request):
     return HttpResponse ()
+
+def search_all(request):
+    q = request.GET.get('q')
+    q_list = q.split()
+    query_product = Q()
+    query_blog = Q()
+    for term in q_list:
+        query_product &= Q(name__icontains=term)|Q(slug__icontains=term)|Q(description__icontains=term)
+        query_blog &= Q(title__icontains=term)|Q(slug__icontains=term)|Q(description__icontains=term)
+    results_product = Product.objects.filter(query_product)
+    results_blog = Blog.objects.filter(query_blog)
+    return render(request,'search/partial/search-results.html',{
+        'results_product':results_product,
+        'results_blog':results_blog,
+    })

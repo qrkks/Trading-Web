@@ -1,10 +1,11 @@
-<section class="sticky z-10 bg-white shadow-lg top-20">
+<section class="sticky z-10 bg-white border-b border-white top-20">
   <div
     class="flex flex-col px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:flex-row sm:items-center"
   >
     <form
-      class="relative flex-auto"
-      hx-validate="go"
+      class="relative flex flex-auto"
+      x-data="{ preventEnter: $event => $event.key === 'Enter' && $event.preventDefault() }"
+      x-on:keydown.prevent.enter="preventEnter"
       hx-get="/search/products/"
       hx-target="#main-content"
       hx-trigger="input delay:500ms"
@@ -12,24 +13,31 @@
       hx-validate="go change"
       hx-boost="true"
     >
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="currentColor"
+    class="w-5 text-cyan-500"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+    />
+  </svg>
       <input
         type="search"
         aria-label="Search all products"
         placeholder="Search all products..."
-        class="block w-full appearance-none rounded-lg bg-transparent py-6 pl-9 pr-4 text-base text-slate-900 transition placeholder:text-slate-400 focus:outline-none sm:text-[0.8125rem] sm:leading-6 [&amp;::-webkit-search-cancel-button]:appearance-none [&amp;::-webkit-search-decoration]:appearance-none [&amp;::-webkit-search-results-button]:appearance-none [&amp;::-webkit-search-results-decoration]:appearance-none focus:ring-0 border-0"
+        class="block w-full  rounded-lg bg-transparent py-6 pl-2 pr-4 text-base text-slate-900 transition placeholder:text-slate-400 focus:outline-none sm:text-[0.8125rem] sm:leading-6  focus:ring-0 border-0"
         name="q"
         value=""
         autocomplete="off"
         required
-      /><svg
-        viewBox="0 0 20 20"
-        aria-hidden="true"
-        class="absolute inset-y-0 left-0 w-5 h-full transition pointer-events-none fill-slate-500"
-      >
-        <path
-          d="M16.72 17.78a.75.75 0 1 0 1.06-1.06l-1.06 1.06ZM9 14.5A5.5 5.5 0 0 1 3.5 9H2a7 7 0 0 0 7 7v-1.5ZM3.5 9A5.5 5.5 0 0 1 9 3.5V2a7 7 0 0 0-7 7h1.5ZM9 3.5A5.5 5.5 0 0 1 14.5 9H16a7 7 0 0 0-7-7v1.5Zm3.89 10.45 3.83 3.83 1.06-1.06-3.83-3.83-1.06 1.06ZM14.5 9a5.48 5.48 0 0 1-1.61 3.89l1.06 1.06A6.98 6.98 0 0 0 16 9h-1.5Zm-1.61 3.89A5.48 5.48 0 0 1 9 14.5V16a6.98 6.98 0 0 0 4.95-2.05l-1.06-1.06Z"
-        ></path>
-      </svg>
+      />
+      {% comment %} {% include "search/svg/search.svg" %} {% endcomment %}
     </form>
   </div>
 </section>

@@ -1,0 +1,47 @@
+<div class="w-screen lg:w-[50vw]   min-h-[100px] z-10 gap-5 left-0 md:left-auto absolute  max-h-screen overflow-auto md:right-0 top-[100%] border border-t-0  rounded-b shadow-lg bg-slate-50 text-sm">
+  <ul class="mx-auto text-gray-500 ">
+    {% if not results_product and not results_blog %}
+      <div class="px-4 py-1">
+        No results
+      </div>
+    {% endif %}
+    {% for r in results_product %}
+      <li>
+        <a href="{{ r.get_absolute_url }}">
+          <div class="flex justify-between flex-wrap border-b border-cyan-50 px-4 py-[4px] hover:bg-slate-200">
+            <div class="flex gap-1">
+              <div class="px-2 text-white rounded-full shadow bg-cyan-600">
+                Products
+              </div>
+              <div class="px-2 text-white rounded-full shadow bg-cyan-500">
+                {{ r.category }}
+              </div>
+            </div>
+            <div>
+              <span>{{ r.name }}</span>
+            </div>
+          </div>
+        </a>
+      </li>
+    {% endfor %}
+    {% for r in results_blog %}
+      <li>
+        <a href="{{ r.get_absolute_url }}">
+          <div class="flex justify-between flex-wrap  px-4 py-[4px] hover:bg-slate-200">
+            <div class="flex gap-1">
+              <div class="px-2 text-white rounded-full shadow bg-cyan-600">
+                Blog
+              </div>
+              <div class="px-2 text-white rounded-full shadow bg-cyan-500">
+                {{ r.category }}
+              </div>
+            </div>
+            <div>
+              <span>{{ r.title }}</span>
+            </div>
+          </div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,27 +1,50 @@
-<form class="flex bg-white border rounded-lg shadow-inner">
-  <input type="search"
-         name="q"
-         placeholder="search"
-         class="px-4 bg-transparent border-none focus:ring-0"
-         hx-get="{% url 'search' %}"
-         hx-target="#search-results"
-         hx-boost="true"
-         hx-trigger="keyup change delay:500ms" />
+<form
+  class="flex items-center bg-white border shadow-inner rounded-xl"
+  x-data="{ preventEnter: function(event) { if(event.key === 'Enter') event.preventDefault(); } }"
+  x-on:keydown="preventEnter"
+>
+  <input
+    type="search"
+    name="q"
+    placeholder="search"
+    autocomplete="off"
+    class="flex-shrink w-full min-w-0 px-4 bg-transparent border-none focus:ring-0 placeholder:text-sm "
+    hx-get="{% url 'search-all' %}"
+    hx-target="#search-results"
+    hx-swap="innerHTML"
+    hx-boost="true"
+    hx-trigger="input delay:500ms"
+    hx-validate="go change"
+  />
+  <!-- {% comment %} <span class="w-6">
+           {% include "search/svg/search.svg" %}
+  </span> {% endcomment %} -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="currentColor"
+    class="w-5 mr-3 text-gray-400"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+    />
+  </svg>
 </form>
-<div class="absolute right-0 hidden max-h-screen overflow-y-auto bg-cyan-200" id="search-results">
-</div>
-
-
+<div class="" id="search-results"></div>
 <script>
   document.addEventListener('click', function(e) {
     const results = document.getElementById('search-results');
     const searchBox = document.querySelector('input[name="q"]');
-  
+
     if (!searchBox.contains(e.target) && !results.contains(e.target)) {
       hideResults();
     }
   });
-  
+
   document.querySelector('input[name="q"]').addEventListener('input', function() {
     if (this.value.trim() !== '') {
       showResults();
@@ -29,15 +52,14 @@
       hideResults();
     }
   });
-  
+
   function hideResults() {
     const results = document.getElementById('search-results');
     results.style.display = 'none';
   }
-  
+
   function showResults() {
     const results = document.getElementById('search-results');
     results.style.display = 'block';
   }
-  </script>
-  
+</script>
