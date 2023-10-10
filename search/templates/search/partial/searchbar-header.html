@@ -1,5 +1,5 @@
 <form
-  class="flex items-center bg-white border shadow-inner rounded-xl"
+  class="flex items-center max-w-[220px]  bg-white border shadow-inner rounded-full "
   x-data="{ preventEnter: function(event) { if(event.key === 'Enter') event.preventDefault(); } }"
   x-on:keydown="preventEnter"
 >
@@ -15,10 +15,8 @@
     hx-boost="true"
     hx-trigger="input delay:500ms"
     hx-validate="go change"
+    required
   />
-  <!-- {% comment %} <span class="w-6">
-           {% include "search/svg/search.svg" %}
-  </span> {% endcomment %} -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

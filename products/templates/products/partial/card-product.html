@@ -14,10 +14,18 @@
   </div>
   <div class="py-2 ">
     <h3 class="text-sm text-gray-700 group-hover:underline group-hover:underline-offset-4">
+      {% if product.highlighted_name %}
+      {{ product.highlighted_name|safe }}
+      {% else %}
       {{ product.name }}
+      {% endif %}
     </h3>
     <p class="mt-1.5 max-w-[40ch] text-xs text-gray-500">
+      {% if product.highlighted_name %}
+      {{ product.highlighted_description|truncatewords:'15' }}
+      {% else %}
       {{ product.description|truncatewords:'15' }}
+      {% endif %}
     </p>
   </div>
 </a>
