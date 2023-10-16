@@ -12,7 +12,7 @@ from blog.models import Blog
 
 # Create your views here.
 def index(request):
-    faqs = Faq.objects.filter(is_active=True)
+    faqs = Faq.objects.filter(is_active=True).order_by('custom_order')
     blog = Blog.objects.all()[:3]
 
     return render(request,'pages/index.html',{

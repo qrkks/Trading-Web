@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'taggit',
     'widget_tweaks',
-
+    'import_export',
+    
     # apps
     'pages',
     'products',
@@ -75,7 +76,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
 
     # "django.middleware.csrf.CsrfViewMiddleware",
-    # 'abstractapp.middlewares.DisableCSRFMiddleware',
+    'abstractapp.middlewares.DisableCSRFMiddleware',
 
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",

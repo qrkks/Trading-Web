@@ -5,10 +5,10 @@
    hx-boost="true"
    class="block group ">
   <div class="relative h-[250px] sm:h-[350px]">
-    <img src="{{ product.images.all.0.image.url }}"
-         alt=""
+    <img src="{% if product.images.exists %}{{ product.images.all.0.image.url }}{% else %}https://via.placeholder.com/400x400?text=Ciye+Co.{% endif %}" 
+    alt=""
          class="absolute inset-0 object-cover w-full h-full opacity-100 group-hover:opacity-0" />
-    <img src="{% with images=product.images.all %} {% if images|length > 1 %} {{ images.1.image.url }} {% else %} {{ images.0.image.url }} {% endif %} {% endwith %} "
+    <img src="{% with images=product.images.all %} {% if images|length > 1 %} {{ images.1.image.url }} {% else %} https://picsum.photos/400/400?text=Ciye+Co. {% endif %} {% endwith %} "
          alt=""
          class="absolute inset-0 object-cover w-full h-full opacity-0 group-hover:opacity-100" />
   </div>

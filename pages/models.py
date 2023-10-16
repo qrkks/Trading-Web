@@ -22,10 +22,16 @@ class ContactInformation(BaseModel):
     link_template = models.CharField(max_length=200, help_text="Use {{contact_info}} to insert contact info",null=True,blank=True)
     link = models.CharField(max_length=200,null=True,blank=True,editable=False)
 
+    def __str__(self) -> str:
+        return self.name
+
 class SocialMedia(BaseModel):
     name = models.CharField(max_length=50,null=True,blank=True,unique=True)
     link = models.CharField(max_length=100,null=True,blank=True)
 
+    def __str__(self) -> str:
+        return self.name
+    
 class Faq(BaseModel):
     question = models.TextField()
     answer = models.TextField()

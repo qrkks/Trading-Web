@@ -9,6 +9,7 @@ from django.utils.html import mark_safe
 from adminsortable2.admin import SortableAdminMixin
 from django.db import models
 from taggit.managers import TaggableManager
+from import_export.admin import ImportExportModelAdmin, ImportExportMixin
 
 
 # Register your models here.
@@ -82,7 +83,7 @@ class CategoryFilter(admin.SimpleListFilter):
 
 
 @admin.register(Product)
-class ProductModelAdmin(SortableAdminMixin, admin.ModelAdmin):
+class ProductModelAdmin(ImportExportModelAdmin, SortableAdminMixin):
 # class ProductModelAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Product._meta.get_fields() if  is_displayable_field(field)]
     # list_display = [field.name for field in Product._meta.get_fields() if field.name not in ['images','related_products','product','tags','TaggableManager','_TaggableManager'] ]
@@ -97,3 +98,4 @@ class ProductModelAdmin(SortableAdminMixin, admin.ModelAdmin):
     inlines = [ProductImageAdmin]
     ordering = ['-custom_order', '-is_active', '-is_featured']
     list_filter = (CategoryFilter,)  # 允许通过类别过滤
+    filter_horizontal = 'related_products',

@@ -32,3 +32,5 @@ class NotificationInbox(models.Model):
     class Meta:
         verbose_name_plural = 'notification inboxes'
         
+    def __str__(self) -> str:
+        return self.email

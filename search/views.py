@@ -35,7 +35,7 @@ class ProductSearchView(ListView):
     model = Product
     template_name = 'products/product.html'  # 用于渲染产品列表的模板
     context_object_name = 'products'  # 可选，用于在模板中引用对象列表的变量名，默认是 'object_list'
-    paginate_by = 12  # 每页显示 12 个产品
+    paginate_by = 9  
     extra_context = {
         'partial_template_path': 'products/partial/main-list.html',
     }
@@ -54,6 +54,7 @@ class ProductSearchView(ListView):
 
         results = Product.objects.filter(query_product)
         self.extra_context['main_title'] = f'{results.count()} results found for "{q}"'
+        print(results)
 
         highlighted_results_product = []
         for product in results:
@@ -85,6 +86,9 @@ def highlight(text, term, class_name='text-red-500'):
     """辅助函数，用于突出显示文本中的关键词"""
     escaped_term = escape(term)
 
+    if text is None:
+        text = ''  # 或者返回其他适当的值，或者记录错误，或者抛出异常
+
     # 使用Beautiful Soup解析文本
     soup = BeautifulSoup(text, 'html.parser')
 
@@ -110,7 +114,7 @@ def search_all(request):
     # print(f"Value of q: '{q}'")  # 打印q的值，用于调试
 
     if not q or q.isspace():  # 主要是检查q是否为None，因为在这种情况下，q.split()将引发AttributeError。
-        # results = Product.objects.none()y
+        # results = Product.objects.none()
         # return render(request,'search/partial/search-results.html',{})
         # print("执行了if not q")
         return HttpResponse()
@@ -143,10 +147,12 @@ def search_all(request):
             highlighted_name = highlight(highlighted_name, term)
             highlighted_description = highlight(highlighted_description, term)
         highlighted_results_product.append({
-            'category': product.category,
+            # 'category': product.category,
             'name': highlighted_name,
             'description': highlighted_description
         })
+        product.highlighted_name = highlighted_name
+        product.highlighted_description = highlighted_description
 
     for blog in results_blog:
         highlighted_title = blog.title
@@ -155,12 +161,16 @@ def search_all(request):
             highlighted_title = highlight(highlighted_title, term)
             highlighted_description = highlight(highlighted_description, term)
         highlighted_results_blog.append({
-            'category': blog.category,
+            # 'category': blog.category,
             'title': highlighted_title,
             'description': highlighted_description
         })
+        blog.highlighted_title = highlighted_title
+        blog.highlighted_description = highlighted_description
+    # print(f'results product:{results_product}\n')
+    # print(f'results blog:{results_blog}\n')
 
     return render(request, 'search/partial/search-results.html', {
-        'results_product': highlighted_results_product,
-        'results_blog': highlighted_results_blog,
+        'results_product': results_product,
+        'results_blog': results_blog,
     })

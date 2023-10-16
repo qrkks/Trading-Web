@@ -1,50 +1,55 @@
 <!-- templates/partial/pagination.html -->
-<div class="flex flex-wrap items-center justify-center p-4 my-4 space-x-1 text-white select-none pagination"
-     x-data>
-  <span class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">{{ page_obj.number }} / {{ paginator.num_pages }}</span>
-  <!-- Previous Page -->
-  {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }} "
-       hx-get="?page={{ page_obj.previous_page_number }}"
-       hx-target="#main-content"
-       hx-push-url="true"
-       hx-boost="true"
-       class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group"
-       x-ref="previousLink"
-       @keydown.window="$event.keyCode === 37 ? $refs.previousLink.click() : null">
-      <span class="duration-300 ease-in-out group-hover:border-b group-hover:border-red-500">Previous</span></a>
-    {% comment %} {% else %}
-    <span>Previous</span> {% endcomment %}
-  {% endif %}
-  <!-- Individual Page Numbers -->
-  {% for page_num in paginator.page_range %}
-    {% if page_obj.number == page_num %}
-      <p class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">
-        <span class="border-b border-red-500">{{ page_num }}</span>
-      </p>
-    {% else %}
-      <a href="?page={{ page_num }}"
-         hx-get="?page={{ page_num }}"
+{% with q=request.GET.q|default:'' %}
+  <div class="flex flex-wrap items-center justify-center p-4 my-4 space-x-1 text-white select-none pagination"
+       x-data>
+    <!-- Previous Page -->
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }} "
+         {% comment %}
+         hx-get="?page={{ page_obj.previous_page_number }}"
+         {% endcomment %}
+         hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}#main-content"
          hx-target="#main-content"
          hx-push-url="true"
          hx-boost="true"
-         class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">
-        <span class="duration-300 ease-in-out group-hover:border-b group-hover:border-red-500">
-          {{ page_num }}
-        </span></a>
-      {% endif %}
-    {% endfor %}
-    <!-- Next Page -->
-    {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}"
-         hx-get="?page={{ page_obj.next_page_number }}"
-         hx-target="#main-content"
-         hx-push-url="true"
-         hx-boost="true"
-         class="px-3 py-2 transition duration-300 ease-in-out rounded-md bg-cyan-500 group"
-         x-ref="nextLink"
-         @keydown.window="$event.keyCode === 39 ? $refs.nextLink.click() : null">
-         <span class="duration-300 ease-in-out group-hover:border-b group-hover:border-red-500">Next</span></a>
+         class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group"
+         x-ref="previousLink"
+         @keydown.window="$event.keyCode === 37 ? $refs.previousLink.click() : null">
+        <span class="duration-300 ease-in-out group-hover:underline group-hover:underline-offset-4">Previous</span></a>
+      {% comment %} {% else %}
+      <span>Previous</span> {% endcomment %}
+    {% endif %}
+    <!-- n/N -->
+    <span class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">{{ page_obj.number }} / {{ paginator.num_pages }}</span>
+    <!-- Individual Page Numbers -->
+    {% for page_num in paginator.page_range %}
+      {% if page_obj.number == page_num %}
+        <p class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">
+          <span class="border-b border-red-500">{{ page_num }}</span>
+        </p>
+      {% else %}
+        <a href="?page={{ page_num }}"
+           hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_num }}#main-content"
+           hx-target="#main-content"
+           hx-push-url="true"
+           hx-boost="true"
+           class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">
+          <span class="duration-300 ease-in-out group-hover:underline group-hover:underline-offset-4">
+            {{ page_num }}
+          </span></a>
+        {% endif %}
+      {% endfor %}
+      <!-- Next Page -->
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"
+           hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.next_page_number }}#main-content"
+           hx-target="#main-content"
+           hx-push-url="true"
+           hx-boost="true"
+           class="px-3 py-2 transition duration-300 ease-in-out rounded-md bg-cyan-500 group"
+           x-ref="nextLink"
+           @keydown.window="$event.keyCode === 39 ? $refs.nextLink.click() : null">
+          <span class="duration-300 ease-in-out group-hover:underline group-hover:underline-offset-4 ">Next</span></a>
       </a>
       {% comment %} {% else %}
       <span>Next</span> {% endcomment %}
@@ -53,3 +58,4 @@
       * You could use the left and right arrows on your keyboard to navigate pages.
     </div>
   </div>
+{% endwith %}
