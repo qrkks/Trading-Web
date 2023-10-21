@@ -65,7 +65,7 @@ class ProductManager(models.Manager):
 #         return ProductQueryset(self.model,using=self._db)
     
     def active(self):
-        print("Manager's active is being called")
+        # print("Manager's active is being called")
         return self.get_queryset().filter(is_active=True)
         # return self.get_queryset().active()
 

@@ -54,7 +54,7 @@ class ProductSearchView(ListView):
 
         results = Product.objects.filter(query_product)
         self.extra_context['main_title'] = f'{results.count()} results found for "{q}"'
-        print(results)
+        # print(results)
 
         highlighted_results_product = []
         for product in results:
@@ -82,7 +82,7 @@ def clear_results(request):
     return HttpResponse()
 
 
-def highlight(text, term, class_name='text-red-500'):
+def highlight(text, term, class_name='text-red-500 font-bold'):
     """辅助函数，用于突出显示文本中的关键词"""
     escaped_term = escape(term)
 
