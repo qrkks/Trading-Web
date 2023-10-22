@@ -1,0 +1,61 @@
+Date : 2023-10-21 15:38:05
+Directory : c:\Website\Real site\Trading Web\products
+Total : 27 files,  986 codes, 231 comments, 205 blanks, all 1422 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Python   |         13 |        521 |        120 |        150 |        791 |
+| HTML     |         14 |        465 |        111 |         55 |        631 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                      | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                         |         27 |        986 |        231 |        205 |      1,422 |
+| . (Files)                                                                                                 |          7 |        268 |        115 |        123 |        506 |
+| migrations                                                                                                |          6 |        253 |          5 |         27 |        285 |
+| templates                                                                                                 |         14 |        465 |        111 |         55 |        631 |
+| templates\deprecated                                                                                      |          3 |         49 |          9 |          7 |         65 |
+| templates\products                                                                                        |         11 |        416 |        102 |         48 |        566 |
+| templates\products (Files)                                                                                |          2 |         29 |          0 |          2 |         31 |
+| templates\products\partial                                                                                |          9 |        387 |        102 |         46 |        535 |
+| templates\products\partial (Files)                                                                        |          5 |        174 |          4 |          6 |        184 |
+| templates\products\partial\deprecated                                                                     |          4 |        213 |         98 |         40 |        351 |
++-----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                  | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Website\Real site\Trading Web\products\__init__.py                                                     | Python   |          0 |          0 |          1 |          1 |
+| c:\Website\Real site\Trading Web\products\admin.py                                                        | Python   |         59 |         19 |         24 |        102 |
+| c:\Website\Real site\Trading Web\products\apps.py                                                         | Python   |          4 |          0 |          3 |          7 |
+| c:\Website\Real site\Trading Web\products\migrations\0001_initial.py                                      | Python   |        174 |          1 |          6 |        181 |
+| c:\Website\Real site\Trading Web\products\migrations\0002_remove_product_view_count.py                    | Python   |         11 |          1 |          5 |         17 |
+| c:\Website\Real site\Trading Web\products\migrations\0003_product_view_count.py                           | Python   |         19 |          1 |          5 |         25 |
+| c:\Website\Real site\Trading Web\products\migrations\0004_alter_product_tags_alter_product_view_count.py  | Python   |         32 |          1 |          5 |         38 |
+| c:\Website\Real site\Trading Web\products\migrations\0005_alter_product_description_alter_product_name.py | Python   |         17 |          1 |          5 |         23 |
+| c:\Website\Real site\Trading Web\products\migrations\__init__.py                                          | Python   |          0 |          0 |          1 |          1 |
+| c:\Website\Real site\Trading Web\products\models.py                                                       | Python   |        106 |         38 |         37 |        181 |
+| c:\Website\Real site\Trading Web\products\templates\deprecated\product-detail.html                        | HTML     |         12 |          2 |          4 |         18 |
+| c:\Website\Real site\Trading Web\products\templates\deprecated\product-index.html                         | HTML     |         25 |          2 |          1 |         28 |
+| c:\Website\Real site\Trading Web\products\templates\deprecated\product-list.html                          | HTML     |         12 |          5 |          2 |         19 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\card-product.html                    | HTML     |         31 |          0 |          1 |         32 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\carousel-product.html                | HTML     |         53 |          4 |          2 |         59 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\deprecated\card-product copy.html    | HTML     |        155 |         98 |         34 |        287 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\deprecated\detail-main.html          | HTML     |         17 |          0 |          1 |         18 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\deprecated\list-main.html            | HTML     |         25 |          0 |          3 |         28 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\deprecated\main-index.html           | HTML     |         16 |          0 |          2 |         18 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\featured-section.html                | HTML     |         49 |          0 |          1 |         50 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\main-detail.html                     | HTML     |         31 |          0 |          1 |         32 |
+| c:\Website\Real site\Trading Web\products\templates\products\partial\main-list.html                       | HTML     |         10 |          0 |          1 |         11 |
+| c:\Website\Real site\Trading Web\products\templates\products\product-index.html                           | HTML     |         13 |          0 |          1 |         14 |
+| c:\Website\Real site\Trading Web\products\templates\products\product.html                                 | HTML     |         16 |          0 |          1 |         17 |
+| c:\Website\Real site\Trading Web\products\tests.py                                                        | Python   |          1 |          1 |          2 |          4 |
+| c:\Website\Real site\Trading Web\products\urls.py                                                         | Python   |          7 |          3 |          3 |         13 |
+| c:\Website\Real site\Trading Web\products\views.py                                                        | Python   |         91 |         54 |         53 |        198 |
+| Total                                                                                                     |          |        986 |        231 |        205 |      1,422 |
++-----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

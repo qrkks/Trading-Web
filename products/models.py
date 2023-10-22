@@ -8,6 +8,7 @@ from django.db.models.signals import pre_save
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from slugify import slugify
+from abstractapp.manager import CommonManager
 from abstractapp.models import BaseModel, SlugMixin
 from taggit.managers import TaggableManager
 
@@ -60,13 +61,13 @@ class Category(MPTTModel):
 #     def active(self):
 #         return self.filter(is_active = True)
 
-class ProductManager(models.Manager):
+# class ProductManager(models.Manager):
 #     def get_queryset(self) -> QuerySet:
 #         return ProductQueryset(self.model,using=self._db)
     
-    def active(self):
+    # def active(self):
         # print("Manager's active is being called")
-        return self.get_queryset().filter(is_active=True)
+        # return self.get_queryset().filter(is_active=True)
         # return self.get_queryset().active()
 
 # 自定义查询集
@@ -125,7 +126,7 @@ class Product(models.Model):
 
     # 分配自定义模型管理器给 objects 属性
     # objects = ProductQueryset().as_manager()
-    objects = ProductManager()
+    objects = CommonManager()
 
     def __str__(self) -> str:
         return self.name
