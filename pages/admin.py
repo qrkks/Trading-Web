@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Faq, HomeCarouselImage, SocialMedia, ContactInformation
+from .models import Faq, HomeCarouselImage, SocialMedia, ContactInformation, Banner
 from adminsortable2.admin import SortableAdminMixin
+from abstractapp.admin import BaseModelAdmin
 
 # Register your models here.
 
@@ -12,10 +13,16 @@ class HomeCarouselImageAdmin(SortableAdminMixin,admin.ModelAdmin):
 
 @admin.register(ContactInformation)
 class ContactInformationAdmin(SortableAdminMixin,admin.ModelAdmin):
-    list_display = ['name','info','link']
-    list_display_links = list_display
+    list_display = ['name','info','link','is_active','is_featured']
+    list_editable = ('is_active','is_featured')
+    # list_display_links = [x for x in list_display if x not in ('is_active','is_featured')]
     ordering = 'custom_order',
     readonly_fields = 'link',
+
+    @property
+    def list_display_links(self):
+        return [x for x in self.list_display if x not in self.list_editable]
+
 
     def save_model(self, request, obj, form, change):
         # 使用link_template的值渲染rendered_link
@@ -36,3 +43,18 @@ class FaqAdmin(SortableAdminMixin,admin.ModelAdmin):
     list_display = ['question','answer']
     list_display_links = list_display
     ordering = ['custom_order']
+
+
+@admin.register(Banner)
+class HomePageAdmin(SortableAdminMixin, BaseModelAdmin):
+    ordering = ('custom_order',)
+
+    # @property
+    # def list_display(self):
+    #     return [field.name for field in self.model._meta.get_fields()]
+    #     # model_name = self.model.__name__  # 这里获取模型的类名，即 "HomePage" 这里，self.model指向HomePage，因此self.model.__name__会返回字符串"HomePage"。
+
+    
+    # @property
+    # def list_display_links(self):
+    #     return [x for x in self.list_display if x not in self.list_editable]

@@ -5,9 +5,6 @@
     <!-- Previous Page -->
     {% if page_obj.has_previous %}
       <a href="?page={{ page_obj.previous_page_number }} "
-         {% comment %}
-         hx-get="?page={{ page_obj.previous_page_number }}"
-         {% endcomment %}
          hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}#main-content"
          hx-target="#main-content"
          hx-push-url="true"

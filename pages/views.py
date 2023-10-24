@@ -7,17 +7,21 @@ from django.contrib.auth import get_user_model
 from django.views.generic.list import ListView
 
 from form_handlers.forms import InquiryForm
-from .models import Faq
+from .models import Banner, Faq, HomeCarouselImage
 from blog.models import Blog
 
 # Create your views here.
 def index(request):
-    faqs = Faq.objects.filter(is_active=True).order_by('custom_order')
+    faqs = Faq.objects.active().order_by('-custom_order')
     blog = Blog.objects.all()[:3]
+    carousels = HomeCarouselImage.objects.active().all().order_by('-custom_order')
+    banner = Banner.objects.active().order_by('-custom_order').first()
 
     return render(request,'pages/index.html',{
         'faqs':faqs,
         'blog':blog,
+        'carousels':carousels,
+        'banner':banner,
     })
 
 def about(request):
