@@ -11,7 +11,7 @@ import threading
 def send_inquiry_email(sender, instance, created, **kwargs):
     if created:
         # 查询 NotificationInbox 模型以获取所有邮箱地址
-        recipient_list = NotificationInbox.objects.values_list('email', flat=True)
+        recipient_list = NotificationInbox.objects.filter(is_active=True).values_list('email', flat=True)
 
         # 检查 recipient_list 是否非空
         if not recipient_list:

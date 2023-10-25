@@ -9,7 +9,7 @@
         Ciye Co.
       {% endblock title %}
     </title>
-    <script src="{% static 'js/alpine/2.8.2/alpine.min.js' %}"></script>
+    <script src="{% static 'js/alpine/2.8.2/alpine.min.js' %}" ></script>
     <script src="https://cdn.tailwindcss.com"></script>
     {% tailwind_css %}
     <script src="{% static 'js/htmx/1.9.5/htmx.min.js' %}"></script>
@@ -17,7 +17,7 @@
             src="{% static 'js/flowbite/1.8.1/flowbite.min.js' %}"></script>
   </head>
   <body x-data="{openMobileNav:false}" class="bg-gray-50 font-montserrat">
-    <header class=" sticky top-0 z-50 w-full {% block header_class %}shadow-lg{% endblock %}">
+    <header class=" sticky top-0 z-50 w-full " >
       <div class="flex items-center justify-between h-20 gap-3 px-8 py-2 bg-white ">
         <!-- 1.logo -->
         <a href="/" class="text-lg font-bold">CiyeLogo</a>
@@ -31,7 +31,7 @@
         <!-- 2.hamburger -->
         <div @click="openMobileNav=!openMobileNav"
              class="cursor-pointer lg:hidden"
-             x-cloak="">
+             >
           <svg xmlns="http://www.w3.org/2000/svg"
                fill="none"
                viewBox="0 0 24 24"
