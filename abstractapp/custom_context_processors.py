@@ -39,3 +39,12 @@ def contact(request):
 
 def social(request):
     return {}
+
+def global_context(request):
+    return {
+        **categories(request),
+        **inquiry_form(request),
+        **contact(request),
+        **social(request),
+    }
+

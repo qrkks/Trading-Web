@@ -35,7 +35,7 @@ class ProductImageAdmin(admin.TabularInline):
     extra = 1  # 显示一个额外的空行，以便批量上传多个图片
 
     def image_preview(self, obj):
-        return mark_safe('<img src="{}" width="150" height="150" />'.format(obj.image.url))
+        return mark_safe('<img src="{}"  height="150" />'.format(obj.image.url))
 
     readonly_fields = ['image_preview']
 

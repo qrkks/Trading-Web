@@ -107,9 +107,10 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 # categories
-                'abstractapp.custom_context_processors.categories',
-                'abstractapp.custom_context_processors.inquiry_form',
-                'abstractapp.custom_context_processors.contact',
+                # 'abstractapp.custom_context_processors.categories',
+                # 'abstractapp.custom_context_processors.inquiry_form',
+                # 'abstractapp.custom_context_processors.contact',
+                'abstractapp.custom_context_processors.global_context',
 
                 # Grappelli
                 # 'django.template.context_processors.request',

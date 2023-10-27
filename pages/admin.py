@@ -15,7 +15,7 @@ class HomeCarouselImageAdmin(SortableAdminMixin,BaseModelAdmin):
     readonly_fields = ('image_preview',)
 
     def image_preview(self,obj):
-        return format_html('<img src="{}" width="150" height="150" />', obj.image.url)
+        return format_html('<img src="{}"  height="150" />', obj.image.url)
 
     @property
     def list_display(self):
@@ -60,7 +60,7 @@ class HomePageAdmin(SortableAdminMixin, BaseModelAdmin):
     ordering = ('custom_order',)
 
     def image_preview(self, obj):
-        return mark_safe('<img src="{}" width="150" height="150" />'.format(obj.image.url))
+        return mark_safe('<img src="{}" height="150" />'.format(obj.image.url))
 
     readonly_fields = ['image_preview']
     
