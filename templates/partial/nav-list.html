@@ -8,6 +8,7 @@
        hx-swap="innerHTML scroll:top"
        hx-push-url="true"
        data-scroll-to-top="true"
+       hx-indicator="#progress-bar"
        x-on:click="openMobileNav=false">Home</a>
   </li>
   {% comment %} products {% endcomment %}
@@ -21,6 +22,7 @@
          hx-swap="innerHTML"
          hx-push-url="true"
          data-scroll-to-top="true"
+         hx-indicator="#progress-bar"
          class="group lg:py-2">
         <span class="items-center gap-1 duration-500  border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
               @mouseenter.stop="openTab=true"
@@ -84,6 +86,7 @@
          hx-target="#content"
          hx-swap="innerHTML"
          hx-push-url="true"
+         hx-indicator="#progress-bar"
          data-scroll-to-top="true"
          class="group lg:py-2">
         <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
@@ -146,6 +149,7 @@
        hx-swap="innerHTML"
        hx-push-url="true"
        data-scroll-to-top="true"
+       hx-indicator="#progress-bar"
        x-on:click="openMobileNav=false">contact</a>
   </li>
   <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
@@ -156,6 +160,7 @@
        hx-swap="innerHTML"
        hx-push-url="true"
        data-scroll-to-top="true"
+       hx-indicator="#progress-bar"
        x-on:click="openMobileNav=false">about</a>
   </li>
 </ul>
