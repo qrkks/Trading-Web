@@ -15,8 +15,16 @@
     <script src="{% static 'js/htmx/1.9.5/htmx.min.js' %}"></script>
     <script defer src="{% static 'js/flowbite/1.8.1/flowbite.min.js' %}"></script>
   </head>
+<<<<<<< Updated upstream
   <body x-data="{openMobileNav:false}" class="bg-gray-50 font-montserrat">
     <header class=" sticky top-0 z-50 w-full ">
+=======
+  <body x-data="{openMobileNav:false}" x-on:close-mobile-nav="openMobileNav = false" class="bg-gray-50 font-montserrat">
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>    
+    <header class=" sticky top-0 z-50 w-full " >
+>>>>>>> Stashed changes
       <div class="flex items-center justify-between h-20 gap-3 px-8 py-2 bg-white ">
         <!-- 1.logo -->
         <a href="/" class="text-lg font-bold">CiyeLogo</a>
