@@ -9,17 +9,28 @@
         Ciye Co.
       {% endblock title %}
     </title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
     <script src="{% static 'js/alpine/2.8.2/alpine.min.js' %}"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     {% tailwind_css %}
-    <script src="{% static 'js/htmx/1.9.5/htmx.min.js' %}"></script>
+    <script defer src='{% static "js/script.js" %}'></script>
+    <script defer src="{% static 'js/htmx/1.9.6/htmx.min.js' %}"></script>
+    <script defer src="{% static 'js/hyperscript/0.9.12/hyperscript.min.js' %}"></script>
     <script defer src="{% static 'js/flowbite/1.8.1/flowbite.min.js' %}"></script>
   </head>
+<<<<<<< HEAD
   <body x-data="{openMobileNav:false}" x-on:close-mobile-nav="openMobileNav = false" class="bg-gray-50 font-montserrat">
     <div id="progress-container">
       <div id="progress-bar"></div>
     </div>    
     <header class=" sticky top-0 z-50 w-full " >
+=======
+  <body  class="bg-gray-50 font-montserrat">
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>    
+    <header class=" sticky top-0 z-50 w-full " x-data="{openMobileNav:false}" x-on:close-mobile-nav="openMobileNav = false">
+>>>>>>> 0886b3da9809db3764394f562621bb1a639ecba3
       <div class="flex items-center justify-between h-20 gap-3 px-8 py-2 bg-white ">
         <!-- 1.logo -->
         <a href="/" class="text-lg font-bold">CiyeLogo</a>
@@ -32,7 +43,7 @@
         </div>
         <!-- 2.hamburger -->
         <div @click="openMobileNav=!openMobileNav"
-             class="cursor-pointer lg:hidden">
+             class="cursor-pointer lg:hidden" x-cloak>
           <svg xmlns="http://www.w3.org/2000/svg"
                fill="none"
                viewBox="0 0 24 24"
@@ -56,7 +67,9 @@
       <!-- mobile nav -->
       <nav class="absolute z-10 w-screen px-2 bg-white shadow lg:hidden"
            x-show.transition="openMobileNav"
-           @click.away="openMobileNav=false">
+           @click.away="openMobileNav=false"
+           id="mobile-nav"
+           >
         {% include 'partial/nav-list.html' %}
         {% comment %} <div class="relative flex justify-center py-2">
           {% include 'search/partial/searchbar-header.html' %}

@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from typing import Any
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from render_block import render_block_to_string
+
+from abstractapp.custom_context_processors import global_context
 from .models import Category, Product
 # Create your views here.
 
@@ -48,7 +51,11 @@ def products_index(request):
         'root_nodes_data': root_nodes_data,
         'partial_template_path': 'products/partial/main-index.html',
     }
-
+    
+    if request.headers.get('HX-Request') == 'true':
+        html = render_block_to_string('products/product-index.html', 'content', {**context_data,**global_context(request)})
+        return HttpResponse(html)
+    
     return render(request, 'products/product-index.html', context_data)
 
 

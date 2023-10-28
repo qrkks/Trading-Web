@@ -1,0 +1,129 @@
+<ul class="flex flex-col gap-8 p-4 text-center uppercase lg:flex-row lg:p-0"
+    x-cloak>
+  <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
+    <a class="text-left duration-500 border-white border-y-4 hover:border-b-red-500"
+       href="{% url 'index' %}" hx-get="{% url "index" %}" hx-target="#content" hx-swap="innerHTML scroll:top" hx-push-url="true">Home</a>
+  </li>
+  {% comment %} products {% endcomment %}
+  <li x-data="{openTab:false,showIcon:false}"
+      @mouseleave.stop="openTab=false"
+      class="relative duration-500 rounded lg:inline-flex">
+    <a href="/products/" class="group lg:py-2">
+      <div class="flex justify-between">
+        <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
+              @mouseenter.stop="openTab=true">
+          Products
+        </span>
+        <span class="inline-block lg:hidden ps-10"
+              @click.prevent="openTab=!openTab"
+              @click.away="openTab=false">
+          <span x-show="openTab" class="">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </span>
+          <span x-show="!openTab" class="">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </span>
+        </span>
+      </div>
+    </a>
+    <div class="lg:absolute  lg:top-[100%] z-50 lg:left-1/2 lg:transform lg:-translate-x-1/2 min-w-max">
+      <ul x-show.transition="openTab"
+          x-transition:enter="transition duration-200"
+          x-transition:enter-start="opacity-0 transform -translate-y-3"
+          x-transition:enter-end="opacity-100 transform translate-y-0"
+          x-transition:leave="transition  duration-200"
+          x-transition:leave-start="opacity-100 transform translate-y-0"
+          x-transition:leave-end="opacity-0 transform -translate-y-3"
+          class="flex flex-col text-center ">
+        {% for node in product_root_categories %}
+          <li class="inline-block py-2 duration-500  w-full lg:shadow-lg hover:bg-slate-200 bg-slate-100 {% if forloop.first %}rounded-t-md{% endif %} {% if forloop.last %}rounded-b-md{% endif %} group">
+            <a href="{{ node.get_absolute_url }}">
+              <span class="px-3 duration-500 ">
+                {{ node.name }}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </li>
+  {% comment %} blog {% endcomment %}
+  <li x-data="{openTab:false,showIcon:false}"
+      @mouseleave.stop="openTab=false"
+      class="relative duration-500 rounded lg:inline-flex">
+    <a href="/blog/" class="group lg:py-2">
+      <div class="flex justify-between">
+        <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
+              @mouseenter.stop="openTab=true">
+          blog
+        </span>
+        <span class="inline-block lg:hidden ps-10"
+              @click.prevent="openTab=!openTab"
+              @click.away="openTab=false">
+          <span x-show="openTab" class="">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </span>
+          <span x-show="!openTab" class="">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </span>
+        </span>
+      </div>
+    </a>
+    <div class="lg:absolute  lg:top-[100%] z-50 lg:left-1/2 lg:transform lg:-translate-x-1/2 min-w-max">
+      <ul x-show.transition="openTab"
+          x-transition:enter="transition duration-200"
+          x-transition:enter-start="opacity-0 transform -translate-y-3"
+          x-transition:enter-end="opacity-100 transform translate-y-0"
+          x-transition:leave="transition  duration-200"
+          x-transition:leave-start="opacity-100 transform translate-y-0"
+          x-transition:leave-end="opacity-0 transform -translate-y-3"
+          class="flex flex-col text-center ">
+        {% for node in blog_root_categories %}
+          <li class="inline-block py-2 duration-500  w-full lg:shadow-lg hover:bg-slate-200 group bg-slate-100 {% if forloop.first %}rounded-t-md{% endif %} {% if forloop.last %}rounded-b-md{% endif %}">
+            <a href="{{ node.get_absolute_url }}" class="group">
+              <span class="px-3 duration-500 ">
+                {{ node.name }}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </li>
+  <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
+    <a class="duration-500 border-white border-y-4 hover:border-b-red-500"
+       href="/contact/" hx-get="{% url "contact" %}" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" _="on htmx:afterSwap call window.scrollTo(0, 0)">contact</a>
+  </li>
+  <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
+    <a class="duration-500 border-white border-y-4 hover:border-b-red-500 active:border-b-red-500"
+       href="/about/" hx-get="{% url "about" %}" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" _="on htmx:afterSwap call window.scrollTo(0, 0)">about</a>
+  </li>
+</ul>
