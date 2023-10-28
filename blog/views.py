@@ -3,6 +3,9 @@ from django import http
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.db.models import QuerySet
+from render_block import render_block_to_string
+
+from abstractapp.custom_context_processors import global_context
 
 from .models import Blog, Category
 # Create your views here.
@@ -105,3 +108,9 @@ class BlogIndex(ListView):
     model = Blog
     paginate_by = 12
     template_name = "blog/blog-index.html"
+
+    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
+        if self.request.headers.get('HX-Request') == 'true':
+            html = render_block_to_string('blog/blog-index.html', 'content', {**context,**global_context(self.request)})
+            return http.HttpResponse(html)  
+        return super().render_to_response(context, **response_kwargs)

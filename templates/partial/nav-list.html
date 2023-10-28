@@ -2,44 +2,57 @@
     x-cloak>
   <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
     <a class="text-left duration-500 border-white border-y-4 hover:border-b-red-500"
-       href="{% url 'index' %}" hx-get="{% url "index" %}" hx-target="#content" hx-swap="innerHTML scroll:top" hx-push-url="true">Home</a>
+       href="{% url 'index' %}"
+       hx-get="{% url "index" %}"
+       hx-target="#content"
+       hx-swap="innerHTML scroll:top"
+       hx-push-url="true"
+       data-scroll-to-top="true"
+       x-on:click="openMobileNav=false">Home</a>
   </li>
   {% comment %} products {% endcomment %}
   <li x-data="{openTab:false,showIcon:false}"
       @mouseleave.stop="openTab=false"
       class="relative duration-500 rounded lg:inline-flex">
-    <a href="/products/" class="group lg:py-2">
-      <div class="flex justify-between">
-        <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
-              @mouseenter.stop="openTab=true">
+    <div class="flex justify-between">
+      <a href="/products/"
+         hx-get="/products/"
+         hx-target="#content"
+         hx-swap="innerHTML"
+         hx-push-url="true"
+         data-scroll-to-top="true"
+         class="group lg:py-2">
+        <span class="items-center gap-1 duration-500  border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
+              @mouseenter.stop="openTab=true"
+              x-on:click="$dispatch('close-mobile-nav')">
           Products
         </span>
-        <span class="inline-block lg:hidden ps-10"
-              @click.prevent="openTab=!openTab"
-              @click.away="openTab=false">
-          <span x-show="openTab" class="">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke-width="1.5"
-                 stroke="currentColor"
-                 class="w-3">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </span>
-          <span x-show="!openTab" class="">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke-width="1.5"
-                 stroke="currentColor"
-                 class="w-3">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </span>
+      </a>
+      <span class="inline-block lg:hidden ps-10"
+            @click.prevent="openTab=!openTab"
+            @click.away="openTab=false">
+        <span x-show="openTab" class="">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke-width="1.5"
+               stroke="currentColor"
+               class="w-3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
         </span>
-      </div>
-    </a>
+        <span x-show="!openTab" class="">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke-width="1.5"
+               stroke="currentColor"
+               class="w-3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+      </span>
+    </div>
     <div class="lg:absolute  lg:top-[100%] z-50 lg:left-1/2 lg:transform lg:-translate-x-1/2 min-w-max">
       <ul x-show.transition="openTab"
           x-transition:enter="transition duration-200"
@@ -65,38 +78,45 @@
   <li x-data="{openTab:false,showIcon:false}"
       @mouseleave.stop="openTab=false"
       class="relative duration-500 rounded lg:inline-flex">
-    <a href="/blog/" class="group lg:py-2">
-      <div class="flex justify-between">
+    <div class="flex justify-between">
+      <a href="/blog/"
+         hx-get="/blog/"
+         hx-target="#content"
+         hx-swap="innerHTML"
+         hx-push-url="true"
+         data-scroll-to-top="true"
+         class="group lg:py-2">
         <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
-              @mouseenter.stop="openTab=true">
+              @mouseenter.stop="openTab=true"
+              x-on:click="$dispatch('close-mobile-nav')">
           blog
         </span>
-        <span class="inline-block lg:hidden ps-10"
-              @click.prevent="openTab=!openTab"
-              @click.away="openTab=false">
-          <span x-show="openTab" class="">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke-width="1.5"
-                 stroke="currentColor"
-                 class="w-3">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </span>
-          <span x-show="!openTab" class="">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke-width="1.5"
-                 stroke="currentColor"
-                 class="w-3">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </span>
+      </a>
+      <span class="inline-block lg:hidden ps-10"
+            @click.prevent="openTab=!openTab"
+            @click.away="openTab=false">
+        <span x-show="openTab" class="">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke-width="1.5"
+               stroke="currentColor"
+               class="w-3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
         </span>
-      </div>
-    </a>
+        <span x-show="!openTab" class="">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke-width="1.5"
+               stroke="currentColor"
+               class="w-3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+      </span>
+    </div>
     <div class="lg:absolute  lg:top-[100%] z-50 lg:left-1/2 lg:transform lg:-translate-x-1/2 min-w-max">
       <ul x-show.transition="openTab"
           x-transition:enter="transition duration-200"
@@ -119,11 +139,23 @@
     </div>
   </li>
   <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
-    <a class="duration-500 border-white border-y-4 hover:border-b-red-500"
-       href="/contact/" hx-get="{% url "contact" %}" hx-target="#content" hx-swap="innerHTML scroll:top" hx-push-url="true">contact</a>
+    <a class="scroll-to-top duration-500 border-white border-y-4 hover:border-b-red-500"
+       href="/contact/"
+       hx-get="{% url "contact" %}"
+       hx-target="#content"
+       hx-swap="innerHTML"
+       hx-push-url="true"
+       data-scroll-to-top="true"
+       x-on:click="openMobileNav=false">contact</a>
   </li>
   <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
-    <a class="duration-500 border-white border-y-4 hover:border-b-red-500 active:border-b-red-500"
-       href="/about/" hx-get="{% url "about" %}" hx-target="#content" hx-swap="innerHTML scroll:top" hx-push-url="true">about</a>
+    <a class="scroll-to-top duration-500 border-white border-y-4 hover:border-b-red-500 active:border-b-red-500"
+       href="/about/"
+       hx-get="{% url "about" %}"
+       hx-target="#content"
+       hx-swap="innerHTML"
+       hx-push-url="true"
+       data-scroll-to-top="true"
+       x-on:click="openMobileNav=false">about</a>
   </li>
 </ul>
