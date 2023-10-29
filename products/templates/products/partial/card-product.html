@@ -3,10 +3,12 @@
    hx-target="#main-content"
    hx-push-url="true"
    hx-boost="true"
+   hx-indicator="#progress-bar"
+   data-scroll-to-top="true"
    class="block group ">
   <div class="relative h-[250px] sm:h-[350px]">
-    <img src="{% if product.images.exists %}{{ product.images.all.0.image.url }}{% else %}https://via.placeholder.com/400x400?text=Ciye+Co.{% endif %}" 
-    alt=""
+    <img src="{% if product.images.exists %}{{ product.images.all.0.image.url }}{% else %}https://via.placeholder.com/400x400?text=Ciye+Co.{% endif %}"
+         alt=""
          class="absolute inset-0 object-cover w-full h-full opacity-100 group-hover:opacity-0" />
     <img src="{% with images=product.images.all %} {% if images|length > 1 %} {{ images.1.image.url }} {% else %} https://picsum.photos/400/400?text=Ciye+Co. {% endif %} {% endwith %} "
          alt=""
@@ -15,16 +17,16 @@
   <div class="py-2 ">
     <h3 class="text-sm text-gray-700 group-hover:underline group-hover:underline-offset-4">
       {% if product.highlighted_name %}
-      {{ product.highlighted_name|safe }}
+        {{ product.highlighted_name|safe }}
       {% else %}
-      {{ product.name }}
+        {{ product.name }}
       {% endif %}
     </h3>
     <p class="mt-1.5 max-w-[40ch] text-xs text-gray-500">
       {% if product.highlighted_name %}
-      {{ product.highlighted_description|truncatewords:'15' }}
+        {{ product.highlighted_description|truncatewords:'15' }}
       {% else %}
-      {{ product.description|truncatewords:'15' }}
+        {{ product.description|truncatewords:'15' }}
       {% endif %}
     </p>
   </div>

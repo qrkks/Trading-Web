@@ -1,19 +1,26 @@
 {% comment %} {% for object in object_list %} {% endcomment %}
-<article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+<article class="overflow-hidden transition rounded-lg shadow hover:shadow-lg">
   <img alt="{{ object.title }}"
        src="  {% if object.image %} {{ object.image.url }}  {% else %}https://images.unsplash.com/photo-1596272875729-ed2ff7d6d9c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80 {% endif %}"
-       class="h-56 w-full object-cover" />
-  <div class="bg-white p-4 sm:p-6">
+       class="object-cover w-full h-56" />
+  <div class="p-4 bg-white sm:p-6">
     <time datetime="{{ object.created_at }}"
           class="block text-xs text-gray-500">
       {{ object.created_at|date }}
     </time>
-    <a href="{{ object.get_absolute_url }}">
+    <a href="{{ object.get_absolute_url }}"
+       hx-get="{{ object.get_absolute_url }}"
+       hx-target="#content"
+       hx-swap="innerHTML"
+       hx-push-url="true"
+       data-scroll-to-top="true"
+       hx-indicator="#progress-bar"
+       hx-vals="{'source':'navBar'}">
       <h3 class="mt-0.5 text-lg text-gray-900">
         {{ object.title }}
       </h3>
     </a>
-    <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+    <p class="mt-2 text-gray-500 line-clamp-3 text-sm/relaxed">
       {{ object.description }}
     </p>
   </div>

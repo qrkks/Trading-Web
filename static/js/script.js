@@ -1,9 +1,14 @@
+let shouldScrollToTop = false;
+
+document.addEventListener('htmx:beforeRequest', function (event) {
+    let triggeringElement = event.detail.elt;
+    let scrollToTop = triggeringElement.getAttribute('data-scroll-to-top');
+    shouldScrollToTop = (scrollToTop === 'true');
+});
+
 document.addEventListener('htmx:afterRequest', function (event) {
-    var targetUrl = event.detail.target;
-    var scrollToTop = event.target.getAttribute('data-scroll-to-top');
- 
-    // 检查是否有包含 data-scroll-to-top="true" 属性的元素触发了请求
-    if (scrollToTop === 'true') {
+    if (shouldScrollToTop) {
         window.scrollTo(0, 0); // 滚动到顶部
     }
+    shouldScrollToTop = false; // Reset the flag
 });

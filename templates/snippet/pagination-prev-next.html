@@ -8,6 +8,8 @@
          hx-push-url="true"
          hx-boost="true"
          x-ref="previousLink"
+         hx-indicator="#progress-bar"
+         data-scroll-to-top="true"
          @keydown.window="$event.keyCode === 37 ? $refs.previousLink.click() : null"
          class="inline-flex items-center justify-center text-gray-400 bg-white border-gray-200 rounded ps-1 pe-3 rtl:rotate-180">
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +30,8 @@
          hx-push-url="true"
          hx-boost="true"
          x-ref="nextLink"
+         hx-indicator="#progress-bar"
+         data-scroll-to-top="true"
          @keydown.window="$event.keyCode === 39 ? $refs.nextLink.click() : null"
          class="inline-flex items-center justify-center text-gray-400 bg-white border-gray-200 rounded ps-3 pe-1 rtl:rotate-180">
         <span class="capitalize me-2">{{ next_name }}</span>

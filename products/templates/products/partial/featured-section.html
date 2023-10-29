@@ -1,6 +1,6 @@
 <section class="">
   {% for cat, products in root_nodes_data.items %}
-    <div class="px-4 py-8 mx-auto  sm:py-12 sm:px-6 lg:px-8">
+    <div class="px-4 py-8 mx-auto sm:py-12 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 gap-4 bg-gray-100 lg:grid-cols-3 lg:items-stretch ">
         <div class="grid {% cycle '' 'lg:order-1' %}  p-6 bg-gray-100  place-content-center sm:p-8">
           <div class="max-w-md mx-auto text-center lg:text-left">
@@ -14,7 +14,15 @@
                 </p>
               {% endif %}
             </header>
-            <a href="{{ cat.get_absolute_url }} "
+            <a href="{{ cat.get_absolute_url }}"
+               hx-get="{{ cat.get_absolute_url }}"
+               hx-target="#content"
+               hx-swap="innerHTML"
+               hx-push-url="true"
+               data-scroll-to-top="true"
+               hx-indicator="#progress-bar"
+               hx-vals="{'source':'navBar'}"
+               @click="openTab=!openTab"
                class="inline-block px-12 py-3 mt-8 text-sm font-medium text-white transition border rounded bg-cyan-500 hover:shadow focus:outline-none focus:ring hover:underline hover:underline-offset-4">
               Learn More
             </a>
@@ -24,7 +32,16 @@
           <ul class="grid grid-cols-2 gap-4 ">
             {% for product in products %}
               <li>
-                <a href="{{ product.get_absolute_url }}" class="block group">
+                <a href="{{ product.get_absolute_url }}"
+                   hx-get="{{ product.get_absolute_url }}"
+                   hx-target="#content"
+                   hx-swap="innerHTML"
+                   hx-push-url="true"
+                   data-scroll-to-top="true"
+                   hx-indicator="#progress-bar"
+                   hx-vals="{'source':'navBar'}"
+                   @click="openTab=!openTab"
+                   class="block group">
                   <img src="{{ product.images.first.image.url }}"
                        alt=""
                        class="object-cover w-full aspect-square" />

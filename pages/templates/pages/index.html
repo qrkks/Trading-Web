@@ -1,50 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
-    <section>
-      {% include "pages/partial/banner.html" %}
-    </section>
-    <section class="bg-gray-100 ">
-      <div class="py-20 custom-container">
-        <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl ">
-          Products
-        </h2>
-        <div class="mx-auto custom-bar">
-        </div>
-        {% include "pages/partial/carousel-hero.html" %}
-      </div>
-    </section>
-    <section class="py-20 custom-container">
+  <section>
+    {% include "pages/partial/banner.html" %}
+  </section>
+  <section class="bg-gray-100 ">
+    <div class="py-20 custom-container">
       <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl ">
-        Blog
+        Products
       </h2>
       <div class="mx-auto custom-bar">
       </div>
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
-        {% with blog as object_list %}
-          {% for object in object_list %}
-            <div class="bg-gray-200 rounded-lg ">
-              {% include "blog/partial/card-blog.html" %}
-            </div>
-          {% endfor %}
-        {% endwith %}
+      {% include "pages/partial/carousel-hero.html" %}
+    </div>
+  </section>
+  <section class="py-20 custom-container">
+    <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl ">
+      Blog
+    </h2>
+    <div class="mx-auto custom-bar">
+    </div>
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+      {% with blog as object_list %}
+        {% for object in object_list %}
+          <div class="bg-gray-200 rounded-lg ">
+            {% include "blog/partial/card-blog.html" %}
+          </div>
+        {% endfor %}
+      {% endwith %}
+    </div>
+    <div class="mt-12 text-center">
+      <a href="/blog/"
+         hx-get="/blog/"
+         hx-target="#content"
+         hx-swap="innerHTML"
+         hx-push-url="true"
+         data-scroll-to-top="true"
+         hx-indicator="#progress-bar"
+         hx-vals="{'source':'navBar'}">
+        {% include "snippet/learn-more.html" %}
+      </a>
+    </div>
+  </section>
+  <section class="py-20 bg-gray-100">
+    {% include "pages/partial/section.html" %}
+  </section>
+  <section>
+    <div class="py-20 custom-container">
+      <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl">
+        FAQs
+      </h2>
+      <div class="mx-auto custom-bar">
       </div>
-      <div class="mt-12 text-center">
-        <a href="/blog/">
-          {% include "snippet/learn-more.html" %}
-        </a>
-      </div>
-    </section>
-    <section class="py-20 bg-gray-100">
-      {% include "pages/partial/section.html" %}
-    </section>
-    <section>
-      <div class="py-20 custom-container">
-        <h2 class="text-3xl font-bold text-center text-gray-800 sm:text-4xl">
-          FAQs
-        </h2>
-        <div class="mx-auto custom-bar">
-        </div>
-        {% include 'pages/partial/faq.html' %}
-      </div>
-    </section>
+      {% include 'pages/partial/faq.html' %}
+    </div>
+  </section>
 {% endblock %}

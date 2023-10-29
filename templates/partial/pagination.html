@@ -5,10 +5,12 @@
     <!-- Previous Page -->
     {% if page_obj.has_previous %}
       <a href="?page={{ page_obj.previous_page_number }} "
-         hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}#main-content"
+         hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}"
          hx-target="#main-content"
          hx-push-url="true"
          hx-boost="true"
+         hx-indicator="#progress-bar"
+         data-scroll-to-top="true"
          class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group"
          x-ref="previousLink"
          @keydown.window="$event.keyCode === 37 ? $refs.previousLink.click() : null">
@@ -26,10 +28,12 @@
         </p>
       {% else %}
         <a href="?page={{ page_num }}"
-           hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_num }}#main-content"
+           hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_num }}"
            hx-target="#main-content"
            hx-push-url="true"
            hx-boost="true"
+           hx-indicator="#progress-bar"
+           data-scroll-to-top="true"
            class="px-3 py-2 transition duration-300 ease-in-out rounded-md shadow-sm bg-cyan-500 group">
           <span class="duration-300 ease-in-out group-hover:underline group-hover:underline-offset-4">
             {{ page_num }}
@@ -39,10 +43,12 @@
       <!-- Next Page -->
       {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}"
-           hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.next_page_number }}#main-content"
+           hx-get="?{% if q %}q={{ q|urlencode }}&{% endif %}page={{ page_obj.next_page_number }}"
            hx-target="#main-content"
            hx-push-url="true"
            hx-boost="true"
+           hx-indicator="#progress-bar"
+           data-scroll-to-top="true"
            class="px-3 py-2 transition duration-300 ease-in-out rounded-md bg-cyan-500 group"
            x-ref="nextLink"
            @keydown.window="$event.keyCode === 39 ? $refs.nextLink.click() : null">

@@ -24,7 +24,7 @@
          data-scroll-to-top="true"
          hx-indicator="#progress-bar"
          class="group lg:py-2">
-        <span class="items-center gap-1 duration-500  border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
+        <span class="items-center gap-1 duration-500 border-white border-y-4 hover:border-b-red-500 lg:inline-flex "
               @mouseenter.stop="openTab=true"
               x-on:click="$dispatch('close-mobile-nav')">
           Products
@@ -66,7 +66,15 @@
           class="flex flex-col text-center ">
         {% for node in product_root_categories %}
           <li class="inline-block py-2 duration-500  w-full lg:shadow-lg hover:bg-slate-200 bg-slate-100 {% if forloop.first %}rounded-t-md{% endif %} {% if forloop.last %}rounded-b-md{% endif %} group">
-            <a href="{{ node.get_absolute_url }}">
+            <a href="{{ node.get_absolute_url }}"
+               hx-get="{{ node.get_absolute_url }}"
+               hx-target="#content"
+               hx-swap="innerHTML"
+               hx-push-url="true"
+               data-scroll-to-top="true"
+               hx-indicator="#progress-bar"
+               hx-vals="{'source':'navBar'}"
+               @click="openTab=!openTab">
               <span class="px-3 duration-500 ">
                 {{ node.name }}
               </span>
@@ -131,7 +139,16 @@
           class="flex flex-col text-center ">
         {% for node in blog_root_categories %}
           <li class="inline-block py-2 duration-500  w-full lg:shadow-lg hover:bg-slate-200 group bg-slate-100 {% if forloop.first %}rounded-t-md{% endif %} {% if forloop.last %}rounded-b-md{% endif %}">
-            <a href="{{ node.get_absolute_url }}" class="group">
+            <a href="{{ node.get_absolute_url }}"
+               hx-get="{{ node.get_absolute_url }}"
+               hx-target="#content"
+               hx-swap="innerHTML"
+               hx-push-url="true"
+               data-scroll-to-top="true"
+               hx-indicator="#progress-bar"
+               hx-vals="{'source':'navBar'}"
+               @click="openTab=!openTab"
+               class="group">
               <span class="px-3 duration-500 ">
                 {{ node.name }}
               </span>
@@ -142,7 +159,7 @@
     </div>
   </li>
   <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
-    <a class="scroll-to-top duration-500 border-white border-y-4 hover:border-b-red-500"
+    <a class="duration-500 border-white scroll-to-top border-y-4 hover:border-b-red-500"
        href="/contact/"
        hx-get="{% url "contact" %}"
        hx-target="#content"
@@ -153,7 +170,7 @@
        x-on:click="openMobileNav=false">contact</a>
   </li>
   <li class="inline-flex justify-start duration-500 rounded lg:py-2 ">
-    <a class="scroll-to-top duration-500 border-white border-y-4 hover:border-b-red-500 active:border-b-red-500"
+    <a class="duration-500 border-white scroll-to-top border-y-4 hover:border-b-red-500 active:border-b-red-500"
        href="/about/"
        hx-get="{% url "about" %}"
        hx-target="#content"

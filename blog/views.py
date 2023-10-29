@@ -47,6 +47,8 @@ class BlogList(ListView):
 
     def render_to_response(self, context: Dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
         if self.request.headers.get('HX-Request') == 'true':
+            if self.request.GET.get('source') == 'navBar':
+                return render_block_to_string('blog/blog.html','content',{**context,**global_context})
             return render(self.request, 'blog/partial/main-list.html', context)
         return super().render_to_response(context, **response_kwargs)
 
@@ -86,6 +88,8 @@ class BlogDetail(DetailView):
         if self.request.headers.get('HX-Request') == 'true':
             # This is an HTMX request
             # Your logic for handling HTMX request goes here
+            if self.request.GET.get('source') == 'navBar':
+                return render_block_to_string('blog/blog.html','content',{**context,**global_context})
             return render(self.request, 'blog/partial/main-detail.html', context)
         return super().render_to_response(context, **response_kwargs)
 
