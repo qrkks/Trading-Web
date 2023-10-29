@@ -1,5 +1,5 @@
 from typing import Any,Dict
-from django import http
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.db.models import QuerySet
@@ -45,10 +45,11 @@ class BlogList(ListView):
 
         return context
 
-    def render_to_response(self, context: Dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
+    def render_to_response(self, context: Dict[str, Any], **response_kwargs: Any) -> HttpResponse:
         if self.request.headers.get('HX-Request') == 'true':
             if self.request.GET.get('source') == 'navBar':
-                return render_block_to_string('blog/blog.html','content',{**context,**global_context})
+                html = render_block_to_string('blog/blog.html','content',{**context,**global_context(self.request)})
+                return HttpResponse(html)
             return render(self.request, 'blog/partial/main-list.html', context)
         return super().render_to_response(context, **response_kwargs)
 
@@ -84,12 +85,13 @@ class BlogDetail(DetailView):
 
         return context
 
-    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
+    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> HttpResponse:
         if self.request.headers.get('HX-Request') == 'true':
             # This is an HTMX request
             # Your logic for handling HTMX request goes here
             if self.request.GET.get('source') == 'navBar':
-                return render_block_to_string('blog/blog.html','content',{**context,**global_context})
+                html = render_block_to_string('blog/blog.html','content',{**context,**global_context(self.request)})
+                return HttpResponse(html)
             return render(self.request, 'blog/partial/main-detail.html', context)
         return super().render_to_response(context, **response_kwargs)
 
@@ -113,8 +115,8 @@ class BlogIndex(ListView):
     paginate_by = 12
     template_name = "blog/blog-index.html"
 
-    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> http.HttpResponse:
+    def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> HttpResponse:
         if self.request.headers.get('HX-Request') == 'true':
             html = render_block_to_string('blog/blog-index.html', 'content', {**context,**global_context(self.request)})
-            return http.HttpResponse(html)  
+            return HttpResponse(html)  
         return super().render_to_response(context, **response_kwargs)
