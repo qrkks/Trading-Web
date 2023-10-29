@@ -86,15 +86,15 @@ class BlogDetail(DetailView):
         return context
 
     def render_to_response(self, context: dict[str, Any], **response_kwargs: Any) -> HttpResponse:
-        print(self.request.headers)
+        # print(self.request.headers)
         if self.request.headers.get('HX-Request') == 'true':
             # This is an HTMX request
             # Your logic for handling HTMX request goes here
             if self.request.headers.get('source') == 'navBar':
                 html = render_block_to_string('blog/blog.html','content',{**context,**global_context(self.request)})
-                print('获取了header')
+                # print('获取了header')
                 return HttpResponse(html)
-            print('没有获取header')
+            # print('没有获取header')
             return render(self.request, 'blog/partial/main-detail.html', context)
         return super().render_to_response(context, **response_kwargs)
 
