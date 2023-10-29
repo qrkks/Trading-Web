@@ -73,7 +73,7 @@
                hx-push-url="true"
                data-scroll-to-top="true"
                hx-indicator="#progress-bar"
-               hx-vals='{"source":"navBar"}'
+               hx-headers='{"source": "navBar"}'
                @click="openTab=!openTab">
               <span class="px-3 duration-500 ">
                 {{ node.name }}
@@ -146,7 +146,7 @@
                hx-push-url="true"
                data-scroll-to-top="true"
                hx-indicator="#progress-bar"
-               hx-vals='{"source":"navBar"}'
+               hx-headers='{"source": "navBar"}'
                @click="openTab=!openTab"
                class="group">
               <span class="px-3 duration-500 ">

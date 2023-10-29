@@ -112,7 +112,7 @@ class CategoryProductListView(ListView):
 
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
-            if self.request.GET.get('source') == 'navBar':
+            if self.request.headers.get('source') == 'navBar':
                 return HttpResponse(render_block_to_string('products/product.html','content',{**context,**global_context(self.request)}))
             # 处理HTMX请求，只返回列表部分的HTML内容
             return render(self.request, 'products/partial/main-list.html', context)
@@ -198,7 +198,7 @@ class ProductDetail(DetailView):
     def render_to_response(self, context, **response_kwargs):
         if self.request.headers.get('HX-Request') == 'true':
             # 处理HTMX请求，只返回列表部分的HTML内容
-            if self.request.GET.get('source') == 'navBar':
+            if self.request.headers.get('source') == 'navBar':
                 html = render_block_to_string('products/product.html','content',{**context,**global_context(self.request)})
                 return HttpResponse(html)
             return render(self.request, 'products/partial/main-detail.html', context)

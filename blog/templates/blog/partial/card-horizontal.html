@@ -12,7 +12,7 @@
         <div class="text-right ">
           <a href="{{ object.category.get_absolute_url }}"
              hx-get="{{ object.category.get_absolute_url }}"
-             {% if parent_name == "main-list" %} hx-target="#main-content" {% elif parent_name == "blog-index" %} hx-target="#content" hx-vals='{"source":"navBar"}' {% endif %}
+             {% if parent_name == "main-list" %} hx-target="#main-content" {% elif parent_name == "blog-index" %} hx-target="#content" hx-headers='{"source": "navBar"}' {% endif %}
              hx-push-url="true"
              hx-boost="true"
              hx-indicator="#progress-bar"
@@ -20,7 +20,7 @@
         </div>
         <a href="{{ object.get_absolute_url }}"
            hx-get="{{ object.get_absolute_url }}"
-           {% if parent_name == "main-list" %} hx-target="#main-content" {% elif parent_name == "blog-index" %} hx-target="#content" hx-vals='{"source":"navBar"}' {% endif %}
+           {% if parent_name == "main-list" %} hx-target="#main-content" {% elif parent_name == "blog-index" %} hx-target="#content" hx-headers='{"source": "navBar"}' {% endif %}
            hx-push-url="true"
            hx-boost="true"
            hx-indicator="#progress-bar"

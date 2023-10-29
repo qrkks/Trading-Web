@@ -13,12 +13,3 @@ document.addEventListener('htmx:afterRequest', function (event) {
     shouldScrollToTop = false; // Reset the flag
 });
 
-
-// window.addEventListener('pageshow', function(event) {
-//     if (event.persisted) {
-//         Alpine.discoverUninitializedComponents(function(el) {
-//             Alpine.initializeComponent(el);
-//         });
-//     }
-// });
-
