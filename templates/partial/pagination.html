@@ -57,8 +57,30 @@
       {% comment %} {% else %}
       <span>Next</span> {% endcomment %}
     {% endif %}
-    <div class="inline-flex items-center justify-center w-full p-4 text-center text-gray-400">
-      * You could use the left and right arrows on your keyboard to navigate pages.
+    <div class="inline-flex items-center justify-center w-full p-4 my-2 text-center text-gray-400">
+      <span>* You could use the left </span>
+      <kbd class="inline-flex items-center px-2 mx-2 py-1.5 text-gray-500 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
+        <svg class="w-2 h-2"
+             aria-hidden="true"
+             xmlns="http://www.w3.org/2000/svg"
+             fill="currentColor"
+             viewBox="0 0 10 16">
+          <path d="M8.766.566A2 2 0 0 0 6.586 1L1 6.586a2 2 0 0 0 0 2.828L6.586 15A2 2 0 0 0 10 13.586V2.414A2 2 0 0 0 8.766.566Z" />
+        </svg>
+        <span class="sr-only">Arrow key left</span>
+      </kbd>
+      <span> and right  </span>
+      <kbd class="inline-flex items-center px-2 py-1.5 text-gray-500 mx-2 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
+        <svg class="w-2 h-2"
+             aria-hidden="true"
+             xmlns="http://www.w3.org/2000/svg"
+             fill="currentColor"
+             viewBox="0 0 10 16">
+          <path d="M3.414 1A2 2 0 0 0 0 2.414v11.172A2 2 0 0 0 3.414 15L9 9.414a2 2 0 0 0 0-2.828L3.414 1Z" />
+        </svg>
+        <span class="sr-only">Arrow key right</span>
+      </kbd>
+      <span>arrows on your keyboard to navigate pages.</span>
     </div>
   </div>
 {% endwith %}

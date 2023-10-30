@@ -39,7 +39,7 @@ def get_client_ip(request):
 
 def get_country_from_ip(ip):
     try:
-        response = requests.get(f"https://freegeoip.app/json/{ip}")
+        response = requests.get(f"https://freegeoip.app/json/{ip}",timeout=10)
         data = response.json()
         return data.get('country_name', '')
     except Exception as e:
