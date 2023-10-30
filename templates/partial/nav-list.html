@@ -74,7 +74,7 @@
                data-scroll-to-top="true"
                hx-indicator="#progress-bar"
                hx-headers='{"source": "navBar"}'
-               @click="openTab=!openTab">
+               @click="openTab=!openTab;$dispatch('close-mobile-nav')">
               <span class="px-3 duration-500 ">
                 {{ node.name }}
               </span>
@@ -147,7 +147,7 @@
                data-scroll-to-top="true"
                hx-indicator="#progress-bar"
                hx-headers='{"source": "navBar"}'
-               @click="openTab=!openTab"
+               @click="openTab=!openTab;$dispatch('close-mobile-nav')"
                class="group">
               <span class="px-3 duration-500 ">
                 {{ node.name }}
