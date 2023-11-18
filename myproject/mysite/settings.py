@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     # django-tailwind
     'tailwind',
     'theme',
-    'django_browser_reload',
 
     # plug in
     'django_extensions',
@@ -57,7 +56,6 @@ INSTALLED_APPS = [
     'adminsortable2',
     'ckeditor',
     'ckeditor_uploader',
-    "debug_toolbar",
     'taggit',
     'widget_tweaks',
     'import_export',
@@ -72,6 +70,12 @@ INSTALLED_APPS = [
     'abstractapp',
 ]
 
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+        'django_browser_reload',
+    ]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -84,14 +88,18 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
-
-    # debug toolbar
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
-
     # 自定义面包屑
     # 'abstractapp.middlewares.BreadcrumbMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += [
+        # debug toolbar
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        # 自动重载
+        "django_browser_reload.middleware.BrowserReloadMiddleware",
+    ]
+
 
 ROOT_URLCONF = "mysite.urls"
 
@@ -127,16 +135,29 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db/db.sqlite3",
-    },
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db/db.sqlite3",
+#     },
     # "another_db": {
     #     "ENGINE": "django.db.backends.sqlite3",
     #     "NAME": BASE_DIR / "db copy.sqlite3",
     # }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',  # 使用与 POSTGRES_DB 相同的值
+        'USER': 'postgres',  # 使用与 POSTGRES_USER 相同的值
+        'PASSWORD': 'postgres',  # 使用与 POSTGRES_PASSWORD 相同的值
+        'HOST': 'postgres',  # Docker Compose 中定义的 PostgreSQL 服务名称
+        'PORT': '5432',
+    }
 }
+
+
 
 
 # Password validation
@@ -175,9 +196,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    BASE_DIR / 'static_src',
+    BASE_DIR / 'static',
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # 收集静态文件的目标目录
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')  # 收集静态文件的目标目录
 
 # 媒体文件设置
 MEDIA_URL = 'media/'  # 媒体文件的URL前缀

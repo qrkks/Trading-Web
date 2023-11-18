@@ -2,10 +2,10 @@
 FROM python:3.11-alpine
 
 # 在 Alpine 中安装 GCC 和其他构建依赖
-RUN apk add --no-cache gcc musl-dev linux-headers
+RUN apk add --no-cache gcc musl-dev linux-headers nodejs npm
 
 # 安装 Node.js
-RUN apk add --update nodejs npm
+# RUN apk add --update nodejs npm
 
 # 设置环境变量
 ENV PYTHONDONTWRITEBYTECODE 1

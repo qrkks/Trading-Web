@@ -1,6 +1,19 @@
 version: '3.9'
 
 services:
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
   django:
     environment:
       - DEBUG=0
@@ -8,11 +21,14 @@ services:
       - TZ=Asia/Shanghai
     build: ./myproject
     volumes:
-      # - ./myproject:/code
-      - static_volume:/code/static # 相对于文件系统而不是相对于workdir
+      - ./myproject:/code
+      - static_volume:/code/static_cdn # 相对于文件系统而不是相对于workdir
       - media_volume:/code/media
     ports:
       - "8000:8000"
+    restart: always
+    depends_on:
+      - postgres
 
 
   nginx:
@@ -21,15 +37,16 @@ services:
     ports:
       - "80:80"
     volumes:
-      # - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx:/etc/nginx/conf.d
       - static_volume:/static
       - media_volume:/media
     environment:
-      - TZ:Asia/Shanghai
+      - TZ=Asia/Shanghai
     depends_on:
       - django
+    restart: always
 
 volumes:
   static_volume:
   media_volume:
-  
+  postgres_data:
