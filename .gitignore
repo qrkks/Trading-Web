@@ -2,10 +2,13 @@
 docker-compose.yml
 docker-compose-product.yml
 
+db/
+db.sqlite3
+myproject/db/
+
 postgres_data/
 postgres_volume/
 
-# db.sqlite3
 .env
 .DS_Store
 __pycache__
