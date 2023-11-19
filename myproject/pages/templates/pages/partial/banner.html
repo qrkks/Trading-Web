@@ -1,10 +1,4 @@
-<!--
-  Heads up! 👋
-
-  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
--->
-<div class="relative bg-[url({{ banner.image.url }})] bg-cover bg-center bg-no-repeat">
-  {% comment %} class="relative bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat" {% endcomment %}
+<div class="relative bg-center bg-no-repeat bg-cover" style="background-image: url('{{ banner.image.url }}');">
   <div class="absolute inset-0 bg-white/75 sm:from-white/95 sm:to-black/25 sm:bg-gradient-to-r ">
   </div>
   <div class="relative max-w-screen-xl px-4 py-32 mx-auto bg-gradient-to-r sm:px-6 lg:flex lg:items-center lg:px-8">

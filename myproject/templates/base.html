@@ -11,11 +11,12 @@
     </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/alpine/2.8.2/alpine.min.js' %}"></script>
-    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+    {% if settings.DEBUG %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% endif %}
     {% tailwind_css %}
     <script defer src='{% static "js/script.js" %}'></script>
     <script defer src="{% static 'js/htmx/1.9.6/htmx.min.js' %}"></script>
-    <script defer src="{% static 'js/hyperscript/0.9.12/hyperscript.min.js' %}"></script>
     <script defer src="{% static 'js/flowbite/1.8.1/flowbite.min.js' %}"></script>
   </head>
   <body x-data="{openMobileNav:false}"

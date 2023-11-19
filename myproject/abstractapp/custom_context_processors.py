@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models import Q
 
 from products.models import Category as ProductCategory  # 导入您的 Category 模型
@@ -40,11 +41,25 @@ def contact(request):
 def social(request):
     return {}
 
+# 传递debug变量
+def settings_context(request):
+    return {'debug': settings.DEBUG}
+
 def global_context(request):
-    return {
+    """
+    Generate the global context dictionary for the request.
+    Args:
+        request: The HTTP request object.
+    Returns:
+        A dictionary containing global context data.
+    """
+    # Generate the context dictionary by merging the results of various helper functions
+    context = {
         **categories(request),
         **inquiry_form(request),
         **contact(request),
         **social(request),
+        **settings_context(request),
     }
+    return context
 

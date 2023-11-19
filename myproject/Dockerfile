@@ -1,8 +1,10 @@
 # 基于 Python 官方镜像
-FROM python:3.11-alpine
+FROM python:3.12-alpine
+# FROM python:3.11-alpine
 
 # 在 Alpine 中安装 GCC 和其他构建依赖
-RUN apk add --no-cache gcc musl-dev linux-headers nodejs npm
+RUN apk add --no-cache gcc musl-dev linux-headers 
+# nodejs npm
 
 # 安装 Node.js
 # RUN apk add --update nodejs npm

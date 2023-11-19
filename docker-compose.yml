@@ -4,35 +4,33 @@ services:
   postgres:
     image: postgres:16-alpine
     restart: always
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-      - TZ=Asia/Shanghai
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TZ=${TZ}
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 
   django:
-    environment:
-      - DEBUG=0
-      - NPM_BIN_PATH="/usr/local/bin/npm"
-      - TZ=Asia/Shanghai
     build: ./myproject
+    environment:
+      - DEBUG=${DEBUG}
+      - NPM_BIN_PATH=${NPM_BIN_PATH}
+      - TZ=${TZ}
     volumes:
       - ./myproject:/code
-      - static_volume:/code/static_cdn # 相对于文件系统而不是相对于workdir
+      - static_volume:/code/static_cdn
       - media_volume:/code/media
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     restart: always
     depends_on:
       - postgres
 
-
   nginx:
-    # image: nginx:1.25.3-alpine
     build: ./nginx
     ports:
       - "80:80"
@@ -41,7 +39,7 @@ services:
       - static_volume:/static
       - media_volume:/media
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=${TZ}
     depends_on:
       - django
     restart: always
