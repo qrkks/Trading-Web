@@ -7,25 +7,31 @@ from form_handlers.forms import InquiryForm
 from pages.models import ContactInformation, SocialMedia
 
 def categories(request):
-    # 获取所有的分类数据
+    """
+    Retrieve all categories for products and blogs.
+    Args:
+        request: The HTTP request object.
+    Returns:
+        A dictionary containing the following categories:
+        - 'product_categories': All product categories.
+        - 'product_root_categories': Root product categories.
+        - 'blog_categories': All blog categories.
+        - 'blog_root_categories': Root blog categories.
+    """
+    # Retrieve all product categories
     product_categories = ProductCategory.objects.all()
-    # 查找根节点，假设根节点没有父节点
-    product_root_categories = ProductCategory.objects.filter(Q(level=1)|Q(level=1))
-
-    
-
-    # 获取所有的分类数据
+    # Retrieve root product categories
+    product_root_categories = ProductCategory.objects.filter(level=1)
+    # Retrieve all blog categories
     blog_categories = BlogCategory.objects.all()
-    # 查找根节点，假设根节点没有父节点
+    # Retrieve root blog categories
     blog_root_categories = BlogCategory.objects.filter(level=1)
-
-    # 在上下文中返回 categories
+    # Return the categories in the context
     return {
         'product_categories': product_categories,
         'product_root_categories': product_root_categories,
-        
-        'blog_categories':blog_categories,
-        'blog_root_categories':blog_root_categories,
+        'blog_categories': blog_categories,
+        'blog_root_categories': blog_root_categories,
     }
 
 def inquiry_form(request):

@@ -6,6 +6,8 @@ from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from render_block import render_block_to_string
+from django.middleware.csrf import get_token
+
 
 from abstractapp.custom_context_processors import global_context
 from .models import Category, Product
@@ -93,6 +95,9 @@ class CategoryProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # 然后添加csrf_token到上下文中
+        context['csrf_token'] = get_token(self.request)
+
         # 获取当前类别
         category_path = self.kwargs['category_path']
         slugs = category_path.split('/')
@@ -132,6 +137,9 @@ class ProductDetail(DetailView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+
+        # 然后添加csrf_token到上下文中
+        context['csrf_token'] = get_token(self.request)
 
         # 获取产品对象
         product = context['object']
