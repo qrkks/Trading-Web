@@ -1,16 +1,16 @@
-from django.shortcuts import render, redirect
-from typing import Any
-from django.http import Http404, HttpResponse
-from django.urls import reverse
+from django.shortcuts import render
+from typing import Any, Dict
+from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, render
 from render_block import render_block_to_string
 from django.middleware.csrf import get_token
 
 
 from abstractapp.custom_context_processors import global_context
 from .models import Category, Product
+
 # Create your views here.
 
 
@@ -37,27 +37,43 @@ from .models import Category, Product
 
 
 def products_index(request):
-    # 获取根节点列表
+    """
+    This function retrieves the root nodes from the Category model and 
+    fetches the active products for each root node. It then prepares the 
+    data to be rendered in the template and returns the appropriate response.
+    """
+
+    # Retrieve the lever 1 nodes from the Category mptt model
     root_nodes = Category.objects.filter(level=1)
 
     root_nodes_data = {}
 
+    # Iterate over each root node
     for category in root_nodes:
+        # Get all descendants of the category, including itself
         all_category = category.get_descendants(include_self=True)
+        
+        # Get the active products that belong to the category and its descendants
         products = Product.objects.active().filter(
-            Q(category__in=all_category)  # 使用get_descendants方法获取的QuerySet
+            Q(category__in=all_category)
         )[:2]
+        
+        # Store the products in the root_nodes_data dictionary
         root_nodes_data[category] = products
 
+    # Prepare the context data for rendering the template
     context_data = {
         'root_nodes_data': root_nodes_data,
         'partial_template_path': 'products/partial/main-index.html',
     }
     
+    # Check if the request is an HX-Request
     if request.headers.get('HX-Request') == 'true':
+        # Render the template block to a string and return the HTML response
         html = render_block_to_string('products/product-index.html', 'content', {**context_data,**global_context(request)})
         return HttpResponse(html)
     
+    # Render the template and return the response
     return render(request, 'products/product-index.html', context_data)
 
 
@@ -116,13 +132,28 @@ class CategoryProductListView(ListView):
         return context
 
     def render_to_response(self, context, **response_kwargs):
+        """
+        Renders a response based on the request headers.
+
+        Args:
+            context (dict): The context to be passed to the rendered templates.
+            response_kwargs (dict): Additional keyword arguments to be passed to the response.
+
+        Returns:
+            HttpResponse: The rendered response.
+
+        """
         if self.request.headers.get('HX-Request') == 'true':
+            # Check if the request is an HX-Request from the navBar source
             if self.request.headers.get('source') == 'navBar':
-                return HttpResponse(render_block_to_string('products/product.html','content',{**context,**global_context(self.request)}))
-            # 处理HTMX请求，只返回列表部分的HTML内容
+                # Render the product.html template with the 'content' block and the context
+                return HttpResponse(render_block_to_string('products/product.html',
+                                                        'content',
+                                                        {**context, **global_context(self.request)}))
+            # Handle HX-Request by rendering only the main-list.html template with the context
             return render(self.request, 'products/partial/main-list.html', context)
         else:
-            # 处理常规请求，返回整个页面的HTML
+            # Handle regular requests by rendering the entire page with the context
             return super().render_to_response(context, **response_kwargs)
 
 
@@ -135,54 +166,69 @@ class ProductDetail(DetailView):
         'partial_template_path': "products/partial/main-detail.html"
     }
 
-    def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
 
-        # 然后添加csrf_token到上下文中
-        context['csrf_token'] = get_token(self.request)
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        """
+        Get the context data for the view.
+        
+        Args:
+            **kwargs: Additional keyword arguments.
+            
+        Returns:
+            Dict[str, Any]: The context data.
+        """
+        context: Dict[str, Any] = super().get_context_data(**kwargs)
+        request = self.request
+        object = context['object']
+        category = object.category
 
-        # 获取产品对象
-        product = context['object']
+        context['csrf_token'] = get_token(request)
 
-        # 获取图片
-        images = product.images.all()
+        images = object.images.all()
 
-        # 获取所有属性名
         attribute_names = [field.name for field in Product._meta.get_fields()]
 
-        # 筛选满足条件的属性名，不以"page"，'is'开头
-        filtered_attribute_names = [attr for attr in attribute_names if not (attr.startswith(
-            "page") or attr.startswith('is') or attr in ['images', 'custom_order'])]
+        filtered_attribute_names = [
+            attr for attr in attribute_names if not (
+                attr.startswith("page") or
+                attr.startswith('is') or
+                attr in ['images', 'custom_order']
+            )
+        ]
 
-        # 创建一个字典，包含属性名和对应的值，将下划线替换为空格
-        product_data = {attr.replace("_", " "): getattr(
-            product, attr) for attr in filtered_attribute_names}
+        product_data = {
+            attr.replace("_", " "): getattr(object, attr)
+            for attr in filtered_attribute_names
+        }
 
-        # 将 product_data 添加到上下文
-        context['product_data'] = product_data
-        context['images'] = images
+        context.update({'product_data': product_data, 'images': images})
 
-        # 获取上一个和下一个对象
-        previous_object = Product.objects.filter(category=self.object.category).filter(id__lt=self.object.id).order_by('-id').first()
-        next_object = Product.objects.filter(category=self.object.category).filter(id__gt=self.object.id).order_by('id').first()
+        previous_object = (
+            Product.objects
+            .filter(category=category)
+            .filter(id__lt=object.id)
+            .order_by('-id')
+            .first()
+        )
+        next_object = (
+            Product.objects
+            .filter(category=category)
+            .filter(id__gt=object.id)
+            .order_by('id')
+            .first()
+        )
 
-        # 将上一个和下一个对象添加到上下文中
-        context['previous_object'] = previous_object
-        context['next_object'] = next_object
+        context.update({'previous_object': previous_object, 'next_object': next_object})
 
-        # 创建面包屑列表
-        category = self.object.category
-        breadcrumbs = []
-
-        for ancestor in category.get_ancestors(include_self=True):
-            breadcrumbs.append({'name': ancestor.name, 'url': ancestor.get_absolute_url()})
+        breadcrumbs = [
+            {'name': ancestor.name, 'url': ancestor.get_absolute_url()}
+            for ancestor in category.get_ancestors(include_self=True)
+        ]
         
-        # 为当前产品添加一个面包屑
-        breadcrumbs.append({'name': self.object.name, 'url': self.object.get_absolute_url()})
-        context['breadcrumbs'] = breadcrumbs  # 添加到上下文中
+        breadcrumbs.append({'name': object.name, 'url': object.get_absolute_url()})
+        context['breadcrumbs'] = breadcrumbs
 
-        # 添加标题-产品名
-        context['main_title'] = product.name
+        context['main_title'] = object.name
         
         return context
     
@@ -204,14 +250,24 @@ class ProductDetail(DetailView):
     #     return response
 
     def render_to_response(self, context, **response_kwargs):
+        """
+        Renders the response based on the request type.
+
+        Args:
+            context (dict): The context for rendering the response.
+            response_kwargs (dict): Additional keyword arguments for the response.
+
+        Returns:
+            HttpResponse: The rendered response.
+        """
         if self.request.headers.get('HX-Request') == 'true':
-            # 处理HTMX请求，只返回列表部分的HTML内容
+            # Handle HTMX requests and return only the HTML content of the list portion
             if self.request.headers.get('source') == 'navBar':
-                html = render_block_to_string('products/product.html','content',{**context,**global_context(self.request)})
+                html = render_block_to_string('products/product.html', 'content', {**context, **global_context(self.request)})
                 return HttpResponse(html)
             return render(self.request, 'products/partial/main-detail.html', context)
         else:
-            # 处理常规请求，返回整个页面的HTML
+            # Handle regular requests and return the entire page's HTML
             return super().render_to_response(context, **response_kwargs)
 
 
