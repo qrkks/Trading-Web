@@ -10,12 +10,9 @@
       {% endblock title %}
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/logo.png' %}">
-    {% comment %} <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/alpine/2.8.2/alpine.min.js' %}"></script>
-    {% if settings.DEBUG %}
-    <script src="https://cdn.tailwindcss.com"></script>
-    {% endif %}
+    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
     {% tailwind_css %}
     <script defer src='{% static "js/script.js" %}'></script>
     <script defer src="{% static 'js/htmx/1.9.6/htmx.min.js' %}"></script>
