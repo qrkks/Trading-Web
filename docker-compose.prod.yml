@@ -4,45 +4,46 @@ services:
   postgres:
     image: postgres:16-alpine
     restart: always
-    expose:
-      - "5432"
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
       - TZ=${TZ}
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+    # ... 其他生产环境适用的配置
 
   django:
     build: ./myproject
-    restart: always
+    image: 'django:${TAG}'
     environment:
-      - DEBUG=${DEBUG}
+      - DEBUG=False  # 确保在生产环境中关闭调试模式
       - NPM_BIN_PATH=${NPM_BIN_PATH}
       - TZ=${TZ}
     volumes:
-      - ./myproject:/code
       - static_volume:/code/static_cdn
       - media_volume:/code/media
     expose:
       - "8000"
+    restart: always
     depends_on:
       - postgres
+    # 添加健康检查和资源限制
 
   nginx:
     build: ./nginx
-    restart: always
+    image: 'nginx:${TAG}'
     ports:
       - "80:80"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
       - static_volume:/static
       - media_volume:/media
     environment:
       - TZ=${TZ}
     depends_on:
       - django
+    restart: always
+    # 可能需要添加 SSL/TLS 配置
 
 volumes:
   static_volume:
