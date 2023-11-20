@@ -1,28 +1,23 @@
 name: Docker Image CI
+
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
-
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-
     - name: Build the Docker image
       run: |
         TAG=$(date +%Y%m%d-%H%M%S)
         docker-compose --file docker-compose.prod.yml build
         echo "TAG=$TAG" >> $GITHUB_ENV
-        
-    - name: Push the Django image
-      run: |
-        docker push qrkks3/django:${{ env.TAG }}
 
-    - name: Push the Nginx image
-      run: |
-        docker push qrkks3/nginx:${{ env.TAG }}
+
