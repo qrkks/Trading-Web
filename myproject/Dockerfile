@@ -27,7 +27,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /code/
 
 # 收集静态文件
-# RUN python manage.py tailwind build
 RUN python manage.py collectstatic --noinput
 
 # 启动 Gunicorn

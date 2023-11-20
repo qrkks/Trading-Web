@@ -1,3 +1,4 @@
+# docker-compose.ci.yml
 version: '3.9'
 
 services:
@@ -15,7 +16,7 @@ services:
 
   django:
     build: ./myproject
-    image: 'django:${TAG}'
+    image: 'qrkks3/tradingweb:django-${TAG}'
     environment:
       - DEBUG=False  # 确保在生产环境中关闭调试模式
       - NPM_BIN_PATH=${NPM_BIN_PATH}
@@ -28,11 +29,24 @@ services:
     restart: always
     depends_on:
       - postgres
-    # 添加健康检查和资源限制
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+            uwsgi --ini uwsgi.ini"
+    # 添加健康检查和资源限制（根据需要调整）
+    # healthcheck:
+    #   test: ["CMD-SHELL", "curl -f http://localhost:8000/health/ || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+    # resources:
+    #   limits:
+    #     cpus: '0.5'
+    #     memory: 50M
 
   nginx:
     build: ./nginx
-    image: 'nginx:${TAG}'
+    image: 'qrkks3/tradingweb:nginx-${TAG}'
     ports:
       - "80:80"
     volumes:
