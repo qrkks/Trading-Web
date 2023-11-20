@@ -27,5 +27,5 @@
 }
 
 .custom-bar {
-    @apply w-16  h-0.5 mt-2 mb-12 bg-cyan-500
+    @apply w-16  h-0.5  mb-12 bg-cyan-500
 }
