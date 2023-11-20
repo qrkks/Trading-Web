@@ -6,16 +6,22 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
+
+    - name: Set TAG variable
+      id: set_tag
+      run: echo "TAG=$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+
     - name: Build the Docker image
-      run: TAG=$(date +%Y%m%d-%H%M%S) docker-compose --file docker-compose.prod.yml build echo "TAG=$TAG" >> $GITHUB_ENV
+      run: |
+        docker-compose --file docker-compose.prod.yml build
 
+    - name: Use TAG variable
+      run: echo "Tag is ${{ env.TAG }}"
 
-
+    # Add your Docker push steps here, using ${{ env.TAG }} to reference the tag
