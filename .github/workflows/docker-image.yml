@@ -19,7 +19,7 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        docker-compose --file docker-compose.prod.yml build
+        TAG=${{ env.TAG }} docker-compose --file docker-compose.prod.yml build
 
     - name: Use TAG variable
       run: echo "Tag is ${{ env.TAG }}"
