@@ -43,6 +43,8 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
           cd /root
+          export TAG=${{ env.TAG }}
+          echo "Using TAG: $TAG"
           docker-compose down
           docker-compose pull
           docker-compose up -d
