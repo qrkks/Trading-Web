@@ -4,11 +4,10 @@
       <div class="lg:col-span-2 lg:py-12">
         <p class="text-lg tracking-wide ">
           Have a question or need assistance? Feel free to drop us an email at
-          {% comment %} CSRF Token: {{ csrf_token }} {% endcomment %}
         </p>
         <div class="my-4">
           <a href="mailto:{{ contact.email.info }}"
-             class="text-2xl font-bold text-red-600">
+             class="text-2xl font-bold text-cyan-600">
             {{ contact.email.info }}
           
           </a>
@@ -16,7 +15,7 @@
               282 Kevin Brook, Imogeneborough, CA 58517
             </address> -->
         </div>
-        <p class="text-lg tracking-wide ">
+        <p class="text-lg ">
           for a direct response. Alternatively, you can conveniently use the inquiry form adjacent to this text. We’re here to assist you with any inquiries, concerns, or information you might need. Engage with us and let’s start the conversation - your feedback and questions are invaluable to us!
         </p>
       </div>
@@ -77,7 +76,7 @@
           </div>
           <div class="flex flex-col flex-wrap items-center justify-between mt-4 sm:flex-row">
             <button type="submit"
-                    class="relative w-full px-5 py-3 font-medium text-white rounded shadow  hover:underline hover:underline-offset-4 bg-cyan-500 sm:w-auto">
+                    class="relative w-full px-5 py-3 font-medium text-white rounded shadow hover:underline hover:underline-offset-4 bg-cyan-500 sm:w-auto">
               Send Enquiry
               <div id="submitting"
                    class="absolute inline-flex duration-500 transform -translate-x-1/2 -translate-y-1/2 rounded opacity-0 left-1/2 top-1/2 htmx-indicator shrink">
