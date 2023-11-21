@@ -1,4 +1,5 @@
-# docker-compose.ci.yml
+# docker-compose.prod.yml
+# 构建生产环境的 Docker Compose 配置
 version: '3.9'
 
 services:
