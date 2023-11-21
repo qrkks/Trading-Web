@@ -17,7 +17,7 @@ services:
     # ... 其他生产环境适用的配置
 
   django:
-    build: ./myproject #### 生产环境中删除
+    # build: ./myproject #### 生产环境中删除
     image: 'qrkks3/tradingweb:django-${TAG}'
     environment:
       - DEBUG=False  # 确保在生产环境中关闭调试模式
@@ -30,7 +30,7 @@ services:
       - media_volume:/code/media
     expose:
       - "8000"
-    # restart: always
+    restart: always
     depends_on:
       - postgres
     # command: >
@@ -48,7 +48,7 @@ services:
     #     memory: 50M
 
   nginx:
-    build: ./nginx #### 生产环境中删除
+    # build: ./nginx #### 生产环境中删除
     image: 'qrkks3/tradingweb:nginx-${TAG}'
     ports:
       - "80:80"

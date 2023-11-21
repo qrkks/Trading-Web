@@ -17,11 +17,11 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 # 安装依赖
-COPY requirements.prod.txt /code/
-RUN pip install --no-cache-dir -r requirements.prod.txt
-
 COPY requirements.txt /code/
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY requirements.prod.txt /code/
+RUN pip install --no-cache-dir -r requirements.prod.txt
 
 # 复制项目
 COPY . /code/
