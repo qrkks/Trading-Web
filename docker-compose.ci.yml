@@ -1,4 +1,7 @@
 # docker-compose.ci.yml
+# 构建 CI 环境的 Docker Compose 配置
+# 构建时不能使用 .env 文件
+
 version: '3.9'
 
 services:
