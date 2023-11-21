@@ -47,15 +47,6 @@ jobs:
         script: |
           cd /root
 
-          # 检查是否存在 docker-compose.yml 文件，并备份
-          if [ -f docker-compose.yml ]; then
-              echo "docker-compose.yml exists, creating backup."
-              mv docker-compose.yml docker-compose.backup.yml
-          fi
-
-          # 在这里使用 SCP 命令传输文件
-          scp docker-compose.prod.yml ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:
-
           # 设置环境变量
           export TAG=${{ env.TAG }}
           echo "Using TAG: $TAG"
