@@ -1,4 +1,4 @@
-**/static_cdn
+*/static_cdn
 db/
 db.sqlite3
 myproject/db/
@@ -25,7 +25,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+# dist/
 downloads/
 eggs/
 .eggs/
