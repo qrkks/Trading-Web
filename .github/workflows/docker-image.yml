@@ -45,6 +45,18 @@ jobs:
           cd /root
           export TAG=${{ env.TAG }}
           echo "Using TAG: $TAG"
+
+          # 更新 .env 文件的脚本逻辑
+          KEY="TAG"
+          VALUE="$TAG"
+          FILE=".env"
+          if grep -q "^${KEY}=" "$FILE"; then
+              sed -i "s/^${KEY}=.*/${KEY}=${VALUE}/" "$FILE"
+          else
+              echo "${KEY}=${VALUE}" >> "$FILE"
+          fi
+
+          # Docker Compose 命令
           docker-compose down
           docker-compose pull
           docker-compose up -d
