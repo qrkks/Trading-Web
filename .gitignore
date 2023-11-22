@@ -1,4 +1,6 @@
 */static_cdn
+myproject/media/
+
 db/
 db.sqlite3
 myproject/db/

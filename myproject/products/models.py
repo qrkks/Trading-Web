@@ -1,7 +1,8 @@
+import random
+import string
+from django.utils import timezone
 import os
-from django.conf import settings
-from django.db import models
-from django.db.models.query import QuerySet
+from django.db import models, transaction
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 
@@ -9,7 +10,6 @@ from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from slugify import slugify
 from abstractapp.manager import CommonManager
-from abstractapp.models import BaseModel, SlugMixin
 from taggit.managers import TaggableManager
 
 from utils.models import ViewCount
@@ -57,34 +57,6 @@ class Category(MPTTModel):
             self.slug = slug
         super().save(*args, **kwargs)
 
-# class ProductQueryset(models.QuerySet):
-#     def active(self):
-#         return self.filter(is_active = True)
-
-# class ProductManager(models.Manager):
-#     def get_queryset(self) -> QuerySet:
-#         return ProductQueryset(self.model,using=self._db)
-    
-    # def active(self):
-        # print("Manager's active is being called")
-        # return self.get_queryset().filter(is_active=True)
-        # return self.get_queryset().active()
-
-# 自定义查询集
-# class ProductQuerySet(models.QuerySet):
-#     def active(self):
-#         print("QuerySet's active is being called")
-#         return self.filter(is_active=True)
-
-# # 自定义模型管理器
-# class ProductManager(models.Manager):
-#     def get_queryset(self):
-#         print("get_queryset is being called")  # 调试信息
-#         return ProductQuerySet(self.model, using=self._db)
-    
-#     def active(self):
-#         print("Manager's active is being called")
-#         return self.get_queryset().active()
     
 class Product(models.Model):
 
@@ -137,45 +109,75 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             base_slug = slugify(self.name)
-            slug = base_slug
             counter = 1
-            while Product.objects.filter(slug=slug).exists():
+            while Product.objects.filter(slug=base_slug).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
             self.slug = slug
-        super().save(*args, **kwargs)
 
-    # def get_absolute_url(self):
-    #     return reverse("product-detail", kwargs={"slug": self.slug})
+        # 如果是没有指定排序值
+        if  self.custom_order == 0:
+            with transaction.atomic():
+                max_custom_order = self.__class__.objects.aggregate(models.Max('custom_order'))[
+                    'custom_order__max'] or 0
+                self.custom_order = max_custom_order + 1
+
+        super().save(*args, **kwargs)
+        
     def get_absolute_url(self):
-        # 获取该产品所属分类及其所有祖先的 slug
+        """
+        Returns the absolute URL of the product detail page.
+
+        Returns:
+            str: The absolute URL of the product detail page.
+        """
+        # Get the slug of the category and all its ancestors
         category_path = '/'.join([cat.slug for cat in self.category.get_ancestors(include_self=True)])
         
-        # 使用 reverse 函数和动态的分类路径来生成 URL
+        # Generate the URL using the reverse function and the dynamic category path
         return reverse('product-detail', args=[category_path, self.slug])
+        # return reverse('product-detail', kwargs={'category_path': category_path, 'slug': self.slug})
 
 
 
-def product_image_path(self, filename):
-    # 构建文件夹路径，使用产品实例的ID作为文件夹名称
-    folder_name = str(self.product.id)
-    # 使用 os.path.join 来构建路径
-    return os.path.join('products/images', folder_name, filename)
+
+# 定义常量
+PRODUCT_IMAGES_PATH = 'products/images'
+
 
 class ProductImage(models.Model):
-    image = models.ImageField(upload_to=product_image_path)
+    image = models.ImageField(upload_to=PRODUCT_IMAGES_PATH)
     product = models.ForeignKey(
         Product, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.image.url
 
-# 使用信号来处理图片保存：保存图片时自动以ID为名建立或放入新文件夹
+# 使用信号来处理图片保存：在保存图片前自动以ID为名建立或放入新文件夹
 @receiver(pre_save, sender=ProductImage)
 def product_image_pre_save(sender, instance, **kwargs):
-    # 获取关联的产品实例
+    """
+    Pre-save signal handler for the ProductImage model.
+    Sets the image file name and path based on the associated product.
+
+    Args:
+        sender: The sender of the signal.
+        instance: The instance of the ProductImage being saved.
+        **kwargs: Additional keyword arguments.
+
+    Returns:
+        None
+    """
+
+    # Get the associated product instance
     product = instance.product
-    # 如果产品实例存在并且具有名称字段，则设置图片路径
+
+# Check if the product instance exists and has a name field
     if product and product.name:
-        folder_name = product.name
-        instance.image.field.upload_to = product_image_path
+        # Generate a random string of characters
+        random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
+
+        # Construct the unique file name based on product information and random string
+        ext = instance.image.name.split('.')[-1]
+        unique_filename = f'{product.name}_{timezone.now().strftime("%Y%m%d%H%M%S")}_{random_string}.{ext}'
+        instance.image.name = os.path.join(str(product.id), unique_filename)
