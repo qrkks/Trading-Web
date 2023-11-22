@@ -9,7 +9,6 @@
           <a href="mailto:{{ contact.email.info }}"
              class="text-2xl font-bold text-cyan-500">
             {{ contact.email.info }}
-          
           </a>
           <!-- <address class="mt-2 not-italic">
               282 Kevin Brook, Imogeneborough, CA 58517
@@ -19,14 +18,15 @@
           for a direct response. Alternatively, you can conveniently use the inquiry form adjacent to this text. We’re here to assist you with any inquiries, concerns, or information you might need. Engage with us and let’s start the conversation - your feedback and questions are invaluable to us!
         </p>
       </div>
-      <div class="p-8 bg-white rounded shadow lg:col-span-3 lg:p-12">
+      <div id="inquiry-form"
+           class="p-8 bg-white rounded shadow lg:col-span-3 lg:p-12">
         <form hx-post="{% url 'inquiry_create' %}"
-              hx-on::after-request="this.reset()"
+              hx-on:htmx:after-request="if (event.detail.xhr.status === 200) {this.reset()}"
+              hx-on:htmx:response-error=" document.querySelector('#submitted-indicate').innerHTML = '<p class=\'text-red-500 py-2\'>Oops! Something went wrong.Please refresh the page or try again later.</p>';"
               hx-indicator="#submitting"
               hx-swap="outerHTML"
               class="space-y-4"
-              hx-target="#submitted">
-              {% comment %} hx-headers='{"X-Requested-With":"XMLHttpRequest"}' {% endcomment %}
+              hx-target="#submitted-indicate">
           {% csrf_token %}
           {% load widget_tweaks %}
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -97,7 +97,7 @@
                 </svg>
               </div>
             </button>
-            <div id="submitted">
+            <div id="submitted-indicate">
             </div>
           </div>
         </form>

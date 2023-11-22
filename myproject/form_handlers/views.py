@@ -1,11 +1,8 @@
 
 # Create your views here.
-from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .forms import InquiryForm
-from .models import Inquiry
 import requests
-from django.core.mail import send_mail
 
 
 
@@ -21,8 +18,8 @@ def inquiry_create(request):
             return render(request,'form_handlers/indicator-submitted.html')
     else:
         form = InquiryForm()
-    # inquiries = Inquiry.objects.all()
     return render(request, 'form_handlers/indicator-submitted.html', {'form': form})
+    # raise Http404
 
 # ... other functions ...
 

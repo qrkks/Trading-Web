@@ -39,3 +39,6 @@ class Faq(BaseModel):
 
 class Banner(BaseModel):
     image = models.ImageField(upload_to='home/cta/images',blank=True,null=True)
+
+    def __str__(self) -> str:
+        return self.image.url
