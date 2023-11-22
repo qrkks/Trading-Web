@@ -34,7 +34,7 @@ services:
     restart: always
     depends_on:
       - postgres
-    command: python manage.py migrate
+    # command: python manage.py migrate
     # command: |
     #   sh -c 
     #   rm -rf /code/static_cdn/*
