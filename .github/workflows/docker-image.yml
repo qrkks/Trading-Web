@@ -18,7 +18,7 @@ jobs:
 
     - name: Set TAG variable
       run: |
-        echo "TAG=$(date +%Y%m%d-%H%M%S -d @$(( $(date +%s) + 8*3600 )))" >> $GITHUB_ENV
+        echo "TAG=$(date +%Y%m%d-%H%M%S -d @$(( $(date +%s) )))" >> $GITHUB_ENV
 
 
     - name: Build the Docker image
