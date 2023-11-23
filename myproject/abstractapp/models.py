@@ -3,6 +3,7 @@ from django.utils import timezone
 from slugify import slugify
 
 from abstractapp.manager import CommonManager
+from .func import generate_slug, generate_custom_order
 
 # Create your models here.
 
@@ -10,7 +11,7 @@ from abstractapp.manager import CommonManager
 
 
 class BaseModel(models.Model):
-    custom_order = models.IntegerField(default=0)
+    custom_order = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -22,13 +23,7 @@ class BaseModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        # 如果是新记录，并且没有指定排序值
-        if not self.pk and self.custom_order == 0:
-            with transaction.atomic():
-                max_custom_order = self.__class__.objects.aggregate(models.Max('custom_order'))[
-                    'custom_order__max'] or 0
-                self.custom_order = max_custom_order + 1
-        super().save(*args, **kwargs)
+        generate_custom_order(self, *args, **kwargs)
 
 
 # Mixin类
@@ -39,15 +34,7 @@ class SlugMixin(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.name)
-            slug = base_slug
-            counter = 1
-            manager = getattr(self.__class__, self._meta.default_manager_name)
-            while manager.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
+        generate_slug(self, *args, **kwargs)
         super().save(*args, **kwargs)
 
 

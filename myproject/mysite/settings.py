@@ -35,7 +35,7 @@ Session.objects.all().delete()
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-sw3hbyjt)%q24^^ab^sc^=qvfr*$-1x9br5vr8&-8*9q4lo)&')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True')=='True'
+DEBUG = os.environ.get('DEBUG', 'False')=='True'
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
@@ -102,7 +102,7 @@ if DEBUG:
     MIDDLEWARE += [
         # debug toolbar
         "debug_toolbar.middleware.DebugToolbarMiddleware",
-        # 自动重载
+        # auto reload
         "django_browser_reload.middleware.BrowserReloadMiddleware",
     ]
 

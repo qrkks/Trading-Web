@@ -1,3 +1,5 @@
+from .models import ProductImage
+from import_export import resources
 from django.utils.translation import gettext_lazy as _
 from django.db.models.fields.reverse_related import ManyToOneRel, ManyToManyRel
 from django.db.models.fields.related import ForeignKey, ManyToManyField, OneToOneField
@@ -40,7 +42,29 @@ class ProductImageAdmin(admin.TabularInline):
     readonly_fields = ['image_preview']
 
 
-admin.site.register(ProductImage)
+# admin.site.register(ProductImage)
+
+
+class ProductImageResource(resources.ModelResource):
+    class Meta:
+        model = ProductImage
+        # 指定要导入的字段
+        fields = ('id', 'image', 'product')
+        # 或者使用 exclude 来排除一些字段
+        # exclude = ('id',)
+
+@admin.register(ProductImage)
+class ProductImageImportExportAdmin(ImportExportModelAdmin):
+    resource_class = ProductImageResource
+    # 其他配置...
+    
+    def image_preview(self,obj):
+        if obj.image:
+            return mark_safe(f'<img src="{obj.image.url}" height="150" />')
+        return ""
+
+    readonly_fields = ['image_preview']
+    list_display = ['id', 'product', 'image_preview']
 
 ##################### 产品模型管理 ###################################
 
@@ -84,16 +108,16 @@ class CategoryFilter(admin.SimpleListFilter):
 
 @admin.register(Product)
 class ProductModelAdmin(ImportExportModelAdmin, SortableAdminMixin):
-# class ProductModelAdmin(admin.ModelAdmin):
+    # class ProductModelAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Product._meta.get_fields() if  is_displayable_field(field)]
     # list_display = [field.name for field in Product._meta.get_fields() if field.name not in ['images','related_products','product','tags','TaggableManager','_TaggableManager'] ]
-    list_display = ['id', 'name', 'slug', 'category','custom_order',
+    list_display = ['id', 'name', 'slug', 'category', 'custom_order',
                     'is_active', 'is_featured', 'created_at', 'updated_at']
     list_display_links = [x for x in list_display if x not in [
         'is_active', 'is_featured', 'custom_order']]
     # prepopulated_fields = {'slug': ('name',)}
     # list_display_links = 'name',
-    list_editable = ['custom_order','is_active', 'is_featured',]  # 允许编辑的字段
+    list_editable = ['custom_order', 'is_active', 'is_featured',]  # 允许编辑的字段
     search_fields = ['name', 'slug',]
     inlines = [ProductImageAdmin]
     ordering = ['-custom_order', '-is_active', '-is_featured']

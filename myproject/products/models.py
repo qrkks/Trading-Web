@@ -5,7 +5,6 @@ import os
 from django.db import models, transaction
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from slugify import slugify
@@ -13,6 +12,7 @@ from abstractapp.manager import CommonManager
 from taggit.managers import TaggableManager
 
 from utils.models import ViewCount
+from abstractapp.func import generate_custom_order, generate_slug
 
 # Create your models here.
 
@@ -64,7 +64,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100,db_index=True)
     slug = models.SlugField(max_length=100,blank=True,null=True,unique=True,db_index=True)
     description = models.TextField(blank=True, null=True,db_index=True)
-    custom_order = models.IntegerField(default=0)
+    custom_order = models.IntegerField(blank=True,null=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='products', blank=True, null=True)
     is_active = models.BooleanField(default=True)
@@ -107,27 +107,25 @@ class Product(models.Model):
         ordering = ['-is_active','-is_featured','custom_order','-name']
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.name)
-            counter = 1
-            while Product.objects.filter(slug=base_slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
-
-        # 如果是没有指定排序值
-        if  self.custom_order == 0:
-            with transaction.atomic():
-                max_custom_order = self.__class__.objects.aggregate(models.Max('custom_order'))[
-                    'custom_order__max'] or 0
-                self.custom_order = max_custom_order + 1
-
+        """
+        Save the instance to the database.
+        
+        Args:
+            *args: Additional positional arguments.
+            **kwargs: Additional keyword arguments.
+        """
+        
+        # Generate a slug for the instance
+        generate_slug(self, *args, **kwargs)
+        
+        # Generate a custom order for the instance
+        generate_custom_order(self, *args, **kwargs)
+        
+        # Call the save method of the parent class
         super().save(*args, **kwargs)
         
     def get_absolute_url(self):
         """
-        Returns the absolute URL of the product detail page.
-
         Returns:
             str: The absolute URL of the product detail page.
         """
@@ -169,15 +167,22 @@ def product_image_pre_save(sender, instance, **kwargs):
         None
     """
 
-    # Get the associated product instance
+    # Get the associated product from the instance
     product = instance.product
 
-# Check if the product instance exists and has a name field
+    # Check if the product instance exists and has a name field
+    # This ensures that the file name generation logic is only executed when necessary,
+    # ensuring code robustness and correctness.
     if product and product.name:
+
         # Generate a random string of characters
         random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
 
-        # Construct the unique file name based on product information and random string
+        # Split the extension from the image file name
         ext = instance.image.name.split('.')[-1]
-        unique_filename = f'{product.name}_{timezone.now().strftime("%Y%m%d%H%M%S")}_{random_string}.{ext}'
+
+        # Construct the unique file name based on product information, current timestamp, and random string
+        unique_filename = f'{product.name}_{timezone.now().strftime("%Y%m%d%H%M")}_{random_string}.{ext}'
+
+        # Set the image name to include the product id and the unique file name
         instance.image.name = os.path.join(str(product.id), unique_filename)
