@@ -33,7 +33,7 @@ RUN python manage.py collectstatic --noinput
 # CMD ["gunicorn", "-b", "0.0.0.0:8000", "mysite.wsgi:application"]
 
 # 启动 uwsgi
-CMD ["/bin/sh", "-c", "python manage.py migrate && uwsgi --http 0.0.0.0:8000 --module mysite.wsgi --workers 4 --threads 2"]
+CMD ["/bin/sh", "-c", "python manage.py migrate && uwsgi --http 0.0.0.0:8000 --module mysite.wsgi --workers 2 --threads 2"]
 
 # 启动开发服务器
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
