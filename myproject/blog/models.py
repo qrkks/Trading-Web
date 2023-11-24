@@ -7,6 +7,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor_uploader.fields import RichTextUploadingField
 
 from abstractapp.models import BaseModel
+from abstractapp.func import generate_slug
 
 # Create your models here.
 
@@ -81,13 +82,7 @@ class Blog(BaseModel):
         return self.title
     
     def save(self,*args, **kwargs):
-        if not self.slug:
-            slug = slugify(self.title)
-            counter = 1
-            while Blog.objects.filter(slug=slug).exists():
-                slug = f'{slug}-{counter}'
-                count += 1
-            self.slug = slug
+        generate_slug(self, *args, **kwargs)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

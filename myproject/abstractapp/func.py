@@ -14,8 +14,14 @@ def generate_slug(instance: Any, *args: Any, **kwargs: Any) -> None:
     """
     # Check if instance already has a slug
     if not instance.slug:
-        # Generate base slug from instance name
-        base_slug = slugify(instance.name)
+        if hasattr(instance, 'name') and instance.name:
+            base_slug = slugify(instance.name)
+        elif hasattr(instance, 'title') and instance.title:
+            base_slug = slugify(instance.title)
+        # else:
+        # # 处理没有 name 和 title 的情况
+        # base_slug = 'default-slug'
+
         # Initialize slug with base slug
         slug = base_slug
         counter = 1

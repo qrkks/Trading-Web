@@ -1,8 +1,6 @@
-from django.db import models, transaction
-from django.utils import timezone
-from slugify import slugify
+from django.db import models
 
-from abstractapp.manager import CommonManager
+from .manager import CommonManager
 from .func import generate_slug, generate_custom_order
 
 # Create your models here.
@@ -24,6 +22,7 @@ class BaseModel(models.Model):
 
     def save(self, *args, **kwargs):
         generate_custom_order(self, *args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 # Mixin类
