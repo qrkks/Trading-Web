@@ -62,6 +62,7 @@ jobs:
         password: ${{ secrets.US_SERVER_PASSWORD }}
         script: |
           # cd /root
+          cd /home/lighthouse
 
           # 检查是否存在 docker-compose.yml 文件，并备份
           if [ -f docker-compose.yml ]; then
