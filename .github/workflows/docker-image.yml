@@ -85,11 +85,17 @@ jobs:
           # Docker Compose 命令
 
           docker-compose down          
-          # 删除含有 static_volume 的容器并保留日志
+
+          # 查找所有含有 "static_volume" 的 Docker 卷
           VOLUMES_TO_DELETE=$(docker volume ls -q | grep 'static_volume')
-          echo "Volumes to be deleted: $VOLUMES_TO_DELETE"
-          echo $VOLUMES_TO_DELETE | xargs -r docker volume rm || true
-          # docker volume ls -q | grep 'static_volume' | xargs -r docker volume rm || true
+          # 检查是否找到了匹配的卷
+          if [ -n "$VOLUMES_TO_DELETE" ]; then
+              echo "Volumes to be deleted: $VOLUMES_TO_DELETE"
+              # 删除找到的卷
+              echo $VOLUMES_TO_DELETE | xargs docker volume rm
+          else
+              echo "No volumes found with 'static_volume' in their name."
+          fi
 
           docker-compose pull
           docker-compose up -d
