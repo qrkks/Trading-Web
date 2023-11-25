@@ -13,7 +13,7 @@ env:
 jobs:
   one-deply-to-jd:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, '[jd]'))
+    if: contains(github.event.head_commit.message, '[jd]')
 
     steps:
     - uses: actions/checkout@v3
@@ -95,7 +95,7 @@ jobs:
           docker-compose up -d
       env:
         TAG: ${{ env.TAG }}
-        
+
   three-deply-to-prod:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[jd]') && !contains(github.event.head_commit.message, '[jd]')"
