@@ -60,8 +60,8 @@ services:
     volumes:
       - static_volume:/static
       - media_volume:/media
-      # - /home/lighthouse/ssl/certs:/etc/ssl/certs
-      # - /home/lighthouse/ssl/private:/etc/ssl/private
+      - /home/lighthouse/ssl/certs:/etc/ssl/certs
+      - /home/lighthouse/ssl/private:/etc/ssl/private
     environment:
       - TZ=${TZ}
     env_file:
