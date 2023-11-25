@@ -44,14 +44,14 @@ jobs:
         # username: ${{ secrets.SERVER_USERNAME }}
         # password: ${{ secrets.SERVER_PASSWORD }}
         # target: "/root"
-        # host: ${{ secrets.US_SERVER_HOST }}
-        # username: ${{ secrets.US_SERVER_USERNAME }}
-        # password: ${{ secrets.US_SERVER_PASSWORD }}
-        # target: "/home/lighthouse"
-        host: ${{ secrets.JD_SERVER_HOST }}
-        username: ${{ secrets.JD_SERVER_USERNAME }}
-        password: ${{ secrets.JD_SERVER_PASSWORD }}
-        target: "/root"
+        host: ${{ secrets.US_SERVER_HOST }}
+        username: ${{ secrets.US_SERVER_USERNAME }}
+        password: ${{ secrets.US_SERVER_PASSWORD }}
+        target: "/home/lighthouse"
+        # host: ${{ secrets.JD_SERVER_HOST }}
+        # username: ${{ secrets.JD_SERVER_USERNAME }}
+        # password: ${{ secrets.JD_SERVER_PASSWORD }}
+        # target: "/root"
 
         source: "docker-compose.prod.yml"
 
@@ -61,12 +61,12 @@ jobs:
         # host: ${{ secrets.SERVER_HOST }}
         # username: ${{ secrets.SERVER_USERNAME }}
         # password: ${{ secrets.SERVER_PASSWORD }}
-        # host: ${{ secrets.US_SERVER_HOST }}
-        # username: ${{ secrets.US_SERVER_USERNAME }}
-        # password: ${{ secrets.US_SERVER_PASSWORD }}
-        host: ${{ secrets.JD_SERVER_HOST }}
-        username: ${{ secrets.JD_SERVER_USERNAME }}
-        password: ${{ secrets.JD_SERVER_PASSWORD }}
+        host: ${{ secrets.US_SERVER_HOST }}
+        username: ${{ secrets.US_SERVER_USERNAME }}
+        password: ${{ secrets.US_SERVER_PASSWORD }}
+        # host: ${{ secrets.JD_SERVER_HOST }}
+        # username: ${{ secrets.JD_SERVER_USERNAME }}
+        # password: ${{ secrets.JD_SERVER_PASSWORD }}
         script: |
           # cd /root
           # cd /home/lighthouse

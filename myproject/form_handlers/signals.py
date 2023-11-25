@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import Inquiry, NotificationInbox
 import threading
+from django.conf import settings
 
 
 
@@ -40,6 +41,7 @@ def send_email_in_thread(instance,recipient_list):
     Source IP: {instance.source_ip}
     Country from IP: {instance.country_from_ip}
     """
-    
-    email_from = settings.EMAIL_HOST_USER
+    print('Email sent to:', recipient_list)
+    email_from = f"Ciyetrading Website <{settings.EMAIL_HOST_USER}>"
     send_mail(subject, message, email_from, recipient_list)
+    print('Email sent successfully')
