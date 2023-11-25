@@ -39,7 +39,7 @@ jobs:
         docker push qrkks3/tradingweb:django-${{ env.TAG }}
         docker push qrkks3/tradingweb:nginx-${{ env.TAG }}
 
-    - name: Copy docker-compose.prod.yml to Server
+    - name: Copy docker-compose.jd.yml to Server
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.JD_SERVER_HOST }}
