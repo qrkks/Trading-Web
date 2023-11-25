@@ -42,6 +42,6 @@ def send_email_in_thread(instance,recipient_list):
     Country from IP: {instance.country_from_ip}
     """
     print('Email sent to:', recipient_list)
-    email_from = f"Ciyetrading Website <{settings.EMAIL_HOST_USER}>"
+    email_from = f"Inquiry Request Service <{settings.EMAIL_HOST_USER}>"
     send_mail(subject, message, email_from, recipient_list)
     print('Email sent successfully')
