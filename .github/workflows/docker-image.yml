@@ -65,8 +65,8 @@ jobs:
               mv docker-compose.yml docker-compose.backup.yml
           fi
 
-          # 复制 docker-compose.prod.yml 到 docker-compose.yml
-          cp docker-compose.prod.yml docker-compose.yml
+          # 复制 docker-compose.jd.yml 到 docker-compose.yml
+          cp docker-compose.jd.yml docker-compose.yml
 
           # 设置环境变量
           export TAG=${{ env.TAG }}
