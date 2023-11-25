@@ -1,73 +1,16 @@
 # docker-compose.ci.yml
 # 构建 CI 环境的 Docker Compose 配置
-# 构建时不能使用 .env 文件
 
 version: '3.9'
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - TZ=${TZ}
-    # env_file:
-    #   - .env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    # ... 其他生产环境适用的配置
 
   django:
     build: ./myproject #### 生产环境中删除
     image: 'qrkks3/tradingweb:django-${TAG}'
-    environment:
-      - DEBUG=False  # 确保在生产环境中关闭调试模式
-      - NPM_BIN_PATH=${NPM_BIN_PATH}
-      - TZ=${TZ}
-    # env_file:
-    #   - .env
-    volumes:
-      - static_volume:/code/static_cdn
-      - media_volume:/code/media
-    expose:
-      - "8000"
-    # restart: always
-    depends_on:
-      - postgres
-    # command: >
-      # sh -c "python manage.py collectstatic --noinput"
-    # 添加健康检查和资源限制（根据需要调整）
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f http://localhost:8000/health/ || exit 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
-    # resources:
-    #   limits:
-    #     cpus: '0.5'
-    #     memory: 50M
 
   nginx:
     build: ./nginx #### 生产环境中删除
     image: 'qrkks3/tradingweb:nginx-${TAG}'
-    ports:
-      - "80:80"
-    volumes:
-      - static_volume:/static
-      - media_volume:/media
-    environment:
-      - TZ=${TZ}
-    # env_file:
-    #   - .env
-    depends_on:
-      - django
-    restart: always
-    # 可能需要添加 SSL/TLS 配置
 
-volumes:
-  static_volume:
-  media_volume:
-  postgres_data:
+
