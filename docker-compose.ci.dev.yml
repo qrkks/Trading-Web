@@ -1,5 +1,5 @@
-# docker-compose.ci.yml
-# 构建 CI 环境的 Docker Compose 配置
+# docker-compose.ci.dev.yml
+# 构建 CI dev 环境的 Docker Compose 配置
 
 version: '3.9'
 
@@ -12,7 +12,7 @@ services:
   nginx:
     build: 
       context: ./nginx 
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     image: 'qrkks3/tradingweb:nginx-${TAG}'
 
 

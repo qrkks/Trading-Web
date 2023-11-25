@@ -34,22 +34,6 @@ services:
     restart: always
     depends_on:
       - postgres
-    # command: python manage.py migrate
-    # command: |
-    #   sh -c 
-    #   rm -rf /code/static_cdn/*
-    #   python manage.py collectstatic --noinput
-    # 添加健康检查和资源限制（根据需要调整）
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f http://localhost:8000/health/ || exit 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
-    # resources:
-    #   limits:
-    #     cpus: '0.5'
-    #     memory: 50M
 
   nginx:
     # build: ./nginx #### 生产环境中删除

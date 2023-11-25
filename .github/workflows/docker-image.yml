@@ -26,7 +26,7 @@ jobs:
     - name: Build the Docker image
       run: |
         echo "TZ=Asia/Shanghai" >> $GITHUB_ENV
-        TAG=${{ env.TAG }} docker-compose --file docker-compose.ci.yml build
+        TAG=${{ env.TAG }} docker-compose --file docker-compose.ci.dev.yml build
 
     - name: Use TAG variable
       run: echo "Tag is ${{ env.TAG }}"
