@@ -102,7 +102,7 @@ jobs:
       env:
         TAG: ${{ env.TAG }}
 
-  twp-deply-to-ali:
+  two-deply-to-ali:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, '[ali]')
 
@@ -189,13 +189,13 @@ jobs:
           fi
 
           docker-compose pull
-          docker-compose up -d
+          sudo docker-compose up -d
       env:
         TAG: ${{ env.TAG }}
 
   three-deply-to-prod:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[jd]') && !contains(github.event.head_commit.message, '[jd]')"
+    if: "!contains(github.event.head_commit.message, '[jd]') && !contains(github.event.head_commit.message, '[ali]')"
 
     steps:
     - uses: actions/checkout@v3
