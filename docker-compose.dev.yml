@@ -1,5 +1,5 @@
-# docker-compose.prod.yml
-# 构建生产环境的 Docker Compose 配置
+# docker-compose.dev.yml
+# 构建测试环境的 Docker Compose 配置
 version: '3.5'
 
 services:

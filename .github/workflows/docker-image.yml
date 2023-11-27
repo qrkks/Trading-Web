@@ -47,7 +47,7 @@ jobs:
         password: ${{ secrets.JD_SERVER_PASSWORD }}
         target: "/root"
 
-        source: "docker-compose.jd.yml" # 选择compose文件
+        source: "docker-compose.dev.yml" # 选择compose文件
 
     - name: Deploy to Server
       uses: appleboy/ssh-action@master
@@ -65,8 +65,99 @@ jobs:
               mv docker-compose.yml docker-compose.backup.yml
           fi
 
-          # 复制 docker-compose.jd.yml 到 docker-compose.yml
-          cp docker-compose.jd.yml docker-compose.yml
+          # 复制 docker-compose.dev.yml 到 docker-compose.yml
+          cp docker-compose.dev.yml docker-compose.yml
+
+          # 设置环境变量
+          export TAG=${{ env.TAG }}
+          echo "Using TAG: $TAG"
+
+          # 更新 .env 文件的逻辑
+          KEY="TAG"
+          VALUE="$TAG"
+          FILE=".env"
+          if grep -q "^${KEY}=" "$FILE"; then
+              sed -i "s/^${KEY}=.*/${KEY}=${VALUE}/" "$FILE"
+          else
+              echo "${KEY}=${VALUE}" >> "$FILE"
+          fi
+
+          # Docker Compose 命令
+
+          docker-compose down          
+
+          # 查找所有含有 "static_volume" 的 Docker 卷
+          VOLUMES_TO_DELETE=$(docker volume ls -q | grep 'static_volume')
+          # 检查是否找到了匹配的卷
+          if [ -n "$VOLUMES_TO_DELETE" ]; then
+              echo "Volumes to be deleted: $VOLUMES_TO_DELETE"
+              # 删除找到的卷
+              echo $VOLUMES_TO_DELETE | xargs docker volume rm
+          else
+              echo "No volumes found with 'static_volume' in their name."
+          fi
+
+          docker-compose pull
+          docker-compose up -d
+      env:
+        TAG: ${{ env.TAG }}
+
+  twp-deply-to-ali:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[ali]')
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set TAG variable
+      run: |
+        echo "TAG=$(date +%Y%m%d-%H%M%S -d @$(( $(date +%s) )))" >> $GITHUB_ENV
+
+
+    - name: Build the Docker image
+      run: |
+        echo "TZ=Asia/Shanghai" >> $GITHUB_ENV
+        TAG=${{ env.TAG }} docker-compose --file docker-compose.ci.dev.yml build
+
+    - name: Use TAG variable
+      run: echo "Tag is ${{ env.TAG }}"
+
+    # Add your Docker push steps here, using ${{ env.TAG }} to reference the tag
+    
+    - name: Push the Docker images
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker push qrkks3/tradingweb:django-${{ env.TAG }}
+        docker push qrkks3/tradingweb:nginx-${{ env.TAG }}
+
+    - name: Copy docker-compose to Server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.ALI_SERVER_HOST }}
+        username: ${{ secrets.ALI_SERVER_USERNAME }}
+        password: ${{ secrets.ALI_SERVER_PASSWORD }}
+        target: "/home/ali/tradingweb"
+
+        source: "docker-compose.dev.yml" # 选择compose文件
+
+    - name: Deploy to Server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.ALI_SERVER_HOST }}
+        username: ${{ secrets.ALI_SERVER_USERNAME }}
+        password: ${{ secrets.ALI_SERVER_PASSWORD }}
+        script: |
+          # cd /root
+          # cd /home/lighthouse
+
+          # 检查是否存在 docker-compose.yml 文件，并备份
+          if [ -f docker-compose.yml ]; then
+              echo "docker-compose.yml exists, creating backup."
+              mv docker-compose.yml docker-compose.backup.yml
+          fi
+
+          # 复制 docker-compose.dev.yml 到 docker-compose.yml
+          cp docker-compose.dev.yml docker-compose.yml
 
           # 设置环境变量
           export TAG=${{ env.TAG }}
