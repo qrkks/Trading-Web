@@ -6,6 +6,6 @@ urlpatterns = [
     path('',views.index,name='index'),
     path('about/',views.about,name='about'),
     path('contact/',views.contact,name='contact'),
-    # path('test/',views.test),
+    path('fs/',views.redirect_fs,name='redirect_fs'),
 ]
 

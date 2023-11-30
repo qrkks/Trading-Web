@@ -1,6 +1,6 @@
 from django.middleware.csrf import get_token
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from render_block import render_block_to_string
 
 from .models import Banner, Faq, HomeCarouselImage
@@ -98,3 +98,11 @@ def contact(request):
 
     # Render the 'pages/contact.html' template with the context and return the response
     return render(request, 'pages/contact.html', context)
+
+
+def redirect_fs(request):
+    # 构建目标URL，这里假设目标是 http://47.95.221.116
+    target_url = "http://47.95.221.116"
+    
+    # 执行重定向
+    return redirect(target_url)
