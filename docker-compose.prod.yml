@@ -17,6 +17,7 @@ services:
       - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./backup:/var/backup
     # ... 其他生产环境适用的配置
 
   django:
