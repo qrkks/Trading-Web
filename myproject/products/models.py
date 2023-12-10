@@ -8,11 +8,11 @@ from django.db.models.signals import pre_save
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from slugify import slugify
-from abstractapp.manager import CommonManager
+from abstractapp.model_manager import CommonManager
 from taggit.managers import TaggableManager
 
 from utils.models import ViewCount
-from abstractapp.func import generate_custom_order, generate_slug
+from abstractapp.func import generate_custom_order, generate_slug, resize_and_convert_image
 
 # Create your models here.
 
@@ -181,8 +181,13 @@ def product_image_pre_save(sender, instance, **kwargs):
         # Split the extension from the image file name
         ext = instance.image.name.split('.')[-1]
 
+        # 获取当前的东八区时间
+        now = timezone.now().astimezone(timezone.get_default_timezone())
+
         # Construct the unique file name based on product information, current timestamp, and random string
-        unique_filename = f'{product.name}_{timezone.now().strftime("%Y%m%d%H%M")}_{random_string}.{ext}'
+        unique_filename = f'{product.name}_{now.strftime("%Y%m%d%H%M")}_{random_string}.{ext}'
 
         # Set the image name to include the product id and the unique file name
         instance.image.name = os.path.join(str(product.id), unique_filename)
+
+        resize_and_convert_image(instance.image, 1600, 'webp', False, 80)  # 根据需要调整参数

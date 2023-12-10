@@ -1,6 +1,6 @@
 from django.db import models
 
-from .manager import CommonManager
+from .model_manager import CommonManager
 from .func import generate_slug, generate_custom_order
 
 # Create your models here.
