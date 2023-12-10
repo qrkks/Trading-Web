@@ -64,8 +64,7 @@ def generate_custom_order(instance: Any, *args: Any, **kwargs: Any) -> None:
             instance.custom_order = max_custom_order + 1
 
 
-SUPPORTED_FORMATS = ('jpeg', 'jpg', 'png', 'bmp', 'gif', 'webp')
-
+SUPPORTED_FORMATS = ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'tif', 'tiff', 'webp', 'svg')
 
 def resize_and_convert_image(image_field, width, output_format='webp', lossless=False, quality=80):
     """

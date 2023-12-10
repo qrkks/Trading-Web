@@ -2,7 +2,7 @@ import random
 import string
 from django.utils import timezone
 import os
-from django.db import models, transaction
+from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.urls import reverse
