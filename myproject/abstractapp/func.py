@@ -1,3 +1,6 @@
+from django.utils import timezone
+import string
+import random
 from PIL import Image
 from django.core.files.base import ContentFile
 from io import BytesIO
@@ -64,7 +67,37 @@ def generate_custom_order(instance: Any, *args: Any, **kwargs: Any) -> None:
             instance.custom_order = max_custom_order + 1
 
 
-SUPPORTED_FORMATS = ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'tif', 'tiff', 'webp', 'svg')
+def generate_unique_filename(file_field, name_source, identifier_length=5):
+    """
+    Generates a unique filename for a file field based on a name source.
+
+    Args:
+        file_field: The file field to be renamed (can be any type of FileField or ImageField).
+        name_source: A string representing the source of the name.
+        identifier_length: Length of the random string to be appended. Defaults to 5.
+
+    Returns:
+        A unique filename string.
+    """
+
+    # Generate a random string of characters
+    random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=identifier_length))
+
+    # Split the extension from the file name
+    ext = file_field.name.split('.')[-1]
+
+    # 获取当前的东八区时间
+    now = timezone.now().astimezone(timezone.get_default_timezone())
+
+    # Construct the unique file name
+    unique_filename = f'{name_source}_{now.strftime("%Y%m%d%H%M")}_{random_string}.{ext}'
+
+    return unique_filename
+
+
+SUPPORTED_FORMATS = ('jpg', 'jpeg', 'png', 'gif', 'bmp',
+                     'tif', 'tiff', 'webp', 'svg')
+
 
 def resize_and_convert_image(image_field, width, output_format='webp', lossless=False, quality=80):
     """
@@ -114,5 +147,7 @@ def resize_and_convert_image(image_field, width, output_format='webp', lossless=
             output.seek(0)
 
             # Update the image field with the resized and converted image
-            new_image_name = os.path.splitext(image_field.name)[0] + f'.{output_format.lower()}'
-            image_field.save(new_image_name, ContentFile(output.read()), save=False)
+            new_image_name = os.path.splitext(image_field.name)[
+                0] + f'.{output_format.lower()}'
+            image_field.save(new_image_name, ContentFile(
+                output.read()), save=False)
