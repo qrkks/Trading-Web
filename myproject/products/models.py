@@ -67,10 +67,10 @@ class Product(models.Model):
     custom_order = models.IntegerField(blank=True,null=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='products', blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    is_featured = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True,blank=True,null=True)
+    is_featured = models.BooleanField(default=False,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    updated_at = models.DateTimeField(auto_now=True,blank=True,null=True)
 
     # 页面SEO信息
     page_title = models.CharField(max_length=100, null=True, blank=True)

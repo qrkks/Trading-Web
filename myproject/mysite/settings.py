@@ -14,12 +14,21 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-load_dotenv()
-
+# 构建 server_env 文件夹中 .env 文件的完整路径
+dotenv_path = Path(__file__).resolve().parent / '.env'
+# 加载 .env 文件
+load_dotenv(dotenv_path)
+print('ENV_PATH from .env:', os.environ.get('ENV_PATH'))
+print('DEBUG from .env:', os.environ.get('DEBUG'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY WARNING: don't run with debug turned on in production!
+# Set DEBUG
+# DEBUG = os.getenv('DEBUG', 'True').lower() != 'false'
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+print("DEBUG in settings:", DEBUG)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -34,8 +43,8 @@ Session.objects.all().delete()
 """
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-sw3hbyjt)%q24^^ab^sc^=qvfr*$-1x9br5vr8&-8*9q4lo)&')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False')=='True'
+
+
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
