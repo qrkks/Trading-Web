@@ -112,7 +112,7 @@ class ProductModelAdmin(ImportExportModelAdmin, SortableAdminMixin):
     # class ProductModelAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Product._meta.get_fields() if  is_displayable_field(field)]
     # list_display = [field.name for field in Product._meta.get_fields() if field.name not in ['images','related_products','product','tags','TaggableManager','_TaggableManager'] ]
-    list_display = ['id', 'name', 'slug', 'category', 'custom_order',
+    list_display = ['id', 'name','code', 'slug', 'category', 'custom_order',
                     'is_active', 'is_featured', 'created_at', 'updated_at']
     list_display_links = [x for x in list_display if x not in [
         'is_active', 'is_featured', 'custom_order']]

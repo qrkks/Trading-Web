@@ -11,7 +11,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 from abstractapp.model_manager import CommonManager
 from taggit.managers import TaggableManager
 from utils.models import ViewCount
-from abstractapp.func import generate_custom_order_if_empty, generate_hierarchical_node_code,  generate_slug_if_empty, generate_unique_filename,  resize_and_convert_image
+from abstractapp.func import generate_custom_order_if_empty, generate_hierarchical_node_code, generate_product_code,  generate_slug_if_empty, generate_unique_filename,  resize_and_convert_image
 
 # Create your models here.
 
@@ -19,7 +19,7 @@ from abstractapp.func import generate_custom_order_if_empty, generate_hierarchic
 class Category(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=100, unique=True, null=True, blank=True)
-    code = models.CharField(max_length=20, null=True, blank=True)
+    code = models.CharField(unique=True, max_length=20, null=True, blank=True)
     description = models.CharField(max_length=200, blank=True, null=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE,
                             null=True, blank=True, related_name='children')
@@ -60,6 +60,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, blank=True,
                             null=True, unique=True, db_index=True)
+    code = models.CharField(max_length=30, blank=True, null=True, unique=True)
     description = models.TextField(blank=True, null=True, db_index=True)
     custom_order = models.IntegerField(blank=True, null=True)
     category = models.ForeignKey(
@@ -117,6 +118,8 @@ class Product(models.Model):
 
         # Generate a custom order for the instance
         generate_custom_order_if_empty(self, *args, **kwargs)
+
+        generate_product_code(self, 'category')
 
         # Call the save method of the parent class
         super().save(*args, **kwargs)

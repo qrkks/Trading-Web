@@ -11,7 +11,6 @@ from django.db import transaction, models
 import os
 
 
-
 def generate_slug_if_empty(instance: Any, *args: Any, **kwargs: Any) -> None:
     """
     Generate a slug for the given instance.
@@ -175,7 +174,8 @@ def generate_hierarchical_node_code(node, field_name='code', max_level=4):
         new_code = ''
 
         # 生成当前层级的编码
-        siblings_before = node.get_siblings(include_self=False).filter(id__lt=node.id).count()
+        siblings_before = node.get_siblings(
+            include_self=False).filter(id__lt=node.id).count()
         current_level_code = f'{siblings_before + 1:02d}'
 
         if level == 1:
@@ -183,12 +183,55 @@ def generate_hierarchical_node_code(node, field_name='code', max_level=4):
             new_code = current_level_code.ljust(total_length, '0')
         elif level > 1:
             # 对于更深层级的节点，从父节点编码基础上生成编码
-            parent_code = getattr(node.parent, field_name, '').ljust(total_length, '0')
-            new_code = parent_code[:code_length_per_level * (level - 1)] + current_level_code
-            new_code += parent_code[code_length_per_level * level:]  # 保留当前层级之后的部分
+            parent_code = getattr(node.parent, field_name,
+                                  '').ljust(total_length, '0')
+            new_code = parent_code[:code_length_per_level *
+                                   (level - 1)] + current_level_code
+            # 保留当前层级之后的部分
+            new_code += parent_code[code_length_per_level * level:]
         else:
             # 对于根节点，生成空编码
             new_code = ''.ljust(total_length, '0')
 
         setattr(node, field_name, new_code)
         node.save()
+
+
+def generate_product_code(model_instance, related_field, prefix="CY", code_length=4, code_field="code"):
+    """
+    为模型实例生成编码。编码格式为 '{prefix}-{关联字段编码}-{自增编号}'
+
+    参数:
+    model_instance: 需要生成编码的模型实例。
+    related_field: 关联字段的名称，用于获取关联模型的编码。
+    prefix: 编码前缀，默认为 'CY'。
+    code_length: 自增编号的长度，默认为 4。
+    code_field: 编码字段的名称，默认为 'code'。
+    """
+    if getattr(model_instance, code_field):  # 如果编码已存在，则不进行更改
+        return
+
+    related_instance = getattr(model_instance, related_field)
+    if not related_instance:
+        # 如果没有关联实例，可以选择跳过编码生成或返回默认值
+        return
+    # 确保related_instance有一个code字段
+    related_code = getattr(related_instance, code_field)
+
+    # 获取相同关联字段下最后一个模型实例的编码
+    last_instance = model_instance.__class__.objects.filter(
+        **{related_field: related_instance}).order_by(code_field).last()
+
+    new_seq_num = 1
+    if last_instance and getattr(last_instance, code_field):
+        try:
+            last_seq_num = int(
+                getattr(last_instance, code_field).split("-")[-1])
+            new_seq_num = last_seq_num + 1
+        except ValueError:
+            # 处理可能的转换错误
+            pass
+
+    # 生成新的编码，自增编号部分不足code_length位用0补齐
+    new_code = f'{prefix}-{related_code}-{new_seq_num:0{code_length}d}'
+    setattr(model_instance, code_field, new_code)
