@@ -1,7 +1,7 @@
 from django.db import models
 
 from .model_manager import CommonManager
-from .func import generate_slug, generate_custom_order
+from .func import generate_slug_if_empty, generate_custom_order_if_empty
 
 # Create your models here.
 
@@ -21,7 +21,7 @@ class BaseModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        generate_custom_order(self, *args, **kwargs)
+        generate_custom_order_if_empty(self, *args, **kwargs)
         super().save(*args, **kwargs)
 
 
@@ -33,7 +33,7 @@ class SlugMixin(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        generate_slug(self, *args, **kwargs)
+        generate_slug_if_empty(self, *args, **kwargs)
         super().save(*args, **kwargs)
 
 

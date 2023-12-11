@@ -7,7 +7,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor_uploader.fields import RichTextUploadingField
 
 from abstractapp.models import BaseModel
-from abstractapp.func import generate_slug
+from abstractapp.func import generate_slug_if_empty
 
 # Create your models here.
 
@@ -82,7 +82,7 @@ class Blog(BaseModel):
         return self.title
     
     def save(self,*args, **kwargs):
-        generate_slug(self, *args, **kwargs)
+        generate_slug_if_empty(self, *args, **kwargs)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

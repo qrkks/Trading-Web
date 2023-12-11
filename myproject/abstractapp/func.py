@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.utils import timezone
 import string
 import random
@@ -10,7 +11,8 @@ from django.db import transaction, models
 import os
 
 
-def generate_slug(instance: Any, *args: Any, **kwargs: Any) -> None:
+
+def generate_slug_if_empty(instance: Any, *args: Any, **kwargs: Any) -> None:
     """
     Generate a slug for the given instance.
 
@@ -44,7 +46,7 @@ def generate_slug(instance: Any, *args: Any, **kwargs: Any) -> None:
         instance.slug = slug
 
 
-def generate_custom_order(instance: Any, *args: Any, **kwargs: Any) -> None:
+def generate_custom_order_if_empty(instance: Any, *args: Any, **kwargs: Any) -> None:
     """
     Generate a custom order for the given instance if it is a new record and has no specified custom order.
     Args:
@@ -81,7 +83,8 @@ def generate_unique_filename(file_field, name_source, identifier_length=5):
     """
 
     # Generate a random string of characters
-    random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=identifier_length))
+    random_string = ''.join(random.choices(
+        string.ascii_letters + string.digits, k=identifier_length))
 
     # Split the extension from the file name
     ext = file_field.name.split('.')[-1]
@@ -151,3 +154,41 @@ def resize_and_convert_image(image_field, width, output_format='webp', lossless=
                 0] + f'.{output_format.lower()}'
             image_field.save(new_image_name, ContentFile(
                 output.read()), save=False)
+
+
+def generate_hierarchical_node_code(node, field_name='code', max_level=4):
+    """
+    为 MPTT 模型的单个节点生成层级敏感且长度统一的编码，每个层级占用2位，总长8位。
+    如果节点的code字段已存在，则不生成新的编码。
+
+    参数:
+    node: 当前处理的 MPTT 模型节点。
+    field_name: 需要自增的字段名称，默认为 'code'。
+    max_level: 最大层级数（不包括根节点）。
+    """
+    code_length_per_level = 2  # 每个层级的编码长度
+    total_length = code_length_per_level * max_level  # 总编码长度
+
+    # 仅当code字段不存在时，生成新的编码
+    if not getattr(node, field_name):
+        level = node.get_level()  # 获取当前节点的层级
+        new_code = ''
+
+        # 生成当前层级的编码
+        siblings_before = node.get_siblings(include_self=False).filter(id__lt=node.id).count()
+        current_level_code = f'{siblings_before + 1:02d}'
+
+        if level == 1:
+            # 对于根节点的直接子节点，直接使用当前层级的编码
+            new_code = current_level_code.ljust(total_length, '0')
+        elif level > 1:
+            # 对于更深层级的节点，从父节点编码基础上生成编码
+            parent_code = getattr(node.parent, field_name, '').ljust(total_length, '0')
+            new_code = parent_code[:code_length_per_level * (level - 1)] + current_level_code
+            new_code += parent_code[code_length_per_level * level:]  # 保留当前层级之后的部分
+        else:
+            # 对于根节点，生成空编码
+            new_code = ''.ljust(total_length, '0')
+
+        setattr(node, field_name, new_code)
+        node.save()

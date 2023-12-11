@@ -24,7 +24,7 @@ class ProductCategoryModelAdmin(DraggableMPTTAdmin):
         'tree_actions',
         'indented_title',
         # ...more fields if needed...
-        'id', 'parent', 'slug', 'level', 'custom_order'
+        'id', 'code', 'parent', 'slug', 'level', 
     ]
     list_display_links = ('indented_title',)
     prepopulated_fields = {'slug': ('name',)}

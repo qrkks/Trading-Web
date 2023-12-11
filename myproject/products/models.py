@@ -11,7 +11,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 from abstractapp.model_manager import CommonManager
 from taggit.managers import TaggableManager
 from utils.models import ViewCount
-from abstractapp.func import generate_custom_order, generate_slug, generate_unique_filename, resize_and_convert_image
+from abstractapp.func import generate_custom_order_if_empty, generate_hierarchical_node_code,  generate_slug_if_empty, generate_unique_filename,  resize_and_convert_image
 
 # Create your models here.
 
@@ -19,6 +19,7 @@ from abstractapp.func import generate_custom_order, generate_slug, generate_uniq
 class Category(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=100, unique=True, null=True, blank=True)
+    code = models.CharField(max_length=20, null=True, blank=True)
     description = models.CharField(max_length=200, blank=True, null=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE,
                             null=True, blank=True, related_name='children')
@@ -46,14 +47,10 @@ class Category(MPTTModel):
         return reverse('category-products', args=[category_path])
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.name)
-            slug = base_slug
-            counter = 1
-            while Product.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
+        generate_slug_if_empty(self, *args, **kwargs)
+        # 在保存前生成编码
+        generate_hierarchical_node_code(self, max_level=4)
+
         super().save(*args, **kwargs)
 
 
@@ -116,10 +113,10 @@ class Product(models.Model):
         """
 
         # Generate a slug for the instance
-        generate_slug(self, *args, **kwargs)
+        generate_slug_if_empty(self, *args, **kwargs)
 
         # Generate a custom order for the instance
-        generate_custom_order(self, *args, **kwargs)
+        generate_custom_order_if_empty(self, *args, **kwargs)
 
         # Call the save method of the parent class
         super().save(*args, **kwargs)
@@ -148,11 +145,12 @@ class ProductImage(models.Model):
         Product, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
     image_size = models.PositiveIntegerField(
         default=0, help_text="Size of the image file in kilobytes (KB)")
+
     def image_size_kb(self):
         kb_size = self.image_size / 1024
         return "{} KB".format(intcomma(int(kb_size)))
     image_size_kb.short_description = 'Image Size (KB)'
-    
+
     def __str__(self):
         return self.image.url
 
