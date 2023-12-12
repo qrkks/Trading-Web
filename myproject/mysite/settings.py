@@ -26,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Set DEBUG
-# DEBUG = os.getenv('DEBUG', 'True').lower() != 'false'
-DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+DEBUG = True
+# DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 print("DEBUG in settings:", DEBUG)
 
 # Quick-start development settings - unsuitable for production

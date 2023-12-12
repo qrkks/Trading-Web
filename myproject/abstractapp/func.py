@@ -197,7 +197,7 @@ def generate_hierarchical_node_code(node, field_name='code', max_level=3):
         node.save()
 
 
-def generate_product_code(model_instance, related_field, prefix="CY", code_length=2, code_field="code"):
+def generate_product_code(model_instance, related_field, prefix="CYE", code_length=2, code_field="code"):
     """
     为模型实例生成编码。编码格式为 '{prefix}-{关联字段编码}-{自增编号}'
 
