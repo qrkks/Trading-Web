@@ -37,20 +37,34 @@ class Category(MPTTModel):
         verbose_name_plural = 'Categories'
 
     def get_absolute_url(self):
+        # Create an empty list to store the slugs
         url_list = [self.slug]
+
+        # Get the parent of the current object
         parent = self.parent
+
+        # Traverse through the parent hierarchy until there are no more parents
         while parent:
+            # Insert the parent slug at the beginning of the url_list
             url_list.insert(0, parent.slug)
+
+            # Update the parent to be the parent of the current object
             parent = parent.parent
-        # 将列表转换为路径字符串，使用斜杠分隔
+
+        # Convert the list of slugs to a path string by joining them with slashes
         category_path = '/'.join(url_list)
+
+        # Generate the absolute URL for the category-products view, passing the category_path as an argument
         return reverse('category-products', args=[category_path])
 
     def save(self, *args, **kwargs):
+        # Generate a slug if it is empty
         generate_slug_if_empty(self, *args, **kwargs)
-        # 在保存前生成编码
-        generate_hierarchical_node_code(self, max_level=4)
 
+        # Generate a hierarchical node code before saving
+        generate_hierarchical_node_code(self, max_level=3)
+
+        # Call the save method of the parent class
         super().save(*args, **kwargs)
 
 

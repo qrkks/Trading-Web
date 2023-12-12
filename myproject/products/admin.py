@@ -54,17 +54,25 @@ class ProductImageResource(resources.ModelResource):
         # 或者使用 exclude 来排除一些字段
         # exclude = ('id',)
 
+# Register the ProductImage model with the admin site
 @admin.register(ProductImage)
 class ProductImageImportExportAdmin(ImportExportModelAdmin):
+    # Set the resource class to use for importing and exporting data
     resource_class = ProductImageResource
-    # 其他配置...
     
-    def image_preview(self,obj):
+    # Define a method to display a preview of the image in the admin list view
+    def image_preview(self, obj):
+        # Check if the object has an image associated with it
         if obj.image:
+            # If it does, generate an HTML tag to display the image
             return mark_safe(f'<img src="{obj.image.url}" height="150" />')
+        # If there is no image, return an empty string
         return ""
-
+    
+    # Set the readonly fields that should be displayed in the admin detail view
     readonly_fields = ['image_preview',]
+    
+    # Set the fields that should be displayed in the admin list view
     list_display = ['id', 'product', 'image_preview']
 
 ##################### 产品模型管理 ###################################

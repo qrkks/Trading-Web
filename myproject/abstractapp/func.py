@@ -155,7 +155,7 @@ def resize_and_convert_image(image_field, width, output_format='webp', lossless=
                 output.read()), save=False)
 
 
-def generate_hierarchical_node_code(node, field_name='code', max_level=4):
+def generate_hierarchical_node_code(node, field_name='code', max_level=3):
     """
     为 MPTT 模型的单个节点生成层级敏感且长度统一的编码，每个层级占用2位，总长8位。
     如果节点的code字段已存在，则不生成新的编码。
@@ -197,7 +197,7 @@ def generate_hierarchical_node_code(node, field_name='code', max_level=4):
         node.save()
 
 
-def generate_product_code(model_instance, related_field, prefix="CY", code_length=4, code_field="code"):
+def generate_product_code(model_instance, related_field, prefix="CY", code_length=2, code_field="code"):
     """
     为模型实例生成编码。编码格式为 '{prefix}-{关联字段编码}-{自增编号}'
 
@@ -205,7 +205,7 @@ def generate_product_code(model_instance, related_field, prefix="CY", code_lengt
     model_instance: 需要生成编码的模型实例。
     related_field: 关联字段的名称，用于获取关联模型的编码。
     prefix: 编码前缀，默认为 'CY'。
-    code_length: 自增编号的长度，默认为 4。
+    code_length: 自增编号的长度，默认为 2。
     code_field: 编码字段的名称，默认为 'code'。
     """
     if getattr(model_instance, code_field):  # 如果编码已存在，则不进行更改
