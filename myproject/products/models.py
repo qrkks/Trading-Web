@@ -61,11 +61,11 @@ class Category(MPTTModel):
         # Generate a slug if it is empty
         generate_slug_if_empty(self, *args, **kwargs)
 
-        # Generate a hierarchical node code before saving
-        generate_hierarchical_node_code(self, max_level=3)
 
         # Call the save method of the parent class
         super().save(*args, **kwargs)
+        # Generate a hierarchical node code before saving
+        generate_hierarchical_node_code(self, max_level=3)
 
 
 class Product(models.Model):
