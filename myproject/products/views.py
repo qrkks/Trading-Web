@@ -190,7 +190,7 @@ class ProductDetail(DetailView):
             attr for attr in attribute_names if not (
                 attr.startswith("page") or
                 attr.startswith('is') or
-                attr in ['images', 'custom_order']
+                attr in ['images', 'custom_order', 'detail_description']
             )
         ]
 

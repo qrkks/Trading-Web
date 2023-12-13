@@ -28,6 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Set DEBUG
 # DEBUG = True
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+print('.env lowercase DEBUG:', os.getenv('DEBUG', 'True').lower())
 print("DEBUG in settings:", DEBUG)
 
 # Quick-start development settings - unsuitable for production

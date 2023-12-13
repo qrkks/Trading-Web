@@ -6,6 +6,7 @@ from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from slugify import slugify
 from django.contrib.humanize.templatetags.humanize import intcomma
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 from abstractapp.model_manager import CommonManager
@@ -92,13 +93,13 @@ class Product(models.Model):
     # 产品属性
     model = models.CharField(max_length=100, null=True, blank=True)
     brand = models.CharField(max_length=100, null=True, blank=True)
-    product_code = models.CharField(max_length=100, null=True, blank=True)
 
     port = models.CharField(max_length=100, null=True, blank=True)
     product_capacity = models.CharField(max_length=100, null=True, blank=True)
     payment_terms = models.CharField(max_length=100, null=True, blank=True)
     transport_package = models.CharField(max_length=100, null=True, blank=True)
     min_order = models.CharField(max_length=100, null=True, blank=True)
+    detail_description = RichTextUploadingField(null=True,blank=True)
 
     # 关联关系
     related_products = models.ManyToManyField('self', blank=True)
