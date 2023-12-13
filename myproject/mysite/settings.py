@@ -16,6 +16,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 # 构建 server_env 文件夹中 .env 文件的完整路径
 dotenv_path = Path(__file__).resolve().parent / '.env'
+print('dotenv_path:', dotenv_path)
 # 加载 .env 文件
 load_dotenv(dotenv_path)
 print('ENV_PATH from .env:', os.environ.get('ENV_PATH'))
@@ -27,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 # Set DEBUG
 # DEBUG = True
-DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 print('.env lowercase DEBUG:', os.getenv('DEBUG', 'True').lower())
 print("DEBUG in settings:", DEBUG)
 

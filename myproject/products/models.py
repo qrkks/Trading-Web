@@ -162,11 +162,14 @@ class ProductImage(models.Model):
     product = models.ForeignKey(
         Product, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
     image_size = models.PositiveIntegerField(
-        default=0, help_text="Size of the image file in kilobytes (KB)")
+        default=0, help_text="Size of the image file in bytes")
 
     def image_size_kb(self):
+        if self.image_size is None:
+            return "0 KB"  # or some other default or error message
         kb_size = self.image_size / 1024
         return "{} KB".format(intcomma(int(kb_size)))
+
     image_size_kb.short_description = 'Image Size (KB)'
 
     def __str__(self):
@@ -208,4 +211,4 @@ def product_image_pre_save(sender, instance, **kwargs):
         # Check if the image exists and has a file attribute
         if instance.image and hasattr(instance.image, 'file'):
             # Calculate the size of the image in kilobytes
-            instance.image_size = instance.image.file.size / 1024
+            instance.image_size = instance.image.file.size

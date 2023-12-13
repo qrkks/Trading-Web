@@ -32,10 +32,10 @@ class ProductCategoryModelAdmin(DraggableMPTTAdmin):
 
 ####################### 产品图片模型管理 ########################
 
-class ProductImageAdmin(admin.TabularInline):
+class ProductImageInlineAdmin(admin.TabularInline):
     model = ProductImage
     extra = 1  # 显示一个额外的空行，以便批量上传多个图片
-    fields = ['image', 'image_preview', 'image_size_kb']  # 明确指定要显示的字段
+    fields = ['image', 'image_preview', 'image_size', 'image_size_kb']  # 明确指定要显示的字段
 
     def image_preview(self, obj):
         return mark_safe('<img src="{}"  height="150" />'.format(obj.image.url))
@@ -128,7 +128,7 @@ class ProductModelAdmin(ImportExportModelAdmin, SortableAdminMixin):
     # list_display_links = 'name',
     list_editable = ['custom_order', 'is_active', 'is_featured',]  # 允许编辑的字段
     search_fields = ['name', 'slug',]
-    inlines = [ProductImageAdmin]
+    inlines = [ProductImageInlineAdmin]
     ordering = ['-custom_order', '-is_active', '-is_featured']
     list_filter = (CategoryFilter,)  # 允许通过类别过滤
     filter_horizontal = 'related_products',

@@ -13,28 +13,6 @@ from .models import Category, Product
 # Create your views here.
 
 
-# def products_index(request):
-#     # 获取根节点列表
-#     root_nodes = Category.objects.filter(level=1)
-
-#     root_nodes_data = {}
-
-#     for root_node in root_nodes:
-#         products = Product.objects.active().filter(
-#             Q(category__in=root_node.get_descendants(include_self=True))
-#         )
-#         root_nodes_data[root_node] = products
-
-#     context_data = {
-#         'root_nodes_data': root_nodes_data,
-#         'partial_template_path': 'products/partial/main-index.html',
-#     }
-
-#     products = Product.objects.active().all()
-
-#     return render(request, 'products/product.html', context_data)
-
-
 def products_index(request):
     """
     This function retrieves the root nodes from the Category model and 
@@ -43,12 +21,12 @@ def products_index(request):
     """
 
     # Retrieve the lever 1 nodes from the Category mptt model
-    root_nodes = Category.objects.filter(level=1)
+    level_1_nodes = Category.objects.filter(level=1)
 
-    root_nodes_data = {}
+    level_1_nodes_data = {}
 
     # Iterate over each root node
-    for category in root_nodes:
+    for category in level_1_nodes:
         # Get all descendants of the category, including itself
         all_category = category.get_descendants(include_self=True)
 
@@ -58,11 +36,11 @@ def products_index(request):
         )[:2]
 
         # Store the products in the root_nodes_data dictionary
-        root_nodes_data[category] = products
+        level_1_nodes_data[category] = products
 
     # Prepare the context data for rendering the template
     context_data = {
-        'root_nodes_data': root_nodes_data,
+        'root_nodes_data': level_1_nodes_data,
         'partial_template_path': 'products/partial/main-index.html',
     }
 
