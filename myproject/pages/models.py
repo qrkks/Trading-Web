@@ -68,3 +68,4 @@ class Banner(BaseModel):
 
     def __str__(self) -> str:
         return self.image.url
+

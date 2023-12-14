@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'taggit',
     'widget_tweaks',
     'import_export',
+    # 'tinymce',
     
     # apps
     'pages',
@@ -242,6 +243,19 @@ CLEANUP_KEEP_DAYS = 1  # Adjust this value as needed
 # CKeditor
 # CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',  # 工具条功能
+        'allowedContent': True,  # 是否允许编辑器插入和修改
+        # 'height': 300,  # 编辑器高度
+        # 'width': 800,  # 编辑器宽
+        'toolbar_Custom':[
+            ['Source','Bold', 'Italic', 'Underline', 'Blockquote','Format','Font','FontSize'],
+            ['TextColor','BGColor','Image','Smiley' ,'Link', 'Unlink','PasteFromWord'],
+            ['JustifyCenter','JustifyRight','JustifyBlock']
+        ]
+    },
+}
 
 # 邮件服务器
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

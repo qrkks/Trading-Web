@@ -35,7 +35,7 @@ class ProductCategoryModelAdmin(DraggableMPTTAdmin):
 class ProductImageInlineAdmin(admin.TabularInline):
     model = ProductImage
     extra = 1  # 显示一个额外的空行，以便批量上传多个图片
-    fields = ['image', 'image_preview', 'image_size', 'image_size_kb']  # 明确指定要显示的字段
+    fields = ['image', 'image_preview', 'image_size_kb']  # 明确指定要显示的字段
 
     def image_preview(self, obj):
         return mark_safe('<img src="{}"  height="150" />'.format(obj.image.url))

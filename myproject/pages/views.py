@@ -102,7 +102,11 @@ def contact(request):
 
 def redirect_fs(request):
     # 构建目标URL，这里假设目标是 http://47.95.221.116
-    target_url = "http://47.95.221.116"
-    
+    target_url = "https://47.95.221.116"
+
     # 执行重定向
     return redirect(target_url)
+
+
+def editor(request):
+    return render(request, 'pages/editor/content-editor.html')

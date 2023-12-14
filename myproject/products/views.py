@@ -210,20 +210,6 @@ class ProductDetail(DetailView):
 
         return context
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     response = super().dispatch(request, *args, **kwargs)
-
-    #     correct_category_path = '/'.join(
-    #         [cat.slug for cat in self.object.category.get_ancestors(include_self=True)])
-    #     if correct_category_path != self.kwargs['category_path']:
-    #         # 如果你想重定向到正确的URL，可以使用下面的代码：
-    #         correct_url = f"/products/{correct_category_path}/{self.object.slug}/"
-    #         return redirect(correct_url, permanent=True)
-
-    #         # 或者，如果你想显示一个404错误页面，可以使用下面的代码：
-    #         # raise Http404("Page not found")
-
-    #     return response
 
     def render_to_response(self, context, **response_kwargs):
         """

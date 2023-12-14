@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.urls import path
 from . import views
 
@@ -9,3 +10,7 @@ urlpatterns = [
     path('fs/',views.redirect_fs,name='redirect_fs'),
 ]
 
+if settings.DEBUG:
+    urlpatterns += [
+        path('editor/', views.editor, name='editor'),
+    ] 
