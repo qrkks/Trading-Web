@@ -2,16 +2,14 @@ from .models import ProductImage
 from import_export import resources
 from django.utils.translation import gettext_lazy as _
 from django.db.models.fields.reverse_related import ManyToOneRel, ManyToManyRel
-from django.db.models.fields.related import ForeignKey, ManyToManyField, OneToOneField
-from django.db.models.fields.related_descriptors import ReverseManyToOneDescriptor
+from django.db.models.fields.related import ManyToManyField
 from django.contrib import admin
 from .models import Category, Product, ProductImage
-from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
+from mptt.admin import DraggableMPTTAdmin
 from django.utils.html import mark_safe
 from adminsortable2.admin import SortableAdminMixin
-from django.db import models
 from taggit.managers import TaggableManager
-from import_export.admin import ImportExportModelAdmin, ImportExportMixin
+from import_export.admin import ImportExportModelAdmin
 
 
 # Register your models here.

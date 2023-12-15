@@ -43,9 +43,8 @@ print(f'django-insecure-{get_random_secret_key()}')
 from django.contrib.sessions.models import Session
 Session.objects.all().delete()
 """
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-sw3hbyjt)%q24^^ab^sc^=qvfr*$-1x9br5vr8&-8*9q4lo)&')
-
-
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', 'django-insecure-sw3hbyjt)%q24^^ab^sc^=qvfr*$-1x9br5vr8&-8*9q4lo)&')
 
 
 # ALLOWED_HOSTS = []
@@ -77,7 +76,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'import_export',
     # 'tinymce',
-    
+
     # apps
     'pages',
     'products',
@@ -171,8 +170,6 @@ else:
     }
 
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -229,7 +226,8 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-NPM_BIN_PATH = os.environ.get("NPM_BIN_PATH", r"C:\Program Files\nodejs\npm.cmd")
+NPM_BIN_PATH = os.environ.get(
+    "NPM_BIN_PATH", r"C:\Program Files\nodejs\npm.cmd")
 
 # Use IPython shell
 SHELL_I = "ipython"
@@ -249,22 +247,20 @@ CKEDITOR_CONFIGS = {
         'allowedContent': True,  # 是否允许编辑器插入和修改
         # 'height': 300,  # 编辑器高度
         # 'width': 800,  # 编辑器宽
-        'toolbar_Custom':[
-            ['Source','Bold', 'Italic', 'Underline', 'Blockquote','Format','Font','FontSize'],
-            ['TextColor','BGColor','Image','Smiley' ,'Link', 'Unlink','PasteFromWord'],
-            ['JustifyCenter','JustifyRight','JustifyBlock']
+        'toolbar_Custom': [
+            ['Source', 'Bold', 'Italic', 'Underline',
+                'Blockquote', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor', 'Image', 'Smiley',
+                'Link', 'Unlink', 'PasteFromWord'],
+            ['JustifyCenter', 'JustifyRight', 'JustifyBlock']
         ]
     },
 }
 
 # 邮件服务器
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')  
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '465'))
-EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'True') == 'True'  
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  
-
-
-
-
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'True') == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

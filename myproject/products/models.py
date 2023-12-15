@@ -90,15 +90,15 @@ class Product(models.Model):
     page_keywords = models.CharField(max_length=100, null=True, blank=True)
     page_description = models.TextField(null=True, blank=True)
 
-    # 产品属性
-    model = models.CharField(max_length=100, null=True, blank=True)
-    brand = models.CharField(max_length=100, null=True, blank=True)
-
-    port = models.CharField(max_length=100, null=True, blank=True)
-    product_capacity = models.CharField(max_length=100, null=True, blank=True)
-    payment_terms = models.CharField(max_length=100, null=True, blank=True)
-    transport_package = models.CharField(max_length=100, null=True, blank=True)
-    min_order = models.CharField(max_length=100, null=True, blank=True)
+    # 贸易属性
+    # model = models.CharField(max_length=100, null=True, blank=True)
+    # brand = models.CharField(max_length=100, null=True, blank=True)
+    # port = models.CharField(max_length=100, null=True, blank=True)
+    # product_capacity = models.CharField(max_length=100, null=True, blank=True)
+    # payment_terms = models.CharField(max_length=100, null=True, blank=True)
+    # transport_package = models.CharField(max_length=100, null=True, blank=True)
+    # min_order = models.CharField(max_length=100, null=True, blank=True)
+    
     detail_description = RichTextUploadingField(null=True,blank=True)
 
     # 关联关系
