@@ -161,6 +161,7 @@ class ProductImage(models.Model):
     image = models.ImageField(upload_to=PRODUCT_IMAGES_PATH)
     product = models.ForeignKey(
         Product, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
+    is_for_display = models.BooleanField(default=True)
     image_size = models.PositiveIntegerField(
         default=0, help_text="Size of the image file in bytes")
 

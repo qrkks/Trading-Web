@@ -160,7 +160,7 @@ class ProductDetail(DetailView):
 
         context['csrf_token'] = get_token(request)
 
-        images = object.images.all()
+        images = object.images.filter(is_for_display=True)
 
         attribute_names = [field.name for field in Product._meta.get_fields()]
 
