@@ -7,10 +7,29 @@
     {% include "snippet/pagination-prev-next.html" %}
   {% endwith %}
   <div class="bg-white rounded ">
-    <div class="mx-auto ">
-      {% include 'products/partial/carousel-product.html' %}
+    <div class="grid grid-cols-1 lg:grid-cols-2 p-5">
+      <div class="mx-auto ">
+        {% include 'products/partial/carousel-product.html' %}
+      </div>
+      <div class="my-auto lg:px-16">
+        <div class="py-2 text-gray-500">
+          {{object.category.name}}
+        </div>
+        <h2 class="py-2 text-2xl font-bold uppercase">
+          {{ object.name}}
+          <div class="custom-bar-pure"></div>
+        </h2>
+        <div class="py-5  text-gray-500">
+          {{object.code}}
+        </div>
+        <div>
+          <a href="#inquiry-section" onclick="scrollToSection('inquiry-section'); return false;" class="inline-block rounded bg-cyan-500 px-6 py-3 text-sm font-medium text-white transition hover:bg-cyan-700 focus:outline-none focus:ring ">
+            Contact Us
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="w-full py-12 mt-10 sm:p-5">
+    {% comment %} <div class="w-full py-12 mt-10 sm:p-5">
       <div class="flow-root">
         <dl class="-my-3 text-sm divide-y divide-gray-100">
           {% for attribute, value in product_data.items %}
@@ -25,9 +44,10 @@
           {% endfor %}
         </dl>
       </div>
-    </div>
+    </div> {% endcomment %}
   </div>
-  <div class="prose max-w-none p-5">
+  <hr class="my-6">
+  <div class="prose max-w-none px-5">
     {{ object.detail_description|safe }}
   </div>
   <div class="py-4 mb-4 text-center text-gray-400">

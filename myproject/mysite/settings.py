@@ -245,8 +245,8 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',  # 工具条功能
         'allowedContent': True,  # 是否允许编辑器插入和修改
-        # 'height': 300,  # 编辑器高度
-        # 'width': 800,  # 编辑器宽
+        'height': 600,  # 编辑器高度
+        'width': 800,  # 编辑器宽
         'toolbar_Custom': [
             ['Source', 'Bold', 'Italic', 'Underline',
                 'Blockquote', 'Format', 'Font', 'FontSize'],

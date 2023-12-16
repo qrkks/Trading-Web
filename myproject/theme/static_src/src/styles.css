@@ -29,3 +29,7 @@
 .custom-bar {
     @apply w-16  h-0.5  mb-12 bg-cyan-500
 }
+
+.custom-bar-pure {
+    @apply w-16  h-0.5  bg-cyan-500
+}

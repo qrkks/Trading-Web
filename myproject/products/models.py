@@ -98,7 +98,7 @@ class Product(models.Model):
     # payment_terms = models.CharField(max_length=100, null=True, blank=True)
     # transport_package = models.CharField(max_length=100, null=True, blank=True)
     # min_order = models.CharField(max_length=100, null=True, blank=True)
-    
+
     detail_description = RichTextUploadingField(null=True,blank=True)
 
     # 关联关系
@@ -200,14 +200,15 @@ def product_image_pre_save(sender, instance, **kwargs):
         # Use the product's name as the source for generating the unique filename
         name_source = product.name
 
-        # Generate a unique filename for the image
-        unique_filename = generate_unique_filename(instance.image, name_source)
+        if instance._state.adding:  # 检查是否为新上传的图片
+            # Generate a unique filename for the image
+            unique_filename = generate_unique_filename(instance.image, name_source)
 
-        # Set the image name to include the product id and the unique file name
-        instance.image.name = os.path.join(str(product.id), unique_filename)
+            # Set the image name to include the product id and the unique file name
+            instance.image.name = os.path.join(str(product.id), unique_filename)
 
         # Resize and convert the image to a webp format with a width of 1600 pixels
-        resize_and_convert_image(instance.image, 1600, 'webp', False, 80)
+            resize_and_convert_image(instance.image, 1600, 'webp', False, 80)
 
         # Check if the image exists and has a file attribute
         if instance.image and hasattr(instance.image, 'file'):

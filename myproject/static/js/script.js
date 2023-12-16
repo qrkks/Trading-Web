@@ -56,7 +56,16 @@ setInterval(() => {
 //     }
 // });
 
+function scrollToSection(id) {
+    const yOffset = -150; // 固定元素的高度
+    const element = document.getElementById(id);
+    const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+  
+    window.scrollTo({top: y, behavior: 'smooth'});
 
+    // 更新 URL 以包含锚点
+    // history.pushState(null, null, '#' + id);
+  }
 
 
 
