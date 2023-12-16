@@ -13,17 +13,20 @@
       </div>
       <div class="my-auto lg:px-16">
         <div class="py-2 text-gray-500">
-          {{object.category.name}}
+          {{ object.category.name }}
         </div>
         <h2 class="py-2 text-2xl font-bold uppercase">
-          {{ object.name}}
-          <div class="custom-bar-pure"></div>
+          {{ object.name }}
+          <div class="custom-bar-pure">
+          </div>
         </h2>
         <div class="py-5  text-gray-500">
-          {{object.code}}
+          {{ object.code }}
         </div>
         <div>
-          <a href="#inquiry-section" onclick="scrollToSection('inquiry-section'); return false;" class="inline-block rounded bg-cyan-500 px-6 py-3 text-sm font-medium text-white transition hover:bg-cyan-700 focus:outline-none focus:ring ">
+          <a href="#inquiry-section"
+             onclick="scrollToSection('inquiry-section'); return false;"
+             class="inline-block rounded bg-cyan-500 px-6 py-3 text-sm font-medium text-white transition hover:bg-cyan-700 focus:outline-none focus:ring ">
             Contact Us
           </a>
         </div>
@@ -72,5 +75,4 @@
     </svg>
     <span class="sr-only">Arrow key right</span>
   </kbd> arrow keys to navigate to the previous and next product, respectively.
-</div>
 </div>
