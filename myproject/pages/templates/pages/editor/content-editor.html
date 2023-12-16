@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="custom-container prose py-10">
+  <div class="custom-container prose py-10 bg-white">
     <div class="py-10 max-w-none prose">
       <h2>
         Product Description
@@ -8,9 +8,11 @@
       <div class="mr-auto -mt-6 custom-bar">
       </div>
       <div>
-        <p>
-          <strong>Features</strong><strong>：</strong>
-        </p>
+        <h3 class="font-bold">
+          Features
+        </h3>
+        <div class="custom-bar">
+        </div>
         <p>
           &bull; Open system: Accepts all standard syringes of 5ml, 10ml, 20ml/30ml, 50ml/60ml.
         </p>
@@ -21,7 +23,7 @@
           &bull; Manual and Automatic Bolus function.
         </p>
         <p>
-          &bull; Anti-bolus system to reduce significantly after occlusion sudden release.
+          &bull; Anti-bolus system to reduce significantly after occlusion sutden release.
         </p>
         <p>
           &bull; DPS Occlusion Pressure display.
@@ -68,589 +70,242 @@
         <p>
           &nbsp;
         </p>
-        <p>
+        <h3 class="font-bold">
           Technical Specifications of Syringe pump (DPfusion SP1/SP3)
-        </p>
-        <table cellspacing="0"
-               class="Table"
-               style="border-collapse:collapse;
-                      border:none;
-                      width:0px">
-          <tbody>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:1px solid black;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>PARAMETER</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:1px solid black;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  <strong>SPECIFICATION</strong>
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Applicable syringes</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  5ml,10ml,20ml,30ml,50ml,60ml of any standard
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Accuracy</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+        </h3>
+        <div class="custom-bar">
+        </div>
+        <div class="w-full py-12 mt-10 sm:p-5 ">
+          <div class="flow-root">
+            <table class="-my-3 text-sm divide-y divide-gray-100 border-y border-cyan-500">
+              <!-- 表头 -->
+              <tr class="grid grid-cols-1 gap-1 py-3   sm:grid-cols-3 sm:gap-4">
+                <th class="px-2  text-gray-900 my-auto ">
+                  PARAMETER
+                </th>
+                <th class="px-2 text-gray-700 sm:col-span-2">
+                  SPECIFICATION
+                </th>
+              </tr>
+              <!-- 表格内容 -->
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Applicable syringes
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  5ml, 10ml, 20ml, 30ml, 50ml, 60ml of any standard
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Accuracy
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   +/- 2% with correct calibration
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Rate mode</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Rate mode
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   50ml(60ml)：0.1ml/h-2000.0ml/h (0.1ml/h or 1ml/h step)
-                </p>
-                <p>
+                  <br>
                   30ml：0.1ml/h-1200.0ml/h (0.1ml/h or 1ml/h step)
-                  <br />
+                  <br>
                   20ml：0.1ml/h-800.0ml/h (0.1ml/h or 1ml/h step)
-                  <br />
+                  <br>
                   10ml：0.1ml/h-400.0ml/h (0.1ml/h or 1ml/h step)
-                </p>
-                <p>
+                  <br>
                   5ml: 0.1~200ml/h (0.1ml/h or 1ml/h step)
-                </p>
-                <p>
+                  <br>
                   (Programmable 0.01ml/h~9999.9ml/h)
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Time Mode</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Time Mode
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   SOL. VOL:0.1-9999.9ml (0.1ml step)
-                  <br />
-                  TIME：00:01-99:59min (1min step)
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Dose Mode:</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  Volume：0.1-999.9ml(0.1ml step)
-                  <br />
-                  DRUG MASS：0.1-999.9mg 0.1mg step)
-                  <br />
-                  DOSE：0.001-9999ug/kg/min(0.001ug/kg/min step)
-                  <br />
-                  WEIGHT：0.1-300kg(0.1kg the least step)
-                </p>
-                <p>
+                  <br>
+                  TIME: 00:01-99:59min (1min step)
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Dose Mode:
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  Volume: 0.1-999.9ml(0.1ml step)
+                  <br>
+                  DRUG MASS: 0.1-999.9mg (0.1mg step)
+                  <br>
+                  DOSE: 0.001-9999ug/kg/min (0.001ug/kg/min step)
+                  <br>
+                  WEIGHT: 0.1-300kg (0.1kg least step)
+                  <br>
                   Dose unit: ng/kg/min, ug/kg/min, mg/kg/min, g/kg/min, ug/kg/h,
-                </p>
-                <p>
-                  mg/kg/h,g/kg/h,ug/min,mg/min,g/min,ug/h,mg/h,g/h,U/min,U/h,IU/h,U/kg/h,ml/h
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Total Volume Range</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                  mg/kg/h, g/kg/h, ug/min, mg/min, g/min, ug/h, mg/h, g/h, U/min, U/h, IU/h, U/kg/h, ml/h
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Total Volume Range
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   0.1-9999.9ml (0.1 ml step)
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Drug library Mode</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Drug library Mode
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   Available (Only for SP3)
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Sequential mode</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Sequential mode
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   Available (Only for SP3)
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Purge Rate</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  50ml(60ml)：1500.0ml/h,
-                </p>
-                <p>
-                  30ml：1200.0ml/h,
-                </p>
-                <p>
-                  20ml：800.0ml/h
-                </p>
-                <p>
-                  10ml：400.0ml/h, 5ml: 200ml/h
-                </p>
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Purge Rate
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  50ml(60ml): 1500.0ml/h,
+                  30ml: 1200.0ml/h,
+                  20ml: 800.0ml/h,
+                  10ml: 400.0ml/h, 5ml: 200ml/h,
                   Programmable and adjustable
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>KVO Rate</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  KVO Rate
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   0.1~5.0 ml/h, Programmable and adjustable
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>DPS dynamic pressure&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>
-                </p>
-                <p>
-                  &nbsp;
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  DPS dynamic pressure
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   24 levels setting
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Alarms</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  Syringe Holder Loose ,Syringe Plunger Disengagement, Syringe Flange Insertion Error ,Syringe Not Calibrated, Occlusion, Syringe Empty, Rate Abnormal, Battery Empty, No Battery, Infusion Complete, Syringe Near Empty, No Action, Battery Low
-                </p>
-                <p>
-                  Three levels of alarm volume LOW, MEDIUM or HIGH
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Bolus Rate</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  5ml: 0.1~200ml/h,10ml:0.1-400ml/h,20ml:0.1-800ml/h,
-                </p>
-                <p>
-                  30ml:0.1-1200ml/h,50ml(60ml):0.1-2000ml/h
-                </p>
-                <p>
-                  Programmable and adjustable, Automatic/Manual bolus available
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Bolus Volume</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Alarms
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  Syringe Holder Loose, Syringe Plunger Disengagement, Syringe Flange Insertion Error, Syringe Not Calibrated, Occlusion, Syringe Empty, Rate Abnormal, Battery Empty, No Battery, Infusion Complete, Syringe Near Empty, No Action, Battery Low.
+                  Three levels of alarm volume LOW, MEDIUM, or HIGH.
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Bolus Rate
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  5ml: 0.1~200ml/h,
+                  <br>
+                  10ml: 0.1-400ml/h,
+                  <br>
+                  20ml: 0.1-800ml/h,
+                  <br>
+                  30ml: 0.1-1200ml/h,
+                  <br>
+                  50ml(60ml): 0.1-2000ml/h.
+                  <br>
+                  Programmable and adjustable, Automatic/Manual bolus available.
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Bolus Volume
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   Range: 1.0~50.0ml, (0.1ml step)
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Interface</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Interface
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   RS-232
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Brightness</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Brightness
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   1~10 levels can be selected
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>History records</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  History records
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   2000 events stored can be checked and downloaded
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Power source</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  AC power supply: AC 100 to 240V( +/-10%)，50/60Hz;
-                </p>
-                <p>
-                  DC Power supply: 12~15V, power&gt;15W;
-                </p>
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Power source
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  AC power supply: AC 100 to 240V (+/-10%), 50/60Hz;
+                  DC Power supply: 12~15V, power >15W;
                   Built-in Lithium Battery: Rechargeable, 7.4 V, 2600mAh.
-                </p>
-                <p>
                   8 hours of continuous operation
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong><span style="color:black">Accessories:</span></strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  <span style="color:black">AC power line, Operational manual</span>
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Protection Class</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  Class I, Type CF,IP44
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Dimension / N.W</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
-                  240mm*150mm*117mm , 2.0kg
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid black;
-                         border-left:1px solid black;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:89px">
-                <p>
-                  <strong>Packing size/G.W</strong>
-                </p>
-              </td>
-              <td style="border-bottom:1px solid black;
-                         border-left:none;
-                         border-right:1px solid black;
-                         border-top:none;
-                         vertical-align:top;
-                         width:494px">
-                <p>
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Accessories
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  AC power line, Operational manual
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Protection Class
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  Class I, Type CF, IP44
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Dimension / N.W
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
+                  240mm*150mm*117mm, 2.0kg
+                </td>
+              </tr>
+              <tr class="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <td class="px-2 font-medium text-gray-900 my-auto">
+                  Packing size/G.W
+                </td>
+                <td class="px-2 text-gray-700 sm:col-span-2">
                   300mm*260mm*160mm, 3.0KG
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p>
-          &nbsp;
-        </p>
-        <p>
-          <a name="_Toc398112799"></a><a name="_Toc399141865"></a><strong><span style="color:black">*Specifications are subject to change without notice</span></strong>
-        </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

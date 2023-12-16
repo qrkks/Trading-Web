@@ -61,7 +61,7 @@ function scrollToSection(id) {
     const element = document.getElementById(id);
     const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
   
-    window.scrollTo({top: y, behavior: 'smooth'});
+    window.scrollTo({top: y, behavior: 'auto'}); // or 'smooth'
 
     // 更新 URL 以包含锚点
     // history.pushState(null, null, '#' + id);
