@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="py-10 prose bg-white custom-container max-w-none">
+    <div class="glider-contain">
+      <div class="glider h-72 w-72">
+        <div>
+          <img src="/media/products/images/29/Dual_Syringe_Pump_202312131543_s2ice.webp"
+               alt="">
+        </div>
+        <div>
+          <img src="/media/products/images/26/Syringe_Pump_202312102106_MpUvg.webp"
+               alt="">
+        </div>
+      </div>
+      <button aria-label="Previous" class="glider-prev">
+        «
+      </button>
+      <button aria-label="Next" class="glider-next">
+        »
+      </button>
+      <div role="tablist" class="dots">
+      </div>
+    </div>
+  </div>
+  <script>
+    function initializeGlider() {
+      console.log("Initializing Glider");
+    
+      // 打印轮播图元素的状态
+      var gliderElement = document.querySelector('.glider');
+      if (gliderElement) {
+        console.log("Glider element found:", gliderElement);
+        console.log("Child elements count:", gliderElement.childElementCount);
+    
+        new Glider(gliderElement, {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          draggable: true,
+          dots: '.dots',
+          rewind: true,
+          duration: 0.5,
+          arrows: {
+            prev: '.glider-prev',
+            next: '.glider-next'
+          }
+        });
+        gliderElement.classList.add('glider-initialized');
+        console.log("Glider initialized");
+      } else {
+        console.log("Glider element not found");
+      }
+    }
+    
+    function reinitializeGlider() {
+      console.log("Reinitializing Glider");
+    
+      // 移除现有的初始化标记
+      var existingGlider = document.querySelector('.glider-initialized');
+      if (existingGlider) {
+        existingGlider.classList.remove('glider-initialized');
+        console.log("Existing Glider instance removed");
+      } else {
+        console.log("No existing Glider instance found");
+      }
+    
+      // 重新初始化轮播图
+      initializeGlider();
+    }
+    
+    // 你现有的其余代码
+    
+  // 当DOM内容加载完毕时初始化轮播图
+  document.addEventListener('DOMContentLoaded', function(e){
+    console.log("DOM content loaded",e);
+    initializeGlider();
+  }
+);
+  
+  // 当使用htmx或其他动态内容加载技术时，监听相应的事件
+  {% comment %} document.addEventListener('htmx:afterSwap', function(e){
+    console.log("htmx:afterSwap loaded",e);
+    initializeGlider();
+  }
+); {% endcomment %}
+  window.addEventListener('popstate', function(e){
+    console.log("popstate loaded",e);
+    initializeGlider();
+    if (e.persisted) {
+      console.log("页面读取缓存")
+    } else {
+      console.log("页面重新加载")
+    };
+  }
+);
+    
+
+
+  </script>
+{% endblock %}

@@ -19,14 +19,20 @@ document.addEventListener('htmx:afterRequest', function (event) {
 
 let lastURL = location.href;
 
+// Set up a repeating interval that runs every 2000 milliseconds (2 seconds)
 setInterval(() => {
+    // Check if the current URL has changed since the last check
     if (location.href !== lastURL) {
+        // Update the lastURL variable with the current URL
         lastURL = location.href;
+        
+        // Check if the initFlowbite function exists
         if (typeof initFlowbite === 'function') {
+            // If it does, call the initFlowbite function
             initFlowbite();
         }
     }
-}, 2000); // 每n毫秒检查一次
+}, 2000); // 每n毫秒检查一次 (Check every n milliseconds)
 
 // // 监听URL变化的函数
 // function observeURLChange(callback) {

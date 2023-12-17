@@ -11,12 +11,16 @@
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/logo.png' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'componentslib/glider.js/glider.min.css' %}">
     <script src="{% static 'js/alpine/2.8.2/alpine.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'componentslib/flowbite/2.2.0/flowbite.min.css' %}">
     {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
     {% tailwind_css %}
-    <script defer src='{% static "js/script.js" %}'></script>
-    <script defer src="{% static 'js/htmx/1.9.6/htmx.min.js' %}"></script>
-    <script defer src="{% static 'js/flowbite/1.8.1/flowbite.min.js' %}"></script>
+    <script  src="{% static 'componentslib/glider.js/glider.min.js' %}"></script>
+    <script defer src="{% static 'js/script.js' %}"></script>
+    <script defer src="{% static 'js/htmx/1.9.9/htmx.min.js' %}"></script>
+    <script defer src="{% static 'componentslib/flowbite/2.2.0/flowbite.min.js' %}"></script>
+
   </head>
   <body x-data="{openMobileNav:false}"
         x-on:close-mobile-nav="openMobileNav = false"
